@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCurry", "SCurry\SCurry.csproj", "{912A8288-7C82-4B04-9CB8-655AB9A92F19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCurry", "SCurry\SCurry.csproj", "{912A8288-7C82-4B04-9CB8-655AB9A92F19}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4D128822-7A17-4D9C-B4C9-948B6F0F7AC6}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		readme.md = readme.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCurry.Tests", "SCurry.Tests\SCurry.Tests.csproj", "{C5680E07-C83D-4A5B-8857-C5D877BA306A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +23,10 @@ Global
 		{912A8288-7C82-4B04-9CB8-655AB9A92F19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{912A8288-7C82-4B04-9CB8-655AB9A92F19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{912A8288-7C82-4B04-9CB8-655AB9A92F19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5680E07-C83D-4A5B-8857-C5D877BA306A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5680E07-C83D-4A5B-8857-C5D877BA306A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5680E07-C83D-4A5B-8857-C5D877BA306A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5680E07-C83D-4A5B-8857-C5D877BA306A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
