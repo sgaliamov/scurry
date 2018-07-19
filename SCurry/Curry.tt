@@ -1,0 +1,33 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" compilerOptions="optimize+" #>
+<#@ import namespace="System" #>
+/*
+   ___ ___ _  _ ___ ___    _ _____ ___ ___     ___ ___  ___  ___ 
+  / __| __| \| | __| _ \  /_\_   _| __|   \   / __/ _ \|   \| __|
+ | (_ | _|| .` | _||   / / _ \| | | _|| |) | | (_| (_) | |) | _| 
+  \___|___|_|\_|___|_|_\/_/ \_\_| |___|___/   \___\___/|___/|___|
+
+*/
+
+using System;
+
+namespace SCurry
+{      
+    public static class Curryfy
+    {
+        <#= BuildCurry() #>
+    }
+
+        //public static Func<T1, Func<T2, Func<T3, TResult>>> Curry<T1, T2, T3, TResult>(
+                        //this Func<T1, T2, T3, TResult> func) => a => b => c => func(a, b, c);
+}
+<#+
+    string BuildCurry()
+    {
+        return "public static";
+    }
+
+    string ReturnType(int level)
+    {
+        return "Func<T1, Func<T2, Func<T3, TResult>>>";
+    } 
+#>
