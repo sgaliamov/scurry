@@ -1,5 +1,7 @@
 ﻿<#@ template debug="false" hostspecific="false" language="C#" compilerOptions="optimize+" #>
-<#@ import namespace="System" #>
+<#@ assembly name="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" #>
+<#@ assembly name="$(ProjectDir)..\\SCurry.Builders\\$(OutputPath)SCurry.Builders.dll" #>
+<#@ import namespace="SCurry.Builders" #>
 /*
    ___ ___ _  _ ___ ___    _ _____ ___ ___     ___ ___  ___  ___ 
   / __| __| \| | __| _ \  /_\_   _| __|   \   / __/ _ \|   \| __|
@@ -12,22 +14,8 @@ using System;
 
 namespace SCurry
 {      
-    public static class Curryfy
+    public static class CurryMethods
     {
-        <#= BuildCurry() #>
+        <#= CurryBuilder.GenerateAllFuncExtentions() #>
     }
-
-        //public static Func<T1, Func<T2, Func<T3, TResult>>> Curry<T1, T2, T3, TResult>(
-                        //this Func<T1, T2, T3, TResult> func) => a => b => c => func(a, b, c);
 }
-<#+
-    string BuildCurry()
-    {
-        return "public static";
-    }
-
-    string ReturnType(int level)
-    {
-        return "Func<T1, Func<T2, Func<T3, TResult>>>";
-    } 
-#>
