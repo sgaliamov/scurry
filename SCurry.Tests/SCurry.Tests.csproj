@@ -8,4 +8,9 @@
     <PackageReference Include="xunit" Version="2.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SCurry.Builders\SCurry.Builders.csproj" />
+    <ProjectReference Include="..\scurry\SCurry.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCurry", "SCurry\SCurry.csproj", "{912A8288-7C82-4B04-9CB8-655AB9A92F19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "scurry", "scurry\SCurry.csproj", "{912A8288-7C82-4B04-9CB8-655AB9A92F19}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4D128822-7A17-4D9C-B4C9-948B6F0F7AC6}"
 	ProjectSection(SolutionItems) = preProject
@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCurry.Tests", "SCurry.Tests\SCurry.Tests.csproj", "{C5680E07-C83D-4A5B-8857-C5D877BA306A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCurry.Builders", "SCurry.Builders\SCurry.Builders.csproj", "{EF712C3B-3BEE-4DF4-932C-067FD94BDF84}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{C5680E07-C83D-4A5B-8857-C5D877BA306A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5680E07-C83D-4A5B-8857-C5D877BA306A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5680E07-C83D-4A5B-8857-C5D877BA306A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF712C3B-3BEE-4DF4-932C-067FD94BDF84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF712C3B-3BEE-4DF4-932C-067FD94BDF84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF712C3B-3BEE-4DF4-932C-067FD94BDF84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF712C3B-3BEE-4DF4-932C-067FD94BDF84}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
