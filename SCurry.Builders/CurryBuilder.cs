@@ -10,17 +10,17 @@ namespace SCurry.Builders
     {
         public const ushort MaxInputArgumentsCount = 16;
 
-
         /// <summary>
         ///     Generate all extensions.
         /// </summary>
         /// <param name="maxCount">Number of arguments for the longest function.</param>
         /// <returns>String with all extension methods are separated with EOL.</returns>
         public static string GenerateAllFuncExtentions(ushort maxCount = MaxInputArgumentsCount) =>
-            ShortRange(0, (ushort)(maxCount + 1))
-                .Select(GenerateFuncExtention)
-                .Aggregate(new StringBuilder(), AppendLine)
-                .ToString();
+            string.Join(
+                Environment.NewLine,
+                ShortRange(0, (ushort)(maxCount + 1))
+                    .Select(GenerateFuncExtention)
+            );
 
         public static string ReturnType(ushort count)
         {
@@ -42,7 +42,21 @@ namespace SCurry.Builders
                    + $"(this Func<{types}> func) => {Body(count)};";
         }
 
-        public static string Body(ushort count) => throw new NotImplementedException();
+        public static string Body(ushort count)
+        {
+            if (count == 0 || count == 1) return "func";
+
+            var args = string.Join(", ", ShortRange(1, count).Select(x => $"arg{x}"));
+
+            return string.Join(
+                string.Empty,
+                ShortRange(1, count)
+                    .Select(x => $"arg{x} => ")
+                    .Append("func(")
+                    .Append(args)
+                    .Append(")")
+            );
+        }
 
         public static string[] TypeParameters(ushort count) =>
             ShortRange(1, count)
@@ -55,7 +69,6 @@ namespace SCurry.Builders
             for (var i = start; i < count + start; i++) yield return i;
         }
 
-        private static StringBuilder AppendLine(StringBuilder sb, string value) => sb.AppendLine(value);
         private static StringBuilder Append(StringBuilder sb, string value) => sb.Append(value);
     }
 }

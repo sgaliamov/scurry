@@ -39,28 +39,19 @@ namespace SCurry.Tests
             Assert.Equal(expected, actual);
         }
 
-        [Fact]
-        public void Arguments_Test()
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(3)]
+        public void Body_Test(ushort count)
         {
-            var actual = CurryBuilder.GenerateFuncExtention(3);
+            var expected = count == 0 || count == 1
+                ? "func"
+                : "arg1 => arg2 => arg3 => func(arg1, arg2, arg3)";
 
-            const string result = "public static Func<T1, Func<T2, Func<T3, TResult>>> "
-                                  + "Curry<T1, T2, T3, TResult>(this Func<T1, T2, T3, TResult> func) "
-                                  + "=> a => b => c => func(a, b, c);";
+            var actual = CurryBuilder.Body(count);
 
-            Assert.Equal(result, actual);
-        }
-
-        [Fact]
-        public void Body_Test()
-        {
-            var actual = CurryBuilder.GenerateFuncExtention(3);
-
-            const string result = "public static Func<T1, Func<T2, Func<T3, TResult>>> "
-                                  + "Curry<T1, T2, T3, TResult>(this Func<T1, T2, T3, TResult> func) "
-                                  + "=> a => b => c => func(a, b, c);";
-
-            Assert.Equal(result, actual);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
