@@ -1,4 +1,5 @@
-﻿using SCurry.Builders;
+﻿using System;
+using SCurry.Builders;
 using Xunit;
 
 namespace SCurry.Tests
@@ -12,10 +13,10 @@ namespace SCurry.Tests
         public void TypeParameters_Test(ushort count)
         {
             var expected = count == 0
-                ? new[] {"TResult"}
+                ? "TResult"
                 : count == 1
-                    ? new[] {"T1", "TResult"}
-                    : new[] {"T1", "T2", "T3", "TResult"};
+                    ? "T1, TResult"
+                    : "T1, T2, T3, TResult";
 
             var actual = CurryBuilder.TypeParameters(count);
 
@@ -54,48 +55,43 @@ namespace SCurry.Tests
             Assert.Equal(expected, actual);
         }
 
-        [Fact]
-        public void GenerateAllFuncExtentions_0_Test()
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(3)]
+        public void GenerateFuncExtention_Test(ushort count)
         {
-            var actual = CurryBuilder.GenerateAllFuncExtentions(0);
+            var expected = count == 0
+                ? "public static Func<TResult> Curry<TResult>(this Func<TResult> func) => func;"
+                : count == 1
+                    ? "public static Func<T1, TResult> Curry<T1, TResult>(this Func<T1, TResult> func) => func;"
+                    : "public static Func<T1, Func<T2, Func<T3, TResult>>> Curry<T1, T2, T3, TResult>"
+                      + "(this Func<T1, T2, T3, TResult> func) => "
+                      + "arg1 => arg2 => arg3 => func(arg1, arg2, arg3);";
 
-            Assert.Equal("", actual);
+            var actual = CurryBuilder.GenerateFuncExtention(count);
+
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
-        public void GenerateAllFuncExtentions_3_Test()
+        public void GenerateAllFuncExtentions_Test()
         {
+            var expected =
+                "public static Func<TResult> Curry<TResult>(this Func<TResult> func) => func;"
+                + Environment.NewLine
+                + "public static Func<T1, TResult> Curry<T1, TResult>(this Func<T1, TResult> func) => func;"
+                + Environment.NewLine
+                + "public static Func<T1, Func<T2, TResult>> Curry<T1, T2, TResult>"
+                + "(this Func<T1, T2, TResult> func) => arg1 => arg2 => func(arg1, arg2);"
+                + Environment.NewLine
+                + "public static Func<T1, Func<T2, Func<T3, TResult>>> Curry<T1, T2, T3, TResult>"
+                + "(this Func<T1, T2, T3, TResult> func) => "
+                + "arg1 => arg2 => arg3 => func(arg1, arg2, arg3);";
+
             var actual = CurryBuilder.GenerateAllFuncExtentions(3);
 
-            const string result = "public static Func<T1, Func<T2, Func<T3, TResult>>> "
-                                  + "Curry<T1, T2, T3, TResult>(this Func<T1, T2, T3, TResult> func) "
-                                  + "=> a => b => c => func(a, b, c);";
-
-            Assert.Equal(result, actual);
-        }
-
-        [Fact]
-        public void GenerateFuncExtention_0_Test()
-        {
-            var actual = CurryBuilder.GenerateFuncExtention(0);
-
-            const string result = "public static Func<TResult> "
-                                  + "Curry<TResult>(this Func<TResult> func) "
-                                  + "=> func;";
-
-            Assert.Equal(result, actual);
-        }
-
-        [Fact]
-        public void GenerateFuncExtention_3_Test()
-        {
-            var actual = CurryBuilder.GenerateFuncExtention(3);
-
-            const string result = "public static Func<T1, Func<T2, Func<T3, TResult>>> "
-                                  + "Curry<T1, T2, T3, TResult>(this Func<T1, T2, T3, TResult> func) "
-                                  + "=> a => b => c => func(a, b, c);";
-
-            Assert.Equal(result, actual);
+            Assert.Equal(expected, actual);
         }
     }
 }

@@ -16,6 +16,6 @@ namespace SCurry
 {      
     public static class CurryMethods
     {
-        <#= CurryBuilder.GenerateAllFuncExtentions() #>
+<#= CurryBuilder.GenerateAllFuncExtentions() #>
     }
 }

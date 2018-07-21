@@ -58,11 +58,13 @@ namespace SCurry.Builders
             );
         }
 
-        public static string[] TypeParameters(ushort count) =>
-            ShortRange(1, count)
-                .Select(x => $"T{x.ToString(CultureInfo.InvariantCulture)}")
-                .Append("TResult")
-                .ToArray();
+        public static string TypeParameters(ushort count) =>
+            string.Join(
+                ", ",
+                ShortRange(1, count)
+                    .Select(x => $"T{x.ToString(CultureInfo.InvariantCulture)}")
+                    .Append("TResult")
+            );
 
         private static IEnumerable<ushort> ShortRange(ushort start, ushort count)
         {
