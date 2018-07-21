@@ -1,8 +1,7 @@
 ﻿using System;
-using SCurry.Builders;
 using Xunit;
 
-namespace SCurry.Tests
+namespace SCurry.Builders.Tests
 {
     public class CurryBuilderTests
     {
