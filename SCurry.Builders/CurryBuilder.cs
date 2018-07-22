@@ -54,7 +54,7 @@ namespace SCurry.Builders
                     .Append("TResult")
             );
 
-        private static IEnumerable<ushort> ShortRange(ushort start, ushort count)
+        public static IEnumerable<ushort> ShortRange(ushort start, ushort count)
         {
             for (var i = start; i < count + start; i++) yield return i;
         }
