@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SCurry.Builders\SCurry.Builders.csproj" />
+    <ProjectReference Include="..\scurry\SCurry.csproj" />
   </ItemGroup>
 
   <ItemGroup>
