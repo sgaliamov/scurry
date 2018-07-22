@@ -1,6 +1,6 @@
 ﻿<#@ template debug="false" hostspecific="false" language="C#" compilerOptions="optimize+" #>
-<#@ assembly name="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" #>
-<#@ assembly name="$(ProjectDir)..\\SCurry.Builders\\$(OutputPath)SCurry.Builders.dll" #>
+<#@ assembly name="$(ProjectDir)..\SCurry.Builders\bin\$(Configuration)\netcoreapp2.0\SCurry.Builders.dll" #>
+<#@ assembly name="System.Runtime" #>
 <#@ import namespace="SCurry.Builders" #>
 /*
    ___ ___ _  _ ___ ___    _ _____ ___ ___     ___ ___  ___  ___ 

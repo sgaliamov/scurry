@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCurry.Tests", "SCurry.Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCurry.Builders", "SCurry.Builders\SCurry.Builders.csproj", "{EF712C3B-3BEE-4DF4-932C-067FD94BDF84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCurry.Builders.Tests", "SCurry.Builders.Tests\SCurry.Builders.Tests.csproj", "{4E9B6E32-424C-4AF0-BE8D-D6EA9BE6BAA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCurry.Builders.Tests", "SCurry.Builders.Tests\SCurry.Builders.Tests.csproj", "{4E9B6E32-424C-4AF0-BE8D-D6EA9BE6BAA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
