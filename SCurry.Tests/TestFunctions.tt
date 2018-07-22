@@ -1,8 +1,9 @@
 ﻿<#@ template debug="false" hostspecific="false" language="C#" compilerOptions="optimize+" #>
 <#@ assembly name="System.Core" #>
-<#@ assembly name="System.Runtime" #>
 <#@ assembly name="System.Linq" #>
+<#@ assembly name="$(TargetDir)SCurry.Builders.dll" #>
 <#@ import namespace="System.Linq" #>
+<#@ import namespace="SCurry.Builders" #>
 /*
    ___ ___ _  _ ___ ___    _ _____ ___ ___     ___ ___  ___  ___ 
   / __| __| \| | __| _ \  /_\_   _| __|   \   / __/ _ \|   \| __|
@@ -18,10 +19,11 @@ namespace SCurry.Tests
         public static int Zero() => 0;
         public static int Id(int i) => i;
 <#    
-    for(int i = 2; i <= 16; i++) 
+    for(int i = 2; i <= CurryBuilder.MaxInputArgumentsCount; i++) 
     { 
 #>
-        <#=            Generate(i) #>
+        <#=
+            Generate(i) #>
 <#
     } 
 #>
