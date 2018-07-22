@@ -72,25 +72,5 @@ namespace SCurry.Builders.Tests
 
             Assert.Equal(expected, actual);
         }
-
-        [Fact]
-        public void GenerateAllFuncExtentions_Test()
-        {
-            var expected =
-                "public static Func<TResult> Curry<TResult>(this Func<TResult> func) => func;"
-                + Environment.NewLine
-                + "public static Func<T1, TResult> Curry<T1, TResult>(this Func<T1, TResult> func) => func;"
-                + Environment.NewLine
-                + "public static Func<T1, Func<T2, TResult>> Curry<T1, T2, TResult>"
-                + "(this Func<T1, T2, TResult> func) => arg1 => arg2 => func(arg1, arg2);"
-                + Environment.NewLine
-                + "public static Func<T1, Func<T2, Func<T3, TResult>>> Curry<T1, T2, T3, TResult>"
-                + "(this Func<T1, T2, T3, TResult> func) => "
-                + "arg1 => arg2 => arg3 => func(arg1, arg2, arg3);";
-
-            var actual = CurryBuilder.GenerateAllFuncExtentions(3);
-
-            Assert.Equal(expected, actual);
-        }
     }
 }

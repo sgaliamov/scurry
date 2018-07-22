@@ -16,6 +16,14 @@ namespace SCurry
 {      
     public static class CurryMethods
     {
-<#= CurryBuilder.GenerateAllFuncExtentions() #>
+<#    
+    for(ushort i = 0; i <= CurryBuilder.MaxInputArgumentsCount; i++) 
+    { 
+#>
+        <#=
+            CurryBuilder.GenerateFuncExtention(i) #>
+<#
+    } 
+#>
     }
 }
