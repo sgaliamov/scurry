@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\scurry\SCurry.csproj" />
+    <ProjectReference Include="..\SCurry.Builders\SCurry.Builders.csproj" />
   </ItemGroup>
 
   <ItemGroup>
