@@ -17,14 +17,14 @@ TBD
 
 ## To do
 
-- [ ] global packages folder
-- [ ] exclude generated code from git?
-- [ ] support all functions
+- [x] global packages folder
+- [x] exclude generated code from git
+- [x] support all functions
 - [ ] support all actions
 - [ ] implement uncurry
 - [ ] implement partial apply
 - [ ] use spacer for partial apply
-- [ ] unit tests
+- [x] unit tests
 - [ ] pipe function
 - [ ] CI in github
 - [ ] Add examples to use
