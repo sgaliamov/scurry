@@ -1,0 +1,41 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" compilerOptions="optimize+" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Runtime" #>
+<#@ assembly name="System.Linq" #>
+<#@ import namespace="System.Linq" #>
+/*
+   ___ ___ _  _ ___ ___    _ _____ ___ ___     ___ ___  ___  ___ 
+  / __| __| \| | __| _ \  /_\_   _| __|   \   / __/ _ \|   \| __|
+ | (_ | _|| .` | _||   / / _ \| | | _|| |) | | (_| (_) | |) | _| 
+  \___|___|_|\_|___|_|_\/_/ \_\_| |___|___/   \___\___/|___/|___|
+
+*/
+
+namespace SCurry.Tests
+{      
+    public static class TestFunctions
+    {
+        public static int Zero() => 0;
+        public static int Id(int i) => i;
+<#    
+    for(int i = 2; i <= 16; i++) 
+    { 
+#>
+        <#=            Generate(i) #>
+<#
+    } 
+#>
+    }
+}
+<#+    
+    string Generate(int count)
+    {
+        var args = string.Join(", ",
+            System.Linq.Enumerable.Range(1, count).Select(x => "int arg" + x));
+
+        var body = string.Join(" + ",
+            System.Linq.Enumerable.Range(1, count).Select(x => "arg" + x));
+
+        return $"public static int Add({args}) => {body};";
+    }
+#>
