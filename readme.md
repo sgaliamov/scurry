@@ -15,17 +15,17 @@ Currying and partial application for C# functions and actions.
 
 TBD
 
-## To do
+## Road Map
 
-- [x] global packages folder
-- [x] exclude generated code from git
-- [x] support all functions
+- [ ] CI in github
+- [ ] Convert to vs code project
 - [ ] support all actions
 - [ ] implement uncurry
 - [ ] implement partial apply
 - [ ] use spacer for partial apply
-- [x] unit tests
 - [ ] pipe function
-- [ ] CI in github
 - [ ] Add examples to use
-- [ ] Convert to vs code project
+- [x] global packages folder
+- [x] exclude generated code from git
+- [x] support all functions
+- [x] unit tests
