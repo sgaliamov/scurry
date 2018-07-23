@@ -15,34 +15,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <None Update="CurryTests.tt">
-            <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>CurryTests.cs</LastGenOutput>
-        </None>
-        <None Update="TestFunctions.tt">
-            <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>TestFunctions.cs</LastGenOutput>
-        </None>
-    </ItemGroup>
-
-    <ItemGroup>
-        <None Include="CurryTests.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>CurryTests.tt</DependentUpon>
-        </None>
-        <None Include="TestFunctions.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>TestFunctions.tt</DependentUpon>
-        </None>
-    </ItemGroup>
-
-    <ItemGroup>
         <Compile Update="CurryTests.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
