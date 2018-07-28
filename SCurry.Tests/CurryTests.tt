@@ -1,5 +1,5 @@
 ﻿<#@ template debug="false" hostspecific="false" language="C#" compilerOptions="optimize+" #>
-<#@ assembly name="netstandard" #>
+<#@ assembly name="System.Core" #>
 <#@ assembly name="System.Linq" #>
 <#@ import namespace="System.Linq" #>
 /*

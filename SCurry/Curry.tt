@@ -22,7 +22,6 @@ namespace SCurry
 #>
         <#=
             CurryBuilder.GenerateFuncExtention(i) #>
-
 <#
     } 
 #>
