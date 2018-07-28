@@ -1,7 +1,34 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <Authors>S. Galiamov</Authors>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>git@github.com:sgaliamov/scurry.git</RepositoryUrl>
+        <PackageLicenseUrl>https://github.com/sgaliamov/scurry/blob/develop/LICENSE</PackageLicenseUrl>
+        <PackageTags>C#, curry, uncurry, partial function application, functional programming</PackageTags>
+        <PackageProjectUrl>https://github.com/sgaliamov/scurry</PackageProjectUrl>
+        <Version></Version>
+        <AssemblyVersion></AssemblyVersion>
+        <FileVersion></FileVersion>
+    </PropertyGroup>
+
+    <Import Project="../.build/t4-transform.csproj" />
+
+    <ItemGroup>
+        <None Update="Curry.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>Curry.cs</LastGenOutput>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="Curry.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Curry.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
 
 </Project>

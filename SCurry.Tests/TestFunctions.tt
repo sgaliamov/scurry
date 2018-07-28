@@ -1,0 +1,44 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" compilerOptions="optimize+" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Linq" #>
+<#@ import namespace="System.Linq" #>
+/*
+   ___ ___ _  _ ___ ___    _ _____ ___ ___     ___ ___  ___  ___
+  / __| __| \| | __| _ \  /_\_   _| __|   \   / __/ _ \|   \| __|
+ | (_ | _|| .` | _||   / / _ \| | | _|| |) | | (_| (_) | |) | _|
+  \___|___|_|\_|___|_|_\/_/ \_\_| |___|___/   \___\___/|___/|___|
+
+*/
+using System;
+
+namespace SCurry.Tests
+{
+    public static class TestFunctions
+    {
+        public static readonly Func<int> Zero = () => 0;
+        public static readonly Func<int, int> Id = (int i) => i;
+<#
+    for(int i = 2; i <= MaxInputArgumentsCount; i++)
+    {
+#>
+        <#= Generate(i) #>
+
+<#
+    }
+#>
+    }
+}
+<#+
+    const int MaxInputArgumentsCount = 16;
+
+    string Generate(int count)
+    {
+        var args = string.Join(", ", Enumerable.Range(1, count).Select(x => "int arg" + x));
+
+        var types = string.Join(", ", Enumerable.Range(0, count).Select(_ => "int").Append("int"));
+
+        var body = string.Join(" + ", Enumerable.Range(1, count).Select(x => "arg" + x));
+
+        return $"public static readonly Func<{types}> Add{count} = ({args}) => {body};";
+    }
+#>

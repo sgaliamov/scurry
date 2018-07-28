@@ -1,0 +1,32 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" compilerOptions="optimize+" #>
+<#@ assembly name="netstandard" #>
+<#@ assembly name="$(ProjectDir)..\SCurry.Builders\bin\$(Configuration)\netstandard2.0\SCurry.Builders.dll" #>
+<#@ import namespace="SCurry.Builders" #>
+/*
+   ___ ___ _  _ ___ ___    _ _____ ___ ___     ___ ___  ___  ___ 
+  / __| __| \| | __| _ \  /_\_   _| __|   \   / __/ _ \|   \| __|
+ | (_ | _|| .` | _||   / / _ \| | | _|| |) | | (_| (_) | |) | _| 
+  \___|___|_|\_|___|_|_\/_/ \_\_| |___|___/   \___\___/|___/|___|
+
+*/
+
+using System;
+
+namespace SCurry
+{      
+    public static class CurryMethods
+    {
+<#    
+    for(ushort i = 0; i <= MaxInputArgumentsCount; i++)
+    { 
+#>
+        <#=
+            CurryBuilder.GenerateFuncExtention(i) #>
+<#
+    } 
+#>
+    }
+}
+<#+
+    const int MaxInputArgumentsCount = 16;
+#>
