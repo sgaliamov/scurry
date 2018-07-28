@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -8,8 +7,6 @@ namespace SCurry.Builders
 {
     public static class CurryBuilder
     {
-        public const ushort MaxInputArgumentsCount = 16;
-
         public static string ReturnType(ushort count)
         {
             if (count == 0) return "Func<TResult>";
