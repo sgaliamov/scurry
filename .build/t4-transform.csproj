@@ -1,0 +1,39 @@
+<Project InitialTargets="InfoEnableTextTemplating">
+
+    <PropertyGroup>
+        <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">15.0</VisualStudioVersion>
+        <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+        <TextTemplatingTargets>$(VSToolsPath)\TextTemplating\Microsoft.TextTemplating.targets</TextTemplatingTargets>
+        <EnableTextTemplating Condition="Exists($(TextTemplatingTargets))">true</EnableTextTemplating>
+        <EnableTextTemplating Condition="$(EnableTextTemplating)==''">false</EnableTextTemplating>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="$(EnableTextTemplating)">
+        <TransformOnBuild>false</TransformOnBuild>
+        <OverwriteReadOnlyOutputFiles>true</OverwriteReadOnlyOutputFiles>
+        <TransformOutOfDateOnly>false</TransformOutOfDateOnly>
+    </PropertyGroup>
+
+    <Target Name="InfoEnableTextTemplating" Condition="!$(EnableTextTemplating)">
+        <Warning Text="TextTemplating is not available. VSToolsPath: $(VSToolsPath)" />
+    </Target>
+
+    <Import Project="$(TextTemplatingTargets)" Condition="$(EnableTextTemplating)" />
+
+    <ItemGroup Condition="$(EnableTextTemplating)">
+        <T4ParameterValues Include="ProjectDir">
+            <Value>$(ProjectDir)</Value>
+            <Visible>False</Visible>
+        </T4ParameterValues>
+
+        <T4ParameterValues Include="TargetDir">
+            <Value>$(TargetDir)</Value>
+        </T4ParameterValues>
+
+        <T4ParameterValues Include="Configuration">
+            <Value>$(Configuration)</Value>
+            <Visible>False</Visible>
+        </T4ParameterValues>
+    </ItemGroup>
+
+</Project>

@@ -4,6 +4,8 @@
         <TargetFramework>netcoreapp2.1</TargetFramework>
     </PropertyGroup>
 
+    <Import Project="../.build/t4-transform.csproj" />
+
     <ItemGroup>
         <PackageReference Include="xunit" Version="2.4.0" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
@@ -11,6 +13,17 @@
 
     <ItemGroup>
         <ProjectReference Include="..\scurry\SCurry.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="CurryTests.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>CurryTests.cs</LastGenOutput>
+        </None>
+        <None Update="TestFunctions.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>TestFunctions.cs</LastGenOutput>
+        </None>
     </ItemGroup>
 
     <ItemGroup>
