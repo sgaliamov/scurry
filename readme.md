@@ -21,8 +21,7 @@ TBD
 
 ## Road Map
 
-- [ ] CI in github
-- [ ] Convert to vs code project
+- [ ] CI/CD on github
 - [ ] support all actions
 - [ ] implement uncurry
 - [ ] implement partial apply
