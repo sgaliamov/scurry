@@ -11,10 +11,9 @@ dotnet_csproj:
 build_script:
 - cmd: msbuild .\SCurry.sln /v:m /m /t:Restore,Build,Pack /p:Configuration=Release
 test_script:
-- pwsh: Get-ChildItem .\**\*.Tests.dll -Recurse | % { xunit.console $_.FullName /appveyor }
+- ps: Get-ChildItem .\**\*.Tests.dll -Recurse | % { xunit.console $_.FullName /appveyor }
 artifacts:
 - path: '**\*.nupkg'
-  name: appveyor-nugen
 deploy:
 - provider: Environment
   name: appveyor-nuget
