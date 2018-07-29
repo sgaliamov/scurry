@@ -1,6 +1,4 @@
 .vs/
 obj/
 bin/
-SCurry/**/*.cs
-SCurry.Tests/**/*.cs
 *.pubxml
