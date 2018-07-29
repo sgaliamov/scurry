@@ -10,8 +10,10 @@ dotnet_csproj:
   file_version: '{version}'
 build_script:
 - cmd: msbuild .\SCurry.sln /v:m /m /t:Restore,Build,Pack /p:Configuration=Release
-test_script:
-- ps: Get-ChildItem .\**\*.Tests.dll -Recurse | % { xunit.console $_.FullName /appveyor }
+test:
+  categories:
+    only:
+    - Builder
 artifacts:
 - path: '**\*.nupkg'
 deploy:
