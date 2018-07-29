@@ -10,12 +10,11 @@ dotnet_csproj:
   file_version: '{version}'
 build_script:
 - cmd: msbuild .\SCurry.sln /v:m /m /t:Restore,Build,Pack /p:Configuration=Release
-test:
-  assemblies:
-    only:
-    - '**\*.Tests.dll'
-environment:
-  ApiKey:
-    secure: bA+nNubhpxlUB1Wfk4bIzTwxji1nZJ6QgyGxymmDbhU=
-deploy_script:
-- cmd: nuget push .\scurry\bin\Release\SCurry.*.nupkg -ApiKey %ApiKey% -Source https://ci.appveyor.com/nuget/sgaliamov/api/v2/package
+test_script:
+- pwsh: Get-ChildItem .\**\*.Tests.dll -Recurse | % { xunit.console $_.FullName /appveyor }
+artifacts:
+- path: '**\*.nupkg'
+  name: appveyor-nugen
+deploy:
+- provider: Environment
+  name: appveyor-nuget
