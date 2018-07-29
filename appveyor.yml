@@ -10,12 +10,5 @@ dotnet_csproj:
   file_version: '{version}'
 build_script:
 - cmd: msbuild .\SCurry.sln /v:m /m /t:Restore,Build,Pack /p:Configuration=Release
-test:
-  assemblies:
-    only:
-    - '**\*.tests.dll'
-deploy:
-- provider: NuGet
-  server: https://ci.appveyor.com/nuget/sgaliamov
-  api_key:
-    secure: RyXKOJamWIT+EDXvkiJFDp6dY4kbgzpjvLRXVrWBwgo=
+deploy_script:
+- cmd: nuget push .\scurry\bin\Release\SCurry.{version}.nupkg -ApiKey RyXKOJamWIT+EDXvkiJFDp6dY4kbgzpjvLRXVrWBwgo= -Source https://ci.appveyor.com/nuget/sgaliamov/api/v2/package
