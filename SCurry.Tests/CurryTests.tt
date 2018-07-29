@@ -1,10 +1,7 @@
 ﻿<#@ template debug="false" hostspecific="false" language="C#" compilerOptions="optimize+" #>
-<#@ assembly name="netstandard" #>
 <#@ assembly name="System.Core" #>
 <#@ assembly name="System.Linq" #>
-<#@ assembly name="$(TargetDir)SCurry.Builders.dll" #>
 <#@ import namespace="System.Linq" #>
-<#@ import namespace="SCurry.Builders" #>
 /*
    ___ ___ _  _ ___ ___    _ _____ ___ ___     ___ ___  ___  ___ 
   / __| __| \| | __| _ \  /_\_   _| __|   \   / __/ _ \|   \| __|
@@ -13,7 +10,7 @@
 
 */
 
-using Xunit;
+using Xunit; 
 
 namespace SCurry.Tests
 {
@@ -29,7 +26,7 @@ namespace SCurry.Tests
             Assert.Equal(1, actual);
         }
 
-<# for(ushort count = 2; count <= CurryBuilder.MaxInputArgumentsCount; count++) #>
+<# for(int count = 2; count <= MaxInputArgumentsCount; count++) #>
 <# { #>
         [Fact]
         public void Curry<#= count #>_Test()
@@ -54,8 +51,10 @@ namespace SCurry.Tests
     }
 }
 <#+
-    string Calls(ushort count)
+    const int MaxInputArgumentsCount = 16;
+
+    string Calls(int count)
     {
-        return string.Join(string.Empty, CurryBuilder.ShortRange(1, count).Select(x => $"({x})"));
+        return string.Join(string.Empty, Enumerable.Range(1, count).Select(x => $"({x})"));
     }
 #>

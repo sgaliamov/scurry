@@ -2,6 +2,10 @@
 
 Currying and partial application for C# functions and actions.
 
+## Build status
+
+[![Build status](https://ci.appveyor.com/api/projects/status/pn88drpu2vjdqii5/branch/master?svg=true)](https://ci.appveyor.com/project/sgaliamov/scurry/branch/master)
+
 ## Features
 
 1. Supports all standard Func<> and Action<> classes.
@@ -15,17 +19,16 @@ Currying and partial application for C# functions and actions.
 
 TBD
 
-## To do
+## Road Map
 
-- [x] global packages folder
-- [x] exclude generated code from git
-- [x] support all functions
 - [ ] support all actions
 - [ ] implement uncurry
 - [ ] implement partial apply
 - [ ] use spacer for partial apply
-- [x] unit tests
 - [ ] pipe function
-- [ ] CI in github
 - [ ] Add examples to use
-- [ ] Convert to vs code project
+- [x] CI/CD on github
+- [x] global packages folder
+- [x] exclude generated code from git
+- [x] support all functions
+- [x] unit tests
