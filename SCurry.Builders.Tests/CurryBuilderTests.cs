@@ -4,6 +4,7 @@ namespace SCurry.Builders.Tests
 {
     public class CurryBuilderTests
     {
+        [Trait("Category", "Builder")]
         [Theory]
         [InlineData(0)]
         [InlineData(1)]
