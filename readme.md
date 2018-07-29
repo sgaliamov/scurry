@@ -21,13 +21,13 @@ TBD
 
 ## Road Map
 
-- [ ] CI/CD on github
 - [ ] support all actions
 - [ ] implement uncurry
 - [ ] implement partial apply
 - [ ] use spacer for partial apply
 - [ ] pipe function
 - [ ] Add examples to use
+- [x] CI/CD on github
 - [x] global packages folder
 - [x] exclude generated code from git
 - [x] support all functions
