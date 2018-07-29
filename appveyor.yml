@@ -3,7 +3,7 @@ image: Visual Studio 2017
 clone_depth: 1
 dotnet_csproj:
   patch: true
-  file: '**\*.csproj'
+  file: SCurry\SCurry.csproj
   version: '{version}'
   package_version: '{version}'
   assembly_version: '{version}'
@@ -11,4 +11,4 @@ dotnet_csproj:
 build_script:
 - cmd: msbuild .\SCurry.sln /v:m /m /t:Restore,Build,Pack /p:Configuration=Release
 deploy_script:
-- cmd: nuget push .\scurry\bin\Release\SCurry.{version}.nupkg -ApiKey RyXKOJamWIT+EDXvkiJFDp6dY4kbgzpjvLRXVrWBwgo= -Source https://ci.appveyor.com/nuget/sgaliamov/api/v2/package
+- cmd: nuget push .\scurry\bin\Release\SCurry.*.nupkg -ApiKey RyXKOJamWIT+EDXvkiJFDp6dY4kbgzpjvLRXVrWBwgo= -Source https://ci.appveyor.com/nuget/sgaliamov/api/v2/package
