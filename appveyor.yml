@@ -16,6 +16,6 @@ test:
     - '**\*.Tests.dll'
 environment:
   ApiKey:
-    secure: RyXKOJamWIT+EDXvkiJFDp6dY4kbgzpjvLRXVrWBwgo=
+    secure: bA+nNubhpxlUB1Wfk4bIzTwxji1nZJ6QgyGxymmDbhU=
 deploy_script:
-- cmd: nuget push .\scurry\bin\Release\SCurry.*.nupkg -ApiKey {ApiKey} -Source https://ci.appveyor.com/nuget/sgaliamov/api/v2/package
+- cmd: nuget push .\scurry\bin\Release\SCurry.*.nupkg -ApiKey %ApiKey% -Source https://ci.appveyor.com/nuget/sgaliamov/api/v2/package
