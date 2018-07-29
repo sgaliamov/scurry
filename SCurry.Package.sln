@@ -5,21 +5,7 @@ VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCurry", "scurry\SCurry.csproj", "{912A8288-7C82-4B04-9CB8-655AB9A92F19}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4D128822-7A17-4D9C-B4C9-948B6F0F7AC6}"
-	ProjectSection(SolutionItems) = preProject
-		.gitignore = .gitignore
-		appveyor.yml = appveyor.yml
-		clean.ps1 = clean.ps1
-		readme.md = readme.md
-		.build\t4-transform.csproj = .build\t4-transform.csproj
-		transform.bat = transform.bat
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCurry.Tests", "SCurry.Tests\SCurry.Tests.csproj", "{C5680E07-C83D-4A5B-8857-C5D877BA306A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCurry.Builders", "SCurry.Builders\SCurry.Builders.csproj", "{D69618CE-B1BC-4B4A-97AE-592F3DC60786}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCurry.Builders.Tests", "SCurry.Builders.Tests\SCurry.Builders.Tests.csproj", "{2766DE8C-B534-46DE-8BB1-885BF62D4438}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,14 +21,6 @@ Global
 		{C5680E07-C83D-4A5B-8857-C5D877BA306A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5680E07-C83D-4A5B-8857-C5D877BA306A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5680E07-C83D-4A5B-8857-C5D877BA306A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D69618CE-B1BC-4B4A-97AE-592F3DC60786}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D69618CE-B1BC-4B4A-97AE-592F3DC60786}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D69618CE-B1BC-4B4A-97AE-592F3DC60786}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D69618CE-B1BC-4B4A-97AE-592F3DC60786}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2766DE8C-B534-46DE-8BB1-885BF62D4438}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2766DE8C-B534-46DE-8BB1-885BF62D4438}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2766DE8C-B534-46DE-8BB1-885BF62D4438}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2766DE8C-B534-46DE-8BB1-885BF62D4438}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,20 +1,22 @@
-version: 0.0.0.{build}
+version: 0.1.{build}
 branches:
   only:
   - master
-image: Visual Studio 2015
-platform: Any CPU
+image: Visual Studio 2017
 clone_depth: 1
 dotnet_csproj:
   patch: true
-  file: '**\*.csproj'
+  file: SCurry\SCurry.csproj
   version: '{version}'
   package_version: '{version}'
   assembly_version: '{version}'
   file_version: '{version}'
-  informational_version: '{version}'
 build_script:
-- cmd: >-
-    msbuild .\SCurry.Builders.sln /v:m /m /t:Restore,Build
-
-    msbuild .\SCurry.sln /v:m /m /t:Restore,TransformAll,Build
+- cmd: msbuild .\SCurry.sln /v:m /m /t:Restore,Build,Pack /p:Configuration=Release
+test_script:
+- ps: Get-ChildItem .\**\*.Tests.csproj -Recurse | % { dotnet test $_.FullName }
+artifacts:
+- path: '**\*.nupkg'
+deploy:
+- provider: Environment
+  name: appveyor-nuget
