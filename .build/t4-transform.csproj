@@ -14,8 +14,8 @@
         <TransformOutOfDateOnly>false</TransformOutOfDateOnly>
     </PropertyGroup>
 
-    <Target Name="InfoEnableTextTemplating" Condition="!$(EnableTextTemplating)">
-        <Warning Text="TextTemplating is not available. VSToolsPath: $(VSToolsPath)" />
+    <Target Name="InfoEnableTextTemplating" Condition="!$(EnableTextTemplating) and '$(TargetName)' == 'TransformAll'">
+        <Warning Text="TextTemplating is not available. VSToolsPath: $(VSToolsPath)." />
     </Target>
 
     <Import Project="$(TextTemplatingTargets)" Condition="$(EnableTextTemplating)" />

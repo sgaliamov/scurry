@@ -10,10 +10,8 @@ dotnet_csproj:
   file_version: '{version}'
 build_script:
 - cmd: msbuild .\SCurry.sln /v:m /m /t:Restore,Build,Pack /p:Configuration=Release
-test:
-  categories:
-    only:
-    - Builder
+test_script:
+- ps: Get-ChildItem .\**\*.Tests.csproj -Recurse | % { dotnet test $_.FullName }
 artifacts:
 - path: '**\*.nupkg'
 deploy:
