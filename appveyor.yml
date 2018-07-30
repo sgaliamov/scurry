@@ -30,7 +30,7 @@ test_script:
     $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
     Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
     Get-ChildItem .\**\bin\Release\**\*.Tests.dll -Recurse | % {
-        .\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"dotnet" -targetargs:"test $_" -output:"coverage.xml" "-filter:+[*]* -[test*]*" -oldstyle
+        .\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test $_" -output:"coverage.xml" "-filter:+[*]* -[test*]*" -oldstyle
         cat coverage.xml
         bash codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
     }
