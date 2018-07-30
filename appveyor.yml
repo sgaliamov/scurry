@@ -1,6 +1,9 @@
 version: 0.1.{build}
+
 image: Visual Studio 2017
+
 clone_depth: 1
+
 dotnet_csproj:
   patch: true
   file: SCurry\SCurry.csproj
@@ -8,16 +11,20 @@ dotnet_csproj:
   package_version: '{version}'
   assembly_version: '{version}'
   file_version: '{version}'
-build_script:
-- pwsh: msbuild .\SCurry.sln /v:m /m /t:Restore,Build,Pack /p:Configuration=Release
-test_script:
-- pwsh: Get-ChildItem .\**\*.Tests.csproj -Recurse | % { dotnet test $_.FullName }
+
 environment:
   YourUploadToken:
     secure: rJrOmfdpmHx8EdfB7nBpijgy1H9vGRXi8jARISWwUrXeZGxTiEnHmr1c2e6BARni
+
+build_script:
+- pwsh: msbuild .\SCurry.sln /v:m /m /t:Restore,Build,Pack /p:Configuration=Release
+
+# test_script:
+# - pwsh: Get-ChildItem .\**\*.Tests.csproj -Recurse | % { dotnet test $_.FullName }
+
 test_script:
-- pwsh: |
-    .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"xunit.console" -targetargs:"**\*.tests.dll -noshadow" -output:"coverage.xml"
+- pwsh: .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"xunit.console" -targetargs:"**\*.tests.dll -noshadow" -output:"coverage.xml"
+
 after_test:
 - pwsh: |
     $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
@@ -26,6 +33,7 @@ after_test:
 
 artifacts:
 - path: '**\*.nupkg'
+
 deploy:
 - provider: Environment
   name: appveyor-nuget
