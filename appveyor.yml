@@ -4,6 +4,10 @@ image: Visual Studio 2017
 
 clone_depth: 1
 
+environment:
+  OpenCoverToken:
+    secure: rJrOmfdpmHx8EdfB7nBpijgy1H9vGRXi8jARISWwUrXeZGxTiEnHmr1c2e6BARni
+
 dotnet_csproj:
   patch: true
   file: SCurry\SCurry.csproj
@@ -12,29 +16,21 @@ dotnet_csproj:
   assembly_version: '{version}'
   file_version: '{version}'
 
-environment:
-  YourUploadToken:
-    secure: rJrOmfdpmHx8EdfB7nBpijgy1H9vGRXi8jARISWwUrXeZGxTiEnHmr1c2e6BARni
-
 build_script:
 - pwsh: msbuild .\SCurry.sln /v:m /m /t:Restore,Build,Pack /p:Configuration=Release
 
-# test_script:
-# - pwsh: Get-ChildItem .\**\*.Tests.csproj -Recurse | % { dotnet test $_.FullName }
-
 before_test:
-- pwsh: nuget install OpenCover -Verbosity quiet
+- choco install opencover.portable -y
+- choco install codecov -y
 
 test_script:
 - pwsh: |
     $tests = [string]::join(" ", @(Get-ChildItem .\**\bin\Release\**\*.Tests.dll -Recurse | % { $_.FullName }))
-    .\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"$env:xunit20\xunit.console.x86.exe" -targetargs:"$tests -noshadow" -output:"coverage.xml" "-filter:+[*]* -[test*]*" 
+    echo $tests
+    OpenCover.Console.exe -register:user -target:"$env:xunit20\xunit.console.x86.exe" -targetargs:"$tests -noshadow" -output:"coverage.xml" "-filter:+[*]* -[test*]*" 
 
 after_test:
-- pwsh: |
-    $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
-    Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
-    bash codecov.sh -f "coverage.xml" -t $env:YourUploadToken
+- pwsh: codecov -f "coverage.xml" -t $env:OpenCoverToken
 
 artifacts:
 - path: '**\*.nupkg'
