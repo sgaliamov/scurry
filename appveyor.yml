@@ -23,13 +23,14 @@ before_test:
 # - pwsh: nuget install OpenCover -Verbosity quiet
 - choco install opencover.portable
 - choco install codecov
+# - choco install xunit
 
 test_script:
 - pwsh: |
     Get-ChildItem .\**\bin\Release\**\*.Tests.dll -Recurse | % {
         OpenCover.Console.exe -register:user -target:"$env:xunit20\xunit.console.x86.exe" -targetargs:"$_.FullName -noshadow" -output:"coverage.xml" "-filter:+[*]* -[test*]*"
         codecov -f "coverage.xml" -t $env:OpenCoverToken
-    })
+    }
 
 # after_test:
 # - pwsh: |
