@@ -20,16 +20,19 @@ build_script:
 - pwsh: msbuild .\SCurry.sln /v:m /m /t:Restore,Build,Pack /p:Configuration=Release
 
 before_test:
-# - pwsh: nuget install OpenCover -Verbosity quiet
-- choco install opencover.portable
-- choco install codecov
+- pwsh: nuget install OpenCover -Verbosity quiet
+#- choco install opencover.portable
+#- choco install codecov
 # - choco install xunit
 
 test_script:
 - pwsh: |
+    $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
+    Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
     Get-ChildItem .\**\bin\Release\**\*.Tests.dll -Recurse | % {
-        OpenCover.Console.exe -register:user -target:"$env:xunit20\xunit.console.x86.exe" -targetargs:"$_.FullName -noshadow" -output:"coverage.xml" "-filter:+[*]* -[test*]*"
-        codecov -f "coverage.xml" -t $env:OpenCoverToken
+        .\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"dotnet" -targetargs:"test $_" -output:"coverage.xml" "-filter:+[*]* -[test*]*" -oldstyle
+        cat coverage.xml
+        bash codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
     }
 
 # after_test:
