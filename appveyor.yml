@@ -20,17 +20,19 @@ build_script:
 - pwsh: msbuild .\SCurry.sln /v:m /m /t:Restore,Build,Pack /p:Configuration=Release
 
 before_test:
-- choco install opencover.portable -y
-- choco install codecov -y
+- pwsh: nuget install OpenCover -Verbosity quiet
+# - choco install opencover.portable -y
+# - choco install codecov -y
 
 test_script:
 - pwsh: |
     $tests = [string]::join(" ", @(Get-ChildItem .\**\bin\Release\**\*.Tests.dll -Recurse | % { $_.FullName }))
-    echo $tests
-    OpenCover.Console.exe -register:user -target:"$env:xunit20\xunit.console.x86.exe" -targetargs:"$tests -noshadow" -output:"coverage.xml" "-filter:+[*]* -[test*]*" 
+    .\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"$env:xunit20\xunit.console.x86.exe" -targetargs:"$tests -noshadow" -output:"coverage.xml" "-filter:+[*]* -[test*]*"
 
 after_test:
-- pwsh: codecov -f "coverage.xml" -t $env:OpenCoverToken
+- pwsh: |
+    ls .\OpenCover.4.6.519\tools\
+    .\OpenCover.4.6.519\tools\codecov -f "coverage.xml" -t $env:OpenCoverToken
 
 artifacts:
 - path: '**\*.nupkg'
