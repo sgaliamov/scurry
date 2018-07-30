@@ -27,8 +27,8 @@ before_test:
 
 test_script:
 - pwsh: |
-    $tests = [string]::join(",", @(Get-ChildItem .\**\*.Tests.dll -Recurse | % { $_.FullName }))
-    .\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"$env:xunit20\xunit.console.x86.exe" -targetargs:"$tests -noshadow" -output:"coverage.xml"
+    $tests = [string]::join(" ", @(Get-ChildItem .\**\bin\Release\**\*.Tests.dll -Recurse | % { $_.FullName }))
+    .\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"$env:xunit20\xunit.console.x86.exe" -targetargs:"$tests -noshadow" -output:"coverage.xml" "-filter:+[*]* -[test*]*" 
 
 after_test:
 - pwsh: |
