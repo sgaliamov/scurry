@@ -23,12 +23,12 @@ build_script:
 # - pwsh: Get-ChildItem .\**\*.Tests.csproj -Recurse | % { dotnet test $_.FullName }
 
 before_test:
-- pwsh: |
-    nuget install OpenCover -Verbosity quiet
-    ls
+- pwsh: nuget install OpenCover -Verbosity quiet
 
 test_script:
-- pwsh: .\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"$($env:xunit20)\xunit.console.x86.exe" -targetargs:"**\*.tests.dll -noshadow" -output:"coverage.xml"
+- pwsh: |
+    $tests = [string]::join(",", @(Get-ChildItem .\**\*.Tests.dll -Recurse | % { $_.FullName }))
+    .\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"$env:xunit20\xunit.console.x86.exe" -targetargs:"$tests -noshadow" -output:"coverage.xml"
 
 after_test:
 - pwsh: |
@@ -42,3 +42,5 @@ artifacts:
 deploy:
 - provider: Environment
   name: appveyor-nuget
+  on:
+    branch: master
