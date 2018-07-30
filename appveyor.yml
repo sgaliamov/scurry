@@ -21,8 +21,7 @@ environment:
     secure: rJrOmfdpmHx8EdfB7nBpijgy1H9vGRXi8jARISWwUrXeZGxTiEnHmr1c2e6BARni
 test_script:
 - pwsh: |
-    $items = @(Get-ChildItem .\**\*.Tests.dll -Recurse | % { $_.FullName })
-    .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"xunit.console" -targetargs:"$items -noshadow" -output:"coverage.xml"
+    .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"xunit.console" -targetargs:"**\*.tests.dll -noshadow" -output:"coverage.xml"
 after_test:
 - pwsh: |
     $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
