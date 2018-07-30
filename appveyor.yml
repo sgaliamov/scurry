@@ -25,11 +25,10 @@ build_script:
 before_test:
 - pwsh: |
     nuget install OpenCover -Verbosity quiet
-    nuget install xunit.runner.console -Verbosity 
     ls
 
 test_script:
-- pwsh: .\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"$($env:xunit20)\xunit.console" -targetargs:"**\*.tests.dll -noshadow" -output:"coverage.xml"
+- pwsh: .\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"$($env:xunit20)\xunit.console.x86.exe" -targetargs:"**\*.tests.dll -noshadow" -output:"coverage.xml"
 
 after_test:
 - pwsh: |
