@@ -5,7 +5,7 @@ Currying and partial application for C# functions and actions.
 ## Build status
 
 | Master | Last | Coverage |
-|||
+|-|-|-|
 | [![Build status](https://ci.appveyor.com/api/projects/status/2ppb58d9a8gmvdfw/branch/master?svg=true)](https://ci.appveyor.com/project/sgaliamov/scurry/branch/master)  |[![Build status](https://ci.appveyor.com/api/projects/status/2ppb58d9a8gmvdfw?svg=true)](https://ci.appveyor.com/project/sgaliamov/scurry) | [![codecov](https://codecov.io/gh/sgaliamov/scurry/branch/master/graph/badge.svg)](https://codecov.io/gh/sgaliamov/scurry) |
 
 ## Features
