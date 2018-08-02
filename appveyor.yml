@@ -5,7 +5,7 @@ image: Visual Studio 2017
 clone_depth: 1
 
 environment:
-  Configuration:Release
+  Configuration: Release
   OpenCoverToken:
     secure: rJrOmfdpmHx8EdfB7nBpijgy1H9vGRXi8jARISWwUrXeZGxTiEnHmr1c2e6BARni
 
@@ -33,7 +33,7 @@ test_script:
     }
 
 artifacts:
-- path: .\SCurry\bin\$env:Configuration\**\*.nupkg
+- path: .\SCurry\bin\Release\**\*.nupkg
 
 deploy:
 - provider: Environment
