@@ -5,6 +5,7 @@ image: Visual Studio 2017
 clone_depth: 1
 
 environment:
+  Configuration: Release
   OpenCoverToken:
     secure: rJrOmfdpmHx8EdfB7nBpijgy1H9vGRXi8jARISWwUrXeZGxTiEnHmr1c2e6BARni
 
@@ -17,23 +18,22 @@ dotnet_csproj:
   file_version: '{version}'
 
 build_script:
-- pwsh: msbuild .\SCurry.sln /v:m /m /t:Restore,Build,Pack /p:Configuration=Release
+- pwsh: msbuild .\SCurry.sln /v:m /m /t:Restore,Build,Pack /p:Configuration=$env:Configuration
 
 before_test:
 - pwsh: |
     nuget install OpenCover -Verbosity normal -Version 4.6.519
-    Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
 
 test_script:
 - pwsh: |
     $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
     Get-ChildItem .\**\*.Tests.csproj -Recurse | % {
         .\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test $_" -output:"coverage.xml" -oldstyle
-        bash codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
     }
+    bash .build\codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
 
 artifacts:
-- path: .\SCurry\bin\Release\**\*.nupkg
+- path: .\SCurry\bin\$env:Configuration\**\*.nupkg
 
 deploy:
 - provider: Environment
