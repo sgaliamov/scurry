@@ -17,7 +17,7 @@ dotnet_csproj:
   file_version: '{version}'
 
 build_script:
-- pwsh: msbuild .\SCurry.sln /v:m /m /t:Restore,Build,Pack /p:Configuration=Debug
+- pwsh: msbuild .\SCurry.sln /v:m /m /t:Restore,Build,Pack /p:Configuration=Release
 
 before_test:
 - pwsh: |
@@ -27,9 +27,8 @@ before_test:
 test_script:
 - pwsh: |
     $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
-    Get-ChildItem .\**\bin\Debug\net471\**\*.Tests.dll -Recurse | % {
-        echo $_
-        .\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"$env:xunit20\xunit.console.x86.exe" -targetargs:"$_ -noshadow" -output:"coverage.xml"
+    Get-ChildItem .\**\*.Tests.csproj -Recurse | % {
+        .\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test $_" -output:"coverage.xml" -oldstyle
         bash codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
     }
 
