@@ -22,7 +22,7 @@ build_script:
 
 before_test:
 - pwsh: |
-    nuget install OpenCover -Verbosity minimal -Version 4.6.519
+    nuget install OpenCover -Verbosity quiet -Version 4.6.519
 
 test_script:
 - pwsh: |
