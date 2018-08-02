@@ -12,6 +12,7 @@
         <Version></Version>
         <AssemblyVersion></AssemblyVersion>
         <FileVersion></FileVersion>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
 
     <Import Project="../.build/t4-transform.csproj" />
