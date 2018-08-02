@@ -22,8 +22,6 @@ before_build:
 
 build:
   project: SCurry.sln
-  publish_nuget: true
-  publish_nuget_symbols: true
   parallel: true
   verbosity: minimal
 
@@ -39,8 +37,8 @@ test_script:
         bash .build\codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
     }
 
-#artifacts:
-#- path: .\SCurry\bin\Release\**\*.nupkg
+artifacts:
+- path: .\SCurry\bin\Release\**\*.nupkg
 
 deploy:
 - provider: Environment
