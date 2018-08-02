@@ -34,3 +34,11 @@ TBD
 - [x] exclude generated code from git
 - [x] support all functions
 - [x] unit tests
+
+### To do
+
+1. Check build speed with restore.
+2. Do not publish nuget each build.
+3. Clean nuget.
+4. Publish symbols.
+5. Add description for package.

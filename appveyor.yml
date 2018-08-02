@@ -39,6 +39,9 @@ test_script:
 
 artifacts:
 - path: .\SCurry\bin\Release\**\*.nupkg
+  name: appveyor-nuget
+  on:
+    branch: master
 
 deploy:
 - provider: Environment
