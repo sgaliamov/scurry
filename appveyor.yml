@@ -35,13 +35,12 @@ test_script:
 - pwsh: |
     $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
     Get-ChildItem .\**\*.Tests.csproj -Recurse | % {
-        msbuild $_ /v:m /m /t:Restore,Build
         .\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test $_" -output:"coverage.xml" -oldstyle
         bash .build\codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
     }
 
-artifacts:
-- path: .\SCurry\bin\Release\**\*.nupkg
+#artifacts:
+#- path: .\SCurry\bin\Release\**\*.nupkg
 
 deploy:
 - provider: Environment
