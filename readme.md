@@ -42,3 +42,4 @@ TBD
 3. Clean nuget.
 4. Publish symbols.
 5. Add description for package.
+6. Collect coverage outputs, join and send once.
