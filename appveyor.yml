@@ -17,8 +17,9 @@ dotnet_csproj:
   assembly_version: '{version}'
   file_version: '{version}'
 
-# build_script:
-# - pwsh: msbuild .\SCurry.sln /v:m /m /t:Restore,Build,Pack /p:Configuration=$env:Configuration
+before_build:
+- pwsh: msbuild .\SCurry.sln /v:m /m /t:Restore
+
 build:
   project: SCurry.sln
   publish_nuget: true
