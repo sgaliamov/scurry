@@ -6,7 +6,6 @@ clone_depth: 1
 
 environment:
   Configuration: Release
-  OpenCoverVersion: 4.6.519
   OpenCoverToken:
     secure: rJrOmfdpmHx8EdfB7nBpijgy1H9vGRXi8jARISWwUrXeZGxTiEnHmr1c2e6BARni
 
@@ -27,14 +26,14 @@ build:
   verbosity: minimal
 
 before_test:
-- pwsh: nuget install OpenCover -Verbosity quiet -Version $env:OpenCoverVersion
+- pwsh: nuget install OpenCover -Verbosity quiet -Version 4.6.519
 
 test_script:
 - pwsh: |
     Write-Information "Testing..."
     New-Item -ItemType "directory" -Name "coverage" | out-null
     Get-ChildItem .\**\*.Tests.csproj -Recurse | ForEach-Object {
-        ".\OpenCover.$($env:OpenCoverVersion)\tools\OpenCover.Console.exe" `
+        .\OpenCover.4.6.519\tools\OpenCover.Console.exe `
             -register:user `
             -target:"C:\Program Files\dotnet\dotnet.exe" `
             -targetargs:"test $_" `
