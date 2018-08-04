@@ -24,26 +24,27 @@ build:
   parallel: true
   verbosity: minimal
 
-before_test:
-- pwsh: |
-    nuget install OpenCover -Verbosity quiet -Version 4.6.519
-    $env:PATH = "C:\msys64\usr\bin;" + $env:PATH
+#before_test:
+#- pwsh: |
+#    nuget install OpenCover -Verbosity quiet -Version 4.6.519
+#    $env:PATH = "C:\msys64\usr\bin;" + $env:PATH
+#
+#test_script:
+#- pwsh: |
+#    Get-ChildItem .\**\*.Tests.csproj -Recurse | ForEach-Object {
+#        .\OpenCover.4.6.519\tools\OpenCover.Console.exe `
+#            -register:user `
+#            -target:"C:\Program Files\dotnet\dotnet.exe" `
+#            -targetargs:"test $_ --no-build" `
+#            -output:"coverage.xml" `
+#            -oldstyle
+#        bash .build\codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
+#    }
 
-test_script:
+deploy_script:
 - pwsh: |
-    Get-ChildItem .\**\*.Tests.csproj -Recurse | ForEach-Object {
-        .\OpenCover.4.6.519\tools\OpenCover.Console.exe `
-            -register:user `
-            -target:"C:\Program Files\dotnet\dotnet.exe" `
-            -targetargs:"test $_ --no-build" `
-            -output:"coverage.xml" `
-            -oldstyle
-        # bash .build\codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
+    Add-AppveyorMessage $env:APPVEYOR_REPO_BRANCH
+    if ($env:APPVEYOR_REPO_BRANCH -eq "feature/actions") {
+        dotnet pack .\SCurry\ --include-source --include-symbols --no-build --no-dependencies
+        Get-ChildItem ".\SCurry\**\*.nupkg" | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
     }
-
-# deploy_script:
-# - pwsh: |
-#     if ($env:APPVEYOR_REPO_BRANCH -eq "feature/actions") {
-#         dotnet pack .\SCurry\ --include-source --include-symbols --no-build --no-dependencies
-#         Get-ChildItem ".\SCurry\**\*.nupkg" | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
-#     }
