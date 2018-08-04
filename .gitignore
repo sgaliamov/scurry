@@ -3,3 +3,5 @@ obj/
 bin/
 *.pubxml
 *.orig
+*.rej
+coverage.xml
