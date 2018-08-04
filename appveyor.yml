@@ -46,7 +46,7 @@ test: off
 #        bash .build\codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
 #    }
 
-deploy_script:
+before_deploy:
 - pwsh: |
     if ($env:APPVEYOR_REPO_BRANCH -eq "feature/actions") {
         dotnet pack .\SCurry\ --include-source --include-symbols --no-build --no-dependencies
@@ -57,4 +57,4 @@ deploy:
 - provider: Environment
   name: appveyor-nuget
   on:
-    branch: master
+    branch: feature/actions
