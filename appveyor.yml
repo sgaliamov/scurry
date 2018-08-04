@@ -5,7 +5,6 @@ image: Visual Studio 2017
 clone_depth: 1
 
 environment:
-  Configuration: Release
   OpenCoverToken:
     secure: rJrOmfdpmHx8EdfB7nBpijgy1H9vGRXi8jARISWwUrXeZGxTiEnHmr1c2e6BARni
 
@@ -25,10 +24,6 @@ build:
   parallel: true
   verbosity: minimal
 
-#after_build:
-#- pwsh: |
-#    dotnet pack .\SCurry\ --include-source --include-symbols --no-build --no-dependencies
-
 before_test:
 - pwsh: |
     nuget install OpenCover -Verbosity quiet -Version 4.6.519
@@ -40,13 +35,15 @@ test_script:
         .\OpenCover.4.6.519\tools\OpenCover.Console.exe `
             -register:user `
             -target:"C:\Program Files\dotnet\dotnet.exe" `
-            -targetargs:"test $_" `
+            -targetargs:"test $_ --no-build" `
             -output:"coverage.xml" `
             -oldstyle
-        # --no-build
         # bash .build\codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
     }
 
-#deploy_script:
-#- pwsh: |
-#    dotnet pack .\SCurry\ --include-source --include-symbols --no-build --no-dependencies
+# deploy_script:
+# - pwsh: |
+#     if ($env:APPVEYOR_REPO_BRANCH -eq "feature/actions") {
+#         dotnet pack .\SCurry\ --include-source --include-symbols --no-build --no-dependencies
+#         Get-ChildItem ".\SCurry\**\*.nupkg" | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+#     }
