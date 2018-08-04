@@ -40,7 +40,7 @@ test_script:
         .\OpenCover.4.6.519\tools\OpenCover.Console.exe `
             -register:user `
             -target:"C:\Program Files\dotnet\dotnet.exe" `
-            -targetargs:"test $_ --no-build" `
+            -targetargs:"test $_ " ` # --no-build
             -output:"coverage.xml" `
             -oldstyle
         # bash .build\codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
