@@ -37,8 +37,5 @@ TBD
 
 ### To do
 
-1. Check build speed with restore.
-- 2. Do not publish nuget each build.
-- 4. Publish symbols.
-5. Add description for package.
-7. Create src and tests folders.
+- Add description for package.
+- Create src and tests folders.
