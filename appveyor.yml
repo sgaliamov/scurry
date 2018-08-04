@@ -43,7 +43,7 @@ test_script:
             -targetargs:"test $_ --no-build" `
             -output:"coverage.xml" `
             -oldstyle
-        bash .build\codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
+        # bash .build\codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
     }
 
 #deploy_script:
