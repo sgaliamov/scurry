@@ -6,6 +6,7 @@ clone_depth: 1
 
 environment:
   Configuration: Release
+  OpenCoverVersion: 4.6.519
   OpenCoverToken:
     secure: rJrOmfdpmHx8EdfB7nBpijgy1H9vGRXi8jARISWwUrXeZGxTiEnHmr1c2e6BARni
 
@@ -24,26 +25,13 @@ build:
   project: SCurry.sln
   parallel: true
   verbosity: minimal
-  publish_nuget: true
-  publish_nuget_symbols: true
 
 before_test:
-- pwsh: |
-    nuget install OpenCover -Verbosity quiet -Version 4.6.519
+- pwsh: nuget install OpenCover -Verbosity quiet -Version $env:OpenCoverVersion
 
 test_script:
-- pwsh: |
-    mkdir coverage
-    Get-ChildItem .\**\*.Tests.csproj -Recurse | % {
-        .\OpenCover.4.6.519\tools\OpenCover.Console.exe `
-            -register:user `
-            -target:"C:\Program Files\dotnet\dotnet.exe" `
-            -targetargs:"test $_" `
-            -output:".\coverage\$($_.Name).coverage.xml" `
-            -oldstyle
-    }
-    Get-ChildItem .\coverage\ -include *.coverage.xml -Recurse | % { gc $_ } | out-file .\coverage.xml
-    C:\msys64\usr\bin\bash .build\codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
+- pwsh: .\build\run-tests.ps1
+    
 
 #artifacts:
 #- path: .\SCurry\bin\Release\**\*.nupkg

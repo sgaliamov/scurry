@@ -38,8 +38,9 @@ TBD
 ### To do
 
 1. Check build speed with restore.
-2. Do not publish nuget each build.
+- 2. Do not publish nuget each build.
 3. Clean nuget.
-4. Publish symbols.
+- 4. Publish symbols.
 5. Add description for package.
-6. Collect coverage outputs, join and send once.
+- 6. Collect coverage outputs, join and send once.
+7. Create src and tests folders.
