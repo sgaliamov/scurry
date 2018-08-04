@@ -32,7 +32,7 @@ before_test:
 test_script:
 - pwsh: |
     Write-Information "Testing..."
-    New-Item -ItemType "directory" -Name "coverage" -Verbosity quiet
+    New-Item -ItemType "directory" -Name "coverage" | out-null
     Get-ChildItem .\**\*.Tests.csproj -Recurse | ForEach-Object {
         .\OpenCover.$env:OpenCoverVersion\tools\OpenCover.Console.exe `
             -register:user `
