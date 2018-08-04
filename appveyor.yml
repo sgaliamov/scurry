@@ -25,6 +25,9 @@ build:
   parallel: true
   verbosity: minimal
 
+after_build:
+- pwsh: dotnet pack .\SCurry\
+
 before_test:
 - pwsh: |
     nuget install OpenCover -Verbosity quiet -Version 4.6.519
