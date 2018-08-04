@@ -30,7 +30,7 @@ before_test:
 - pwsh: nuget install OpenCover -Verbosity quiet -Version $env:OpenCoverVersion
 
 test_script:
-- pwsh: & .\build\run-tests.ps1
+- .\build\run-tests.ps1
     
 
 #artifacts:
