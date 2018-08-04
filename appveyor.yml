@@ -26,28 +26,28 @@ build:
   verbosity: minimal
 
 after_build:
-- pwsh: dotnet pack .\SCurry\
+- pwsh: dotnet pack .\SCurry\ --include-source --include-symbols --no-build --no-dependencies
 
-before_test:
-- pwsh: |
-    nuget install OpenCover -Verbosity quiet -Version 4.6.519
-    $env:PATH = "C:\msys64\usr\bin;" + $env:PATH
+# before_test:
+# - pwsh: |
+#     nuget install OpenCover -Verbosity quiet -Version 4.6.519
+#     $env:PATH = "C:\msys64\usr\bin;" + $env:PATH
 
-test_script:
-- pwsh: |
-    Get-ChildItem .\**\*.Tests.csproj -Recurse | ForEach-Object {
-        .\OpenCover.4.6.519\tools\OpenCover.Console.exe `
-            -register:user `
-            -target:"C:\Program Files\dotnet\dotnet.exe" `
-            -targetargs:"test $_" `
-            -output:"coverage.xml" `
-            -oldstyle
-        bash .build\codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
-    }
+# test_script:
+# - pwsh: |
+#     Get-ChildItem .\**\*.Tests.csproj -Recurse | ForEach-Object {
+#         .\OpenCover.4.6.519\tools\OpenCover.Console.exe `
+#             -register:user `
+#             -target:"C:\Program Files\dotnet\dotnet.exe" `
+#             -targetargs:"test $_" `
+#             -output:"coverage.xml" `
+#             -oldstyle
+#         bash .build\codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
+#     }
 
-#artifacts:
-#- path: .\SCurry\bin\Release\**\*.nupkg
-#  name: appveyor-nuget
+artifacts:
+- path: .\SCurry\bin\Release\**\*.nupkg
+ name: appveyor-nuget
 
 deploy:
 - provider: Environment
