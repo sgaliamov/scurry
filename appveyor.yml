@@ -47,7 +47,7 @@ after_build:
 
 artifacts:
 - path: .\SCurry\bin\Release\**\*.nupkg
- name: appveyor-nuget
+  name: appveyor-nuget
 
 deploy:
 - provider: Environment
