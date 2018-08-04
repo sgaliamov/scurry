@@ -29,7 +29,8 @@ build:
   parallel: true
   verbosity: minimal
 
-tests: off
+test: off
+
 #before_test:
 #- pwsh: nuget install OpenCover -Verbosity quiet -Version 4.6.519
 #
