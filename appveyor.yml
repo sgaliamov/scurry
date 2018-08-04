@@ -32,9 +32,9 @@ before_test:
 test_script:
 - pwsh: |
     Write-Information "Testing..."
-    New-Item -ItemType "directory" -Name "coverage"
+    New-Item -ItemType "directory" -Name "coverage" -Verbosity quiet
     Get-ChildItem .\**\*.Tests.csproj -Recurse | ForEach-Object {
-        .\OpenCover.$($env:OpenCoverVersion)\tools\OpenCover.Console.exe `
+        .\OpenCover.$env:OpenCoverVersion\tools\OpenCover.Console.exe `
             -register:user `
             -target:"C:\Program Files\dotnet\dotnet.exe" `
             -targetargs:"test $_" `
