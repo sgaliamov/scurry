@@ -33,12 +33,17 @@ before_test:
 
 test_script:
 - pwsh: |
-    $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
+    mkdir coverage
     Get-ChildItem .\**\*.Tests.csproj -Recurse | % {
-        .\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test $_" -output:".\obj\$($_.Name).coverage.xml" -oldstyle
+        .\OpenCover.4.6.519\tools\OpenCover.Console.exe `
+            -register:user `
+            -target:"C:\Program Files\dotnet\dotnet.exe" `
+            -targetargs:"test $_" `
+            -output:".\coverage\$($_.Name).coverage.xml" `
+            -oldstyle
     }
-    Get-ChildItem .\obj\ -include *.coverage.xml -rec | % { gc $_ } | out-file .\coverage.xml
-    bash .build\codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
+    Get-ChildItem .\coverage\ -include *.coverage.xml -Recurse | % { gc $_ } | out-file .\coverage.xml
+    C:\msys64\usr\bin\bash .build\codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
 
 #artifacts:
 #- path: .\SCurry\bin\Release\**\*.nupkg
