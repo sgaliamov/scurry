@@ -12,9 +12,6 @@
     <Version></Version>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <IncludeSymbols>True</IncludeSymbols>
-    <IncludeSource>True</IncludeSource>
   </PropertyGroup>
 
   <Import Project="../.build/t4-transform.csproj" />
