@@ -34,7 +34,7 @@ before_test:
     nuget install OpenCover -Verbosity quiet -Version 4.6.519
     $env:PATH = "C:\msys64\usr\bin;" + $env:PATH
 
-    test_script:
+test_script:
 - pwsh: |
     Get-ChildItem .\**\*.Tests.csproj -Recurse | ForEach-Object {
         .\OpenCover.4.6.519\tools\OpenCover.Console.exe `
