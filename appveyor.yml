@@ -52,3 +52,9 @@ deploy_script:
         dotnet pack .\SCurry\ --include-source --include-symbols --no-build --no-dependencies
         Get-ChildItem ".\SCurry\**\*.nupkg" -Recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name -DeploymentName "appveyor-nuget" }
     }
+
+deploy:
+- provider: Environment
+  name: appveyor-nuget
+  on:
+    branch: master
