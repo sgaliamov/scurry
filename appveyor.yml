@@ -50,5 +50,5 @@ deploy_script:
 - pwsh: |
     if ($env:APPVEYOR_REPO_BRANCH -eq "feature/actions") {
         dotnet pack .\SCurry\ --include-source --include-symbols --no-build --no-dependencies
-        Get-ChildItem ".\SCurry\**\*.nupkg" -Recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+        Get-ChildItem ".\SCurry\**\*.nupkg" -Recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name -DeploymentName "appveyor-nuget" }
     }
