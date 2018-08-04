@@ -25,9 +25,9 @@ build:
   parallel: true
   verbosity: minimal
 
-after_build:
-- pwsh: |
-    dotnet pack .\SCurry\ --include-source --include-symbols --no-build --no-dependencies
+#after_build:
+#- pwsh: |
+#    dotnet pack .\SCurry\ --include-source --include-symbols --no-build --no-dependencies
 
 before_test:
 - pwsh: |
@@ -46,6 +46,6 @@ test_script:
         bash .build\codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
     }
 
-deploy:
-- provider: Environment
-  name: appveyor-nuget
+#deploy_script:
+#- pwsh: |
+#    dotnet pack .\SCurry\ --include-source --include-symbols --no-build --no-dependencies
