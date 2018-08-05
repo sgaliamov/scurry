@@ -22,7 +22,6 @@ namespace SCurry.Tests
     {
 #>
         <#= Generate(i) #>
-
 <#
     }
 #>
