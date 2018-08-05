@@ -1,9 +1,5 @@
 version: 0.2.{build}
 
-branches:
-  except:
-  - /feature\/(.*)/
-
 skip_tags: true
 
 skip_branch_with_pr: true

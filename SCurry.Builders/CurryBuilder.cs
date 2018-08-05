@@ -9,7 +9,7 @@ namespace SCurry.Builders
     {
         public static string FuncReturnType(ushort count, string result)
         {
-            if (count == 0) return "Func<TResult>";
+            if (count == 0) return $"Func<{result}>";
 
             return ShortRange(1, count)
                 .Select(x => $"Func<T{x}, ")
