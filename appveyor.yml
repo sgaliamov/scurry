@@ -33,7 +33,7 @@ before_build:
 - pwsh: |
     dotnet restore --verbosity q
     msbuild .\SCurry.Builders\SCurry.Builders.csproj /v:m /m /t:Build
-    msbuild .\SCurry.Package.sln /v:m /m /t:TransformAll
+    msbuild .\.build\.\SCurry.T4.sln /v:m /m /t:TransformAll
 
 build:
   project: SCurry.sln
