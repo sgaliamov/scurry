@@ -30,10 +30,7 @@ dotnet_csproj:
 configuration: Release
 
 before_build:
-- pwsh: |
-    dotnet restore --verbosity q
-    msbuild .\SCurry.Builders\SCurry.Builders.csproj /v:m /m /t:Build
-    msbuild .\.build\.\SCurry.T4.sln /v:m /m /t:TransformAll
+- pwsh: dotnet restore --verbosity q
 
 build:
   project: SCurry.sln
