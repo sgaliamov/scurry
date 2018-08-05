@@ -1,8 +1,8 @@
 version: 0.2.{build}
 
-#branches:
-#  except:
-#  - /feature\/(.*)/
+branches:
+  except:
+  - /feature\/(.*)/
 
 skip_tags: true
 
