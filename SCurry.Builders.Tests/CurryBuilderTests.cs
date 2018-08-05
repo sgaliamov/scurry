@@ -17,7 +17,7 @@ namespace SCurry.Builders.Tests
                     ? "T1, TResult"
                     : "T1, T2, T3, TResult";
 
-            var actual = CurryBuilder.TypeParameters(count);
+            var actual = CurryBuilder.TypeParameters(true, count);
 
             Assert.Equal(expected, actual);
         }
@@ -34,7 +34,7 @@ namespace SCurry.Builders.Tests
                     ? "Func<T1, TResult>"
                     : "Func<T1, Func<T2, Func<T3, TResult>>>";
 
-            var actual = CurryBuilder.ReturnType(count);
+            var actual = CurryBuilder.FuncReturnType(count, "TResult");
 
             Assert.Equal(expected, actual);
         }
@@ -49,7 +49,7 @@ namespace SCurry.Builders.Tests
                 ? "func"
                 : "arg1 => arg2 => arg3 => func(arg1, arg2, arg3)";
 
-            var actual = CurryBuilder.Body(count);
+            var actual = CurryBuilder.Body("func", count);
 
             Assert.Equal(expected, actual);
         }
