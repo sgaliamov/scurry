@@ -10,7 +10,7 @@ using Xunit;
 
 namespace SCurry.Tests
 {
-    public class CurryTests
+    public class CurryFunctionsTests
     {
         [Fact]
         public void Curry1_Test()

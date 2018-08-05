@@ -14,7 +14,7 @@ using System;
 
 namespace SCurry
 {      
-    public static class CurryMethods
+    public static class CurryFunctions
     {
 <#    
     for(ushort i = 0; i <= MaxInputArgumentsCount; i++)

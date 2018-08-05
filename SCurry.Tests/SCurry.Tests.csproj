@@ -18,9 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="CurryTests.tt">
+    <None Update="CurryFunctionsTests.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>CurryTests.cs</LastGenOutput>
+      <LastGenOutput>CurryFunctionsTests.cs</LastGenOutput>
     </None>
     <None Update="TestFunctions.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -29,10 +29,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="CurryTests.cs">
+    <Compile Update="CurryFunctionsTests.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>CurryTests.tt</DependentUpon>
+      <DependentUpon>CurryFunctionsTests.tt</DependentUpon>
     </Compile>
     <Compile Update="TestFunctions.cs">
       <DesignTime>True</DesignTime>
