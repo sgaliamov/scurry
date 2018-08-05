@@ -38,4 +38,3 @@ TBD
 ### To do
 
 - Add description for package.
-- Create src and tests folders.
