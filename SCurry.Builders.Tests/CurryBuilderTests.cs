@@ -2,14 +2,14 @@
 
 namespace SCurry.Builders.Tests
 {
+    [Trait("Category", "Builder")]
     public class CurryBuilderTests
     {
-        [Trait("Category", "Builder")]
         [Theory]
         [InlineData(0)]
         [InlineData(1)]
         [InlineData(3)]
-        public void TypeParameters_Test(ushort count)
+        public void TypeParameters_AppendResult_Test(ushort count)
         {
             var expected = count == 0
                 ? "TResult"
@@ -26,7 +26,7 @@ namespace SCurry.Builders.Tests
         [InlineData(0)]
         [InlineData(1)]
         [InlineData(3)]
-        public void ReturnType_Test(ushort count)
+        public void FuncReturnType_Test(ushort count)
         {
             var expected = count == 0
                 ? "Func<TResult>"

@@ -10,6 +10,7 @@ using Xunit;
 
 namespace SCurry.Tests
 {
+    [Trait("Category", "Curry")]
     public class CurryFunctionsTests
     {
         [Fact]
