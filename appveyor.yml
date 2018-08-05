@@ -1,9 +1,20 @@
-version: 0.1.{build}
-branches:
-  only:
-  - master
+version: 0.2.{build}
+
+skip_tags: true
+
+skip_branch_with_pr: true
+
 image: Visual Studio 2017
+
 clone_depth: 1
+
+environment:
+  OpenCoverToken:
+    secure: rJrOmfdpmHx8EdfB7nBpijgy1H9vGRXi8jARISWwUrXeZGxTiEnHmr1c2e6BARni
+
+init:
+- pwsh: $env:PATH = "C:\msys64\usr\bin;" + $env:PATH
+
 dotnet_csproj:
   patch: true
   file: SCurry\SCurry.csproj
@@ -11,12 +22,41 @@ dotnet_csproj:
   package_version: '{version}'
   assembly_version: '{version}'
   file_version: '{version}'
-build_script:
-- cmd: msbuild .\SCurry.sln /v:m /m /t:Restore,Build,Pack /p:Configuration=Release
+
+configuration: Release
+
+before_build:
+- pwsh: dotnet restore --verbosity q
+
+build:
+  project: SCurry.sln
+  parallel: true
+  verbosity: minimal
+
+before_test:
+- pwsh: nuget install OpenCover -Verbosity quiet -Version 4.6.519
+
 test_script:
-- ps: Get-ChildItem .\**\*.Tests.csproj -Recurse | % { dotnet test $_.FullName }
-artifacts:
-- path: '**\*.nupkg'
+- pwsh: |
+    Get-ChildItem .\**\*.Tests.csproj -Recurse | % {
+        .\OpenCover.4.6.519\tools\OpenCover.Console.exe `
+            -register:user `
+            -target:"C:\Program Files\dotnet\dotnet.exe" `
+            -targetargs:"test $_ --no-build" `
+            -output:"coverage.xml" `
+            -oldstyle
+        bash .build\codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
+    }
+
+before_deploy:
+- pwsh: |
+    if ($env:APPVEYOR_REPO_BRANCH -eq "master") {
+        dotnet pack .\SCurry\ --include-source --include-symbols --no-build --no-dependencies
+        Get-ChildItem ".\SCurry\**\*.nupkg" -Recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name -DeploymentName "appveyor-nuget" }
+    }
+
 deploy:
 - provider: Environment
   name: appveyor-nuget
+  on:
+    branch: master

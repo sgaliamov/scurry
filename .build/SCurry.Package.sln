@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCurry", "scurry\SCurry.csproj", "{912A8288-7C82-4B04-9CB8-655AB9A92F19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCurry", "..\SCurry\SCurry.csproj", "{912A8288-7C82-4B04-9CB8-655AB9A92F19}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCurry.Tests", "SCurry.Tests\SCurry.Tests.csproj", "{C5680E07-C83D-4A5B-8857-C5D877BA306A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCurry.Tests", "..\SCurry.Tests\SCurry.Tests.csproj", "{C5680E07-C83D-4A5B-8857-C5D877BA306A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
