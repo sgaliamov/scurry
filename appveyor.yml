@@ -1,5 +1,9 @@
 version: 0.2.{build}
 
+#branches:
+#  except:
+#  - /feature\/(.*)/
+
 skip_tags: true
 
 skip_branch_with_pr: true
@@ -26,7 +30,10 @@ dotnet_csproj:
 configuration: Release
 
 before_build:
-- pwsh: dotnet restore --verbosity q
+- pwsh: |
+    dotnet restore --verbosity q
+    msbuild .\SCurry.Builders\SCurry.Builders.csproj /v:m /m /t:Build
+    msbuild .\SCurry.Package.sln /v:m /m /t:TransformAll
 
 build:
   project: SCurry.sln
