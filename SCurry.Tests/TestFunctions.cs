@@ -12,7 +12,7 @@ namespace SCurry.Tests
     public static class TestFunctions
     {
         public static readonly Func<int> Zero = () => 0;
-        public static readonly Func<int, int> Id = i => i;
+        public static readonly Func<int, int> Add1 = (arg1) => arg1;
         public static readonly Func<int, int, int> Add2 = (arg1, arg2) => arg1 + arg2;
         public static readonly Func<int, int, int, int> Add3 = (arg1, arg2, arg3) => arg1 + arg2 + arg3;
         public static readonly Func<int, int, int, int, int> Add4 = (arg1, arg2, arg3, arg4) => arg1 + arg2 + arg3 + arg4;

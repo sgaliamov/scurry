@@ -14,17 +14,27 @@ namespace SCurry.Tests
     public class CurryFunctionsTests
     {
         [Fact]
-        public void Curry1_Test()
+        public void Curry_Func_0_Test()
         {
-            var curryed = TestFunctions.Id.Curry();
+            var curryed = TestFunctions.Zero.Curry();
 
-            var actual = curryed(1);
+            var actual = curryed();
+
+            Assert.Equal(0, actual);
+        }
+
+        [Fact]
+        public void Curry_Func_1_Test()
+        {
+            var curryedAdd = TestFunctions.Add1.Curry();
+
+            var actual = curryedAdd(1);
 
             Assert.Equal(1, actual);
         }
 
         [Fact]
-        public void Curry2_Test()
+        public void Curry_Func_2_Test()
         {
             var curryedAdd = TestFunctions.Add2.Curry();
 
@@ -34,7 +44,7 @@ namespace SCurry.Tests
         }
 
         [Fact]
-        public void Curry3_Test()
+        public void Curry_Func_3_Test()
         {
             var curryedAdd = TestFunctions.Add3.Curry();
 
@@ -44,7 +54,7 @@ namespace SCurry.Tests
         }
 
         [Fact]
-        public void Curry4_Test()
+        public void Curry_Func_4_Test()
         {
             var curryedAdd = TestFunctions.Add4.Curry();
 
@@ -54,7 +64,7 @@ namespace SCurry.Tests
         }
 
         [Fact]
-        public void Curry5_Test()
+        public void Curry_Func_5_Test()
         {
             var curryedAdd = TestFunctions.Add5.Curry();
 
@@ -64,7 +74,7 @@ namespace SCurry.Tests
         }
 
         [Fact]
-        public void Curry6_Test()
+        public void Curry_Func_6_Test()
         {
             var curryedAdd = TestFunctions.Add6.Curry();
 
@@ -74,7 +84,7 @@ namespace SCurry.Tests
         }
 
         [Fact]
-        public void Curry7_Test()
+        public void Curry_Func_7_Test()
         {
             var curryedAdd = TestFunctions.Add7.Curry();
 
@@ -84,7 +94,7 @@ namespace SCurry.Tests
         }
 
         [Fact]
-        public void Curry8_Test()
+        public void Curry_Func_8_Test()
         {
             var curryedAdd = TestFunctions.Add8.Curry();
 
@@ -94,7 +104,7 @@ namespace SCurry.Tests
         }
 
         [Fact]
-        public void Curry9_Test()
+        public void Curry_Func_9_Test()
         {
             var curryedAdd = TestFunctions.Add9.Curry();
 
@@ -104,7 +114,7 @@ namespace SCurry.Tests
         }
 
         [Fact]
-        public void Curry10_Test()
+        public void Curry_Func_10_Test()
         {
             var curryedAdd = TestFunctions.Add10.Curry();
 
@@ -114,7 +124,7 @@ namespace SCurry.Tests
         }
 
         [Fact]
-        public void Curry11_Test()
+        public void Curry_Func_11_Test()
         {
             var curryedAdd = TestFunctions.Add11.Curry();
 
@@ -124,7 +134,7 @@ namespace SCurry.Tests
         }
 
         [Fact]
-        public void Curry12_Test()
+        public void Curry_Func_12_Test()
         {
             var curryedAdd = TestFunctions.Add12.Curry();
 
@@ -134,7 +144,7 @@ namespace SCurry.Tests
         }
 
         [Fact]
-        public void Curry13_Test()
+        public void Curry_Func_13_Test()
         {
             var curryedAdd = TestFunctions.Add13.Curry();
 
@@ -144,7 +154,7 @@ namespace SCurry.Tests
         }
 
         [Fact]
-        public void Curry14_Test()
+        public void Curry_Func_14_Test()
         {
             var curryedAdd = TestFunctions.Add14.Curry();
 
@@ -154,7 +164,7 @@ namespace SCurry.Tests
         }
 
         [Fact]
-        public void Curry15_Test()
+        public void Curry_Func_15_Test()
         {
             var curryedAdd = TestFunctions.Add15.Curry();
 
@@ -164,23 +174,13 @@ namespace SCurry.Tests
         }
 
         [Fact]
-        public void Curry16_Test()
+        public void Curry_Func_16_Test()
         {
             var curryedAdd = TestFunctions.Add16.Curry();
 
             var actual = curryedAdd(1)(2)(3)(4)(5)(6)(7)(8)(9)(10)(11)(12)(13)(14)(15)(16);
 
             Assert.Equal(136, actual);
-        }
-
-        [Fact]
-        public void Curry0_Test()
-        {
-            var curryed = TestFunctions.Zero.Curry();
-
-            var actual = curryed();
-
-            Assert.Equal(0, actual);
         }
     }
 }

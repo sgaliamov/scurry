@@ -16,9 +16,8 @@ namespace SCurry.Tests
     public static class TestFunctions
     {
         public static readonly Func<int> Zero = () => 0;
-        public static readonly Func<int, int> Id = i => i;
 <#
-    for(int i = 2; i <= MaxInputArgumentsCount; i++)
+    for(int i = 1; i <= MaxInputArgumentsCount; i++)
     {
 #>
         <#= Generate(i) #>

@@ -18,30 +18,7 @@ namespace SCurry.Tests
     public class CurryFunctionsTests
     {
         [Fact]
-        public void Curry1_Test()
-        {
-            var curryed = TestFunctions.Id.Curry();
-
-            var actual = curryed(1);
-
-            Assert.Equal(1, actual);
-        }
-
-<# for(int count = 2; count <= MaxInputArgumentsCount; count++) #>
-<# { #>
-        [Fact]
-        public void Curry<#= count #>_Test()
-        {
-            var curryedAdd = TestFunctions.Add<#= count #>.Curry();
-
-            var actual = curryedAdd<#= Calls(count) #>;
-
-            Assert.Equal(<#= count * (count + 1) / 2.0 #>, actual);
-        }
-
-<#    } #>
-        [Fact]
-        public void Curry0_Test()
+        public void Curry_Func_0_Test()
         {
             var curryed = TestFunctions.Zero.Curry();
 
@@ -49,6 +26,19 @@ namespace SCurry.Tests
 
             Assert.Equal(0, actual);
         }
+<# for(int count = 1; count <= MaxInputArgumentsCount; count++) #>
+<# { #>
+
+        [Fact]
+        public void Curry_Func_<#= count #>_Test()
+        {
+            var curryedAdd = TestFunctions.Add<#= count #>.Curry();
+
+            var actual = curryedAdd<#= Calls(count) #>;
+
+            Assert.Equal(<#= count * (count + 1) / 2.0 #>, actual);
+        }
+<#    } #>
     }
 }
 <#+
