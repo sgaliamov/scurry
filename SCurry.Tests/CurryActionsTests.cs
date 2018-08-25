@@ -37,7 +37,7 @@ namespace SCurry.Tests
         {
             // arrange
             var actual = -1;
-            Action<int> action = (arg1) => 
+            Action<int> action = (arg1) =>
             {
                 actual = TestFunctions.Add1(arg1);
             };
@@ -55,7 +55,7 @@ namespace SCurry.Tests
         {
             // arrange
             var actual = -1;
-            Action<int, int> action = (arg1, arg2) => 
+            Action<int, int> action = (arg1, arg2) =>
             {
                 actual = TestFunctions.Add2(arg1, arg2);
             };
@@ -73,7 +73,7 @@ namespace SCurry.Tests
         {
             // arrange
             var actual = -1;
-            Action<int, int, int> action = (arg1, arg2, arg3) => 
+            Action<int, int, int> action = (arg1, arg2, arg3) =>
             {
                 actual = TestFunctions.Add3(arg1, arg2, arg3);
             };
@@ -91,7 +91,7 @@ namespace SCurry.Tests
         {
             // arrange
             var actual = -1;
-            Action<int, int, int, int> action = (arg1, arg2, arg3, arg4) => 
+            Action<int, int, int, int> action = (arg1, arg2, arg3, arg4) =>
             {
                 actual = TestFunctions.Add4(arg1, arg2, arg3, arg4);
             };
@@ -109,7 +109,7 @@ namespace SCurry.Tests
         {
             // arrange
             var actual = -1;
-            Action<int, int, int, int, int> action = (arg1, arg2, arg3, arg4, arg5) => 
+            Action<int, int, int, int, int> action = (arg1, arg2, arg3, arg4, arg5) =>
             {
                 actual = TestFunctions.Add5(arg1, arg2, arg3, arg4, arg5);
             };
@@ -127,7 +127,7 @@ namespace SCurry.Tests
         {
             // arrange
             var actual = -1;
-            Action<int, int, int, int, int, int> action = (arg1, arg2, arg3, arg4, arg5, arg6) => 
+            Action<int, int, int, int, int, int> action = (arg1, arg2, arg3, arg4, arg5, arg6) =>
             {
                 actual = TestFunctions.Add6(arg1, arg2, arg3, arg4, arg5, arg6);
             };
@@ -145,7 +145,7 @@ namespace SCurry.Tests
         {
             // arrange
             var actual = -1;
-            Action<int, int, int, int, int, int, int> action = (arg1, arg2, arg3, arg4, arg5, arg6, arg7) => 
+            Action<int, int, int, int, int, int, int> action = (arg1, arg2, arg3, arg4, arg5, arg6, arg7) =>
             {
                 actual = TestFunctions.Add7(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
             };
@@ -163,7 +163,7 @@ namespace SCurry.Tests
         {
             // arrange
             var actual = -1;
-            Action<int, int, int, int, int, int, int, int> action = (arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8) => 
+            Action<int, int, int, int, int, int, int, int> action = (arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8) =>
             {
                 actual = TestFunctions.Add8(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
             };
@@ -181,7 +181,7 @@ namespace SCurry.Tests
         {
             // arrange
             var actual = -1;
-            Action<int, int, int, int, int, int, int, int, int> action = (arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9) => 
+            Action<int, int, int, int, int, int, int, int, int> action = (arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9) =>
             {
                 actual = TestFunctions.Add9(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
             };
@@ -199,7 +199,7 @@ namespace SCurry.Tests
         {
             // arrange
             var actual = -1;
-            Action<int, int, int, int, int, int, int, int, int, int> action = (arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10) => 
+            Action<int, int, int, int, int, int, int, int, int, int> action = (arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10) =>
             {
                 actual = TestFunctions.Add10(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10);
             };
@@ -217,7 +217,7 @@ namespace SCurry.Tests
         {
             // arrange
             var actual = -1;
-            Action<int, int, int, int, int, int, int, int, int, int, int> action = (arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11) => 
+            Action<int, int, int, int, int, int, int, int, int, int, int> action = (arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11) =>
             {
                 actual = TestFunctions.Add11(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11);
             };
@@ -235,7 +235,7 @@ namespace SCurry.Tests
         {
             // arrange
             var actual = -1;
-            Action<int, int, int, int, int, int, int, int, int, int, int, int> action = (arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12) => 
+            Action<int, int, int, int, int, int, int, int, int, int, int, int> action = (arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12) =>
             {
                 actual = TestFunctions.Add12(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12);
             };
@@ -253,7 +253,7 @@ namespace SCurry.Tests
         {
             // arrange
             var actual = -1;
-            Action<int, int, int, int, int, int, int, int, int, int, int, int, int> action = (arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13) => 
+            Action<int, int, int, int, int, int, int, int, int, int, int, int, int> action = (arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13) =>
             {
                 actual = TestFunctions.Add13(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13);
             };
@@ -271,7 +271,7 @@ namespace SCurry.Tests
         {
             // arrange
             var actual = -1;
-            Action<int, int, int, int, int, int, int, int, int, int, int, int, int, int> action = (arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14) => 
+            Action<int, int, int, int, int, int, int, int, int, int, int, int, int, int> action = (arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14) =>
             {
                 actual = TestFunctions.Add14(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14);
             };
@@ -289,7 +289,7 @@ namespace SCurry.Tests
         {
             // arrange
             var actual = -1;
-            Action<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int> action = (arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15) => 
+            Action<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int> action = (arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15) =>
             {
                 actual = TestFunctions.Add15(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15);
             };
@@ -307,7 +307,7 @@ namespace SCurry.Tests
         {
             // arrange
             var actual = -1;
-            Action<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int> action = (arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16) => 
+            Action<int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int> action = (arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16) =>
             {
                 actual = TestFunctions.Add16(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16);
             };

@@ -43,7 +43,7 @@ namespace SCurry.Tests
         {
             // arrange
             var actual = -1;
-            <#= ActionType(count) #> action = (<#= ActionArgs(count) #>) => 
+            <#= ActionType(count) #> action = (<#= ActionArgs(count) #>) =>
             {
                 actual = TestFunctions.Add<#= count #>(<#= ActionArgs(count) #>);
             };
