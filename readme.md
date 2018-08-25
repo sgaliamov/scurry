@@ -29,6 +29,7 @@ TBD
 - [ ] use spacer for partial apply
 - [ ] pipe function
 - [ ] Add examples to use
+- [ ] Support out/ref parameters?
 - [x] CI/CD on github
 - [x] global packages folder
 - [x] exclude generated code from git

@@ -10,7 +10,7 @@ using System;
 
 namespace SCurry
 {      
-    public static class CurryMethods
+    public static class CurryFunctions
     {
         public static Func<TResult> Curry<TResult>(this Func<TResult> func) => func;
         public static Func<T1, TResult> Curry<T1, TResult>(this Func<T1, TResult> func) => func;
