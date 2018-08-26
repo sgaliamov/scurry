@@ -52,8 +52,12 @@ TBD
 
 1. Create new release branch and name it *Release/YYYY-MM-DD*.
 1. Apply fixes and push.
-1. Rebase on *master*.
-1. Update version in [appveyor.yml](./appveyor.yml).
+1. Rebase on *master*:
+   ``` bash
+   git fetch origin master:master
+   git rebase master
+   ```
+1. Increment version in [appveyor.yml](./appveyor.yml).
 1. Push all changes to remote.
 1. Create PR from release branch to *master*.
 1. Squash and merge RP.
