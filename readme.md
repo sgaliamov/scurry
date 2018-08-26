@@ -56,12 +56,11 @@ TBD
    git fetch origin master:master
    git rebase master
    ```
-1. Push all changes to remote.
+1. Apply all changes and push to remote.
 1. Create PR from the release branch to *master*. Make sure that all checks pass.
-1. Increment version in [appveyor.yml](./appveyor.yml) and push again.
-1. Set *Next build number* to *0* in [AppVeyor](https://ci.appveyor.com/project/sgaliamov/scurry/settings)
-1. Squash and merge RP.
-1. [AppVeyor](https://ci.appveyor.com/project/sgaliamov/scurry/deployments) will publish nuget package.
+1. Increment version in [appveyor.yml](./appveyor.yml) and push again. It will produce a build with wrong version that should be removed later.
+1. Set *Next build number* to *0* in [AppVeyor](https://ci.appveyor.com/project/sgaliamov/scurry/settings).
+1. Squash and merge RP. [AppVeyor](https://ci.appveyor.com/project/sgaliamov/scurry/deployments) will publish nuget package.
 1. Remove redundant builds from [AppVeyor](https://ci.appveyor.com/project/sgaliamov/scurry/history).
 1. Set version tag for the merge commit and push it to *origin/master*. *Note*: it will not trigger CI/CD because of *skip_tags: true* setting.
 1. Add release notes at https://github.com/sgaliamov/scurry/releases and publish the release.
