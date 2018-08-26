@@ -16,13 +16,11 @@ namespace SCurry.Tests
     public static class TestFunctions
     {
         public static readonly Func<int> Zero = () => 0;
-        public static readonly Func<int, int> Id = (int i) => i;
 <#
-    for(int i = 2; i <= MaxInputArgumentsCount; i++)
+    for(int i = 1; i <= MaxInputArgumentsCount; i++)
     {
 #>
         <#= Generate(i) #>
-
 <#
     }
 #>
@@ -33,7 +31,7 @@ namespace SCurry.Tests
 
     string Generate(int count)
     {
-        var args = string.Join(", ", Enumerable.Range(1, count).Select(x => "int arg" + x));
+        var args = string.Join(", ", Enumerable.Range(1, count).Select(x => "arg" + x));
 
         var types = string.Join(", ", Enumerable.Range(0, count).Select(_ => "int").Append("int"));
 

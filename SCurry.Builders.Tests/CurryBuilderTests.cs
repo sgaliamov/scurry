@@ -1,15 +1,18 @@
-﻿using Xunit;
+﻿using AutoFixture;
+using Xunit;
 
 namespace SCurry.Builders.Tests
 {
+    [Trait("Category", "Builder")]
     public class CurryBuilderTests
     {
-        [Trait("Category", "Builder")]
+        private readonly Fixture _fixture = new Fixture();
+
         [Theory]
         [InlineData(0)]
         [InlineData(1)]
         [InlineData(3)]
-        public void TypeParameters_Test(ushort count)
+        public void TypeParameters_AppendResult_Test(ushort count)
         {
             var expected = count == 0
                 ? "TResult"
@@ -17,7 +20,7 @@ namespace SCurry.Builders.Tests
                     ? "T1, TResult"
                     : "T1, T2, T3, TResult";
 
-            var actual = CurryBuilder.TypeParameters(count);
+            var actual = CurryBuilder.TypeParameters(true, count);
 
             Assert.Equal(expected, actual);
         }
@@ -26,15 +29,50 @@ namespace SCurry.Builders.Tests
         [InlineData(0)]
         [InlineData(1)]
         [InlineData(3)]
-        public void ReturnType_Test(ushort count)
+        public void TypeParameters_NoResult_Test(ushort count)
         {
             var expected = count == 0
-                ? "Func<TResult>"
+                ? string.Empty
                 : count == 1
-                    ? "Func<T1, TResult>"
-                    : "Func<T1, Func<T2, Func<T3, TResult>>>";
+                    ? "T1"
+                    : "T1, T2, T3";
 
-            var actual = CurryBuilder.ReturnType(count);
+            var actual = CurryBuilder.TypeParameters(false, count);
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(3)]
+        public void FuncReturnType_Test(ushort count)
+        {
+            var result = _fixture.Create<string>();
+            var expected = count == 0
+                ? $"Func<{result}>"
+                : count == 1
+                    ? $"Func<T1, {result}>"
+                    : $"Func<T1, Func<T2, Func<T3, {result}>>>";
+
+            var actual = CurryBuilder.FuncReturnType(count, result);
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(3)]
+        public void ActionReturnType_Test(ushort count)
+        {
+            var expected = count == 0
+                ? "Action"
+                : count == 1
+                    ? "Action<T1>"
+                    : "Func<T1, Func<T2, Action<T3>>>";
+
+            var actual = CurryBuilder.ActionReturnType(count);
 
             Assert.Equal(expected, actual);
         }
@@ -45,11 +83,12 @@ namespace SCurry.Builders.Tests
         [InlineData(3)]
         public void Body_Test(ushort count)
         {
+            var target = _fixture.Create<string>();
             var expected = count == 0 || count == 1
-                ? "func"
-                : "arg1 => arg2 => arg3 => func(arg1, arg2, arg3)";
+                ? target
+                : $"arg1 => arg2 => arg3 => {target}(arg1, arg2, arg3)";
 
-            var actual = CurryBuilder.Body(count);
+            var actual = CurryBuilder.Body(target, count);
 
             Assert.Equal(expected, actual);
         }
@@ -69,6 +108,25 @@ namespace SCurry.Builders.Tests
                       + "arg1 => arg2 => arg3 => func(arg1, arg2, arg3);";
 
             var actual = CurryBuilder.GenerateFuncExtention(count);
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(3)]
+        public void GenerateActionExtention_Test(ushort count)
+        {
+            var expected = count == 0
+                ? "public static Action Curry(this Action action) => action;"
+                : count == 1
+                    ? "public static Action<T1> Curry<T1>(this Action<T1> action) => action;"
+                    : "public static Func<T1, Func<T2, Action<T3>>> Curry<T1, T2, T3>"
+                      + "(this Action<T1, T2, T3> action) => "
+                      + "arg1 => arg2 => arg3 => action(arg1, arg2, arg3);";
+
+            var actual = CurryBuilder.GenerateActionExtention(count);
 
             Assert.Equal(expected, actual);
         }
