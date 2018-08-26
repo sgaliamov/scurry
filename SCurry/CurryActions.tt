@@ -14,14 +14,14 @@ using System;
 
 namespace SCurry
 {      
-    public static class CurryMethods
+    public static class CurryActions
     {
 <#    
     for(ushort i = 0; i <= MaxInputArgumentsCount; i++)
     { 
 #>
         <#=
-            CurryBuilder.GenerateFuncExtention(i) #>
+            CurryBuilder.GenerateActionExtention(i) #>
 <#
     } 
 #>

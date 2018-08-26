@@ -17,17 +17,26 @@
   <Import Project="../.build/t4-transform.csproj" />
 
   <ItemGroup>
-    <None Update="Curry.tt">
+    <None Update="CurryActions.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Curry.cs</LastGenOutput>
+      <LastGenOutput>CurryActions.cs</LastGenOutput>
+    </None>
+    <None Update="CurryFunctions.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CurryFunctions.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Curry.cs">
+    <Compile Update="CurryActions.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Curry.tt</DependentUpon>
+      <DependentUpon>CurryActions.tt</DependentUpon>
+    </Compile>
+    <Compile Update="CurryFunctions.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CurryFunctions.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 

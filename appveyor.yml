@@ -1,5 +1,10 @@
 version: 0.2.{build}
 
+branches:
+  only:
+    - master
+    - develop
+
 skip_tags: true
 
 skip_branch_with_pr: true
