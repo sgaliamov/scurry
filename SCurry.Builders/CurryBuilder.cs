@@ -15,8 +15,7 @@ namespace SCurry.Builders
                 .Select(x => $"Func<T{x}, ")
                 .Append(result)
                 .Concat(ShortRange(0, count).Select(_ => ">"))
-                .Aggregate(new StringBuilder(), Append)
-                .ToString();
+                .AggregateString();
         }
 
         public static string ActionReturnType(ushort count)
@@ -39,6 +38,7 @@ namespace SCurry.Builders
         public static string GenerateActionExtention(ushort count)
         {
             var types = TypeParameters(count, false);
+
             if (!string.IsNullOrWhiteSpace(types)) types = $"<{types}>";
 
             return $"public static {ActionReturnType(count)} Curry{types}"

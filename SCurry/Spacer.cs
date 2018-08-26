@@ -4,8 +4,6 @@
     {
         public static readonly Spacer _ = new Spacer();
 
-        private Spacer()
-        {
-        }
+        private Spacer() { }
     }
 }
