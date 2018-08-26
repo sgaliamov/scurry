@@ -1,4 +1,4 @@
-﻿namespace SCurry
+﻿namespace SCurry.Builders
 {
     public static class Spacer
     {
