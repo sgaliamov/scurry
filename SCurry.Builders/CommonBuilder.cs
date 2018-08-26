@@ -52,9 +52,9 @@ namespace SCurry.Builders
             }
         }
 
-        public static StringBuilder Append<T>(StringBuilder sb, T value) => sb.Append(value);
-
         public static string AggregateString<T>(this IEnumerable<T> enumerable) =>
             enumerable.Aggregate(new StringBuilder(), Append).ToString();
+
+        private static StringBuilder Append<T>(StringBuilder sb, T value) => sb.Append(value);
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Text;
 
 namespace SCurry.Builders
 {
@@ -9,7 +8,10 @@ namespace SCurry.Builders
     {
         public static string FuncReturnType(ushort count, string result)
         {
-            if (count == 0) return $"Func<{result}>";
+            if (count == 0)
+            {
+                return $"Func<{result}>";
+            }
 
             return ShortRange(1, count)
                 .Select(x => $"Func<T{x}, ")
@@ -20,11 +22,17 @@ namespace SCurry.Builders
 
         public static string ActionReturnType(ushort count)
         {
-            if (count == 0) return "Action";
+            switch (count)
+            {
+                case 0:
+                    return "Action";
 
-            if (count == 1) return "Action<T1>";
+                case 1:
+                    return "Action<T1>";
 
-            return FuncReturnType((ushort)(count - 1), $"Action<T{count}>");
+                default:
+                    return FuncReturnType((ushort)(count - 1), $"Action<T{count}>");
+            }
         }
 
         public static string GenerateFuncExtention(ushort count)
@@ -39,7 +47,10 @@ namespace SCurry.Builders
         {
             var types = TypeParameters(count, false);
 
-            if (!string.IsNullOrWhiteSpace(types)) types = $"<{types}>";
+            if (!string.IsNullOrWhiteSpace(types))
+            {
+                types = $"<{types}>";
+            }
 
             return $"public static {ActionReturnType(count)} Curry{types}"
                    + $"(this Action{types} action) => {Body("action", count)};";
