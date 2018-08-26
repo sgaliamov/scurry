@@ -64,7 +64,7 @@ TBD
 1. AppVeyor will publish nuget package.
 1. Set version tag for the merge commit.
 1. Push *master*. *Note*: it will not trigger CI/CD because of *skip_tags: true* setting.
-
+1. Add release notes at https://github.com/sgaliamov/scurry/releases and publish the release.
 
 ### To do
 
