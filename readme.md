@@ -61,6 +61,9 @@ TBD
 1. Create PR from release branch to *master*.
 1. Set *Next build number* to *0* in [Settings](https://ci.appveyor.com/project/sgaliamov/scurry/settings)
 1. Squash and merge RP.
+1. AppVeyor will publish nuget package.
+1. Set version tag for the merge commit.
+1. Push *master*. *Note*: it will not trigger CI/CD because of *skip_tags: true* setting.
 
 
 ### To do
