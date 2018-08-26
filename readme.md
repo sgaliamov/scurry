@@ -56,9 +56,9 @@ TBD
    git fetch origin master:master
    git rebase master
    ```
-1. Increment version in [appveyor.yml](./appveyor.yml).
 1. Push all changes to remote.
-1. Create PR from release branch to *master*.
+1. Create PR from release branch to *master*. It will trigger a build.
+1. Increment version in [appveyor.yml](./appveyor.yml) and push again.
 1. Set *Next build number* to *0* in [Settings](https://ci.appveyor.com/project/sgaliamov/scurry/settings)
 1. Squash and merge RP.
 1. AppVeyor will publish nuget package.
