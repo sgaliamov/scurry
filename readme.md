@@ -57,8 +57,8 @@ TBD
    git rebase master
    ```
 1. Push all changes to remote.
-1. Create PR from release branch to *master*. It will trigger a build.
-1. Increment version in [appveyor.yml](./appveyor.yml) and push again.
+1. Create PR from release branch to *master*. Make sure that all checks pass.
+1. Increment version in [appveyor.yml](./appveyor.yml) and push again. It will trigger unnecessary build in [AppVeyor](https://ci.appveyor.com/project/sgaliamov/scurry), cancel and delete it.
 1. Set *Next build number* to *0* in [Settings](https://ci.appveyor.com/project/sgaliamov/scurry/settings)
 1. Squash and merge RP.
 1. AppVeyor will publish nuget package.
