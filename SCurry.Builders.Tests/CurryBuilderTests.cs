@@ -12,40 +12,6 @@ namespace SCurry.Builders.Tests
         [InlineData(0)]
         [InlineData(1)]
         [InlineData(3)]
-        public void TypeParameters_AppendResult_Test(ushort count)
-        {
-            var expected = count == 0
-                ? "TResult"
-                : count == 1
-                    ? "T1, TResult"
-                    : "T1, T2, T3, TResult";
-
-            var actual = CurryBuilder.TypeParameters(true, count);
-
-            Assert.Equal(expected, actual);
-        }
-
-        [Theory]
-        [InlineData(0)]
-        [InlineData(1)]
-        [InlineData(3)]
-        public void TypeParameters_NoResult_Test(ushort count)
-        {
-            var expected = count == 0
-                ? string.Empty
-                : count == 1
-                    ? "T1"
-                    : "T1, T2, T3";
-
-            var actual = CurryBuilder.TypeParameters(false, count);
-
-            Assert.Equal(expected, actual);
-        }
-
-        [Theory]
-        [InlineData(0)]
-        [InlineData(1)]
-        [InlineData(3)]
         public void FuncReturnType_Test(ushort count)
         {
             var result = _fixture.Create<string>();
@@ -73,22 +39,6 @@ namespace SCurry.Builders.Tests
                     : "Func<T1, Func<T2, Action<T3>>>";
 
             var actual = CurryBuilder.ActionReturnType(count);
-
-            Assert.Equal(expected, actual);
-        }
-
-        [Theory]
-        [InlineData(0)]
-        [InlineData(1)]
-        [InlineData(3)]
-        public void Body_Test(ushort count)
-        {
-            var target = _fixture.Create<string>();
-            var expected = count == 0 || count == 1
-                ? target
-                : $"arg1 => arg2 => arg3 => {target}(arg1, arg2, arg3)";
-
-            var actual = CurryBuilder.Body(target, count);
 
             Assert.Equal(expected, actual);
         }
