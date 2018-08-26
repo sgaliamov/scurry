@@ -50,8 +50,7 @@ TBD
 
 ### Release
 
-1. Create new release branch and name it *Release/YYYY-MM-DD*.
-1. Apply fixes and push.
+1. Create new release branch from *develop* and name it *Release/YYYY-MM-DD*.
 1. Rebase on *master*:
    ``` bash
    git fetch origin master:master
@@ -60,6 +59,7 @@ TBD
 1. Increment version in [appveyor.yml](./appveyor.yml).
 1. Push all changes to remote.
 1. Create PR from release branch to *master*.
+1. Set *Next build number* to *0* in [Settings](https://ci.appveyor.com/project/sgaliamov/scurry/settings)
 1. Squash and merge RP.
 
 
