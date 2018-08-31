@@ -7,6 +7,19 @@ namespace SCurry.Builders.Tests
     public class PartialApplicationBuilderTests
     {
         [Fact]
+        public void GenerateFuncExtentions_0_Test()
+        {
+            const string expected = "public static "
+                                    + "Func<TResult> "
+                                    + "Partial<TResult>(this Func<TResult> func) "
+                                    + "=> func;";
+
+            var actual = PartialApplicationBuilder.GenerateFuncExtentions(0).Single();
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
         public void GenerateFuncExtentions_2_Test()
         {
             var expected = new[]

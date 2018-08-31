@@ -11,6 +11,12 @@ namespace SCurry.Builders
     {
         public static IEnumerable<string> GenerateFuncExtentions(ushort count)
         {
+            if (count == 0)
+            {
+                yield return "public static Func<TResult> Partial<TResult>(this Func<TResult> func) => func;";
+                yield break;
+            }
+
             var allTypes = TypeParameters(count, true);
 
             for (var index = 0; index < Math.Pow(2, count); index++)
