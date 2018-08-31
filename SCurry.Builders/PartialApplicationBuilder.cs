@@ -6,33 +6,58 @@ using System.Linq;
 namespace SCurry.Builders
 {
     using static CommonBuilder;
-    using _ = Spacer.SpacerInstance;
 
     public static class PartialApplicationBuilder
     {
-        public static Func<T1, T3, TResult> Partial<T1, T2, T3, TResult>(
-            this Func<T1, T2, T3, TResult> func,
-            _ s1,
-            T2 arg2,
-            _ s3) => (arg1, arg3) => func(arg1, arg2, arg3);
-
         public static IEnumerable<string> GenerateFuncExtentions(ushort count)
         {
-            var types = TypeParameters(count, true);
+            var allTypes = TypeParameters(count, true);
 
-            for (var i = 0; i < Math.Pow(2, count); i++)
+            for (var index = 0; index < Math.Pow(2, count); index++)
             {
-                var markers = Markers(count, i);
-                var returnType = ReturnType(markers);
-                var callAgruments = CallAgruments(markers);
-                var bodyArguments = BodyArguments(markers);
-                var body = Body("func", count);
+                var markers = Markers(count, index);
+                var info = BuildInfo(markers);
 
-                yield return $"public static {returnType} Partial<{types}>"
-                             + $"(this Func<{types}> func, {callAgruments}) => "
+                var returnType = BuildReturnType(info);
+                var callAgruments = info.Select(x => x.CallAgr).Join(", ");
+                var bodyArguments = index == 0 ? string.Empty : BuildBodyArguments(info);
+                var body = index == 0 ? "func" : BuildBody(info);
+
+                yield return $"public static Func<{returnType}> Partial<{allTypes}>"
+                             + $"(this Func<{allTypes}> func, {callAgruments}) => "
                              + $"{bodyArguments}{body};";
             }
         }
+
+        private static string BuildBodyArguments(IEnumerable<Info> info)
+        {
+            var args = info.Where(x => x.BodyArg != null).Select(x => x.BodyArg).ToArray();
+
+            return $"({args.Join(", ")}) => ";
+        }
+
+        private static string BuildBody(IEnumerable<Info> info)
+        {
+            var args = info.Select(x => x.BodyCallArg).ToArray();
+
+            return $"func({args.Join(", ")})";
+        }
+
+        private static string BuildReturnType(IEnumerable<Info> info) => info
+            .Where(x => x.ReturnType != null)
+            .Select(x => x.ReturnType)
+            .Append("TResult")
+            .Join(", ");
+
+        private static Info[] BuildInfo(IEnumerable<bool> markers) => markers
+            .Select((hasArg, index) => new { hasArg, number = index + 1 })
+            .Select(x => new Info(
+                x.hasArg ? $"T{x.number}" : null,
+                x.hasArg ? $"T{x.number} arg{x.number}" : $"_ gap{x.number}",
+                x.hasArg ? $"arg{x.number}" : null,
+                $"arg{x.number}"
+            ))
+            .ToArray();
 
         /// <summary>
         ///     For <paramref name="count" /> = 3:
@@ -44,16 +69,25 @@ namespace SCurry.Builders
         ///     111
         ///     where 0 will be spacer, 1 will be argument.
         /// </summary>
-        private static bool[] Markers(ushort count, int i) =>
-            new BitArray(new[] {i})
+        private static IEnumerable<bool> Markers(ushort count, int index) =>
+            new BitArray(new[] { index })
                 .OfType<bool>()
-                .Take(count)
-                .ToArray();
+                .Take(count);
 
-        private static string BodyArguments(bool[] markers) => throw new NotImplementedException();
+        private sealed class Info
+        {
+            public Info(string returnType, string callAgr, string bodyArg, string bodyCallArg)
+            {
+                ReturnType = returnType;
+                CallAgr = callAgr;
+                BodyArg = bodyArg;
+                BodyCallArg = bodyCallArg;
+            }
 
-        private static string CallAgruments(bool[] markers) => throw new NotImplementedException();
-
-        private static string ReturnType(bool[] markers) => throw new NotImplementedException();
+            public string ReturnType { get; }
+            public string CallAgr { get; }
+            public string BodyArg { get; }
+            public string BodyCallArg { get; }
+        }
     }
 }
