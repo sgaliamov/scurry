@@ -51,12 +51,13 @@ namespace SCurry.Builders
 
         private static Info[] BuildInfo(IEnumerable<bool> markers) => markers
             .Select((hasArg, index) => new { hasArg, number = index + 1 })
-            .Select(x => new Info(
-                x.hasArg ? $"T{x.number}" : null,
-                x.hasArg ? $"T{x.number} arg{x.number}" : $"_ gap{x.number}",
-                x.hasArg ? $"arg{x.number}" : null,
-                $"arg{x.number}"
-            ))
+            .Select(x => new Info
+            {
+                ReturnType = x.hasArg ? null : $"T{x.number}",
+                CallAgr = x.hasArg ? $"T{x.number} arg{x.number}" : $"_ gap{x.number}",
+                BodyArg = x.hasArg ? null : $"arg{x.number}",
+                BodyCallArg = $"arg{x.number}"
+            })
             .ToArray();
 
         /// <summary>
@@ -76,18 +77,10 @@ namespace SCurry.Builders
 
         private sealed class Info
         {
-            public Info(string returnType, string callAgr, string bodyArg, string bodyCallArg)
-            {
-                ReturnType = returnType;
-                CallAgr = callAgr;
-                BodyArg = bodyArg;
-                BodyCallArg = bodyCallArg;
-            }
-
-            public string ReturnType { get; }
-            public string CallAgr { get; }
-            public string BodyArg { get; }
-            public string BodyCallArg { get; }
+            public string ReturnType { get; set; }
+            public string CallAgr { get; set; }
+            public string BodyArg { get; set; }
+            public string BodyCallArg { get; set; }
         }
     }
 }
