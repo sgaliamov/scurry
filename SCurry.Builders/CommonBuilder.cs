@@ -8,28 +8,6 @@ namespace SCurry.Builders
     public static class CommonBuilder
     {
         /// <summary>
-        ///     target(arg1, arg2, arg3)
-        /// </summary>
-        public static string Body(string target, ushort count)
-        {
-            if (count == 0 || count == 1)
-            {
-                return target;
-            }
-
-            var args = string.Join(", ", ShortRange(1, count).Select(x => $"arg{x}"));
-
-            return string.Join(
-                string.Empty,
-                ShortRange(1, count)
-                    .Select(x => $"arg{x} => ")
-                    .Append($"{target}(")
-                    .Append(args)
-                    .Append(")")
-            );
-        }
-
-        /// <summary>
         ///     T1, T2, T3, TResult
         /// </summary>
         public static string TypeParameters(ushort count, bool appendResult)

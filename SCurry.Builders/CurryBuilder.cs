@@ -55,5 +55,26 @@ namespace SCurry.Builders
             return $"public static {ActionReturnType(count)} Curry{types}"
                    + $"(this Action{types} action) => {Body("action", count)};";
         }
+
+        /// <summary>
+        ///     target(arg1, arg2, arg3)
+        /// </summary>
+        public static string Body(string target, ushort count)
+        {
+            if (count == 0 || count == 1)
+            {
+                return target;
+            }
+
+            var args = string.Join(", ", ShortRange(1, count).Select(x => $"arg{x}"));
+            var bodyCall = $"{target}({args})";
+
+            return string.Join(
+                string.Empty,
+                ShortRange(1, count)
+                    .Select(x => $"arg{x} => ")
+                    .Append(bodyCall)
+            );
+        }
     }
 }
