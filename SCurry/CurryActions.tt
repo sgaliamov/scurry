@@ -13,17 +13,16 @@
 using System;
 
 namespace SCurry
-{      
+{
     public static class CurryActions
     {
-<#    
-    for(ushort i = 0; i <= MaxInputArgumentsCount; i++)
-    { 
-#>
-        <#=
-            CurryBuilder.GenerateActionExtention(i) #>
 <#
-    } 
+    for(ushort i = 0; i <= MaxInputArgumentsCount; i++)
+    {
+#>
+        <#= CurryBuilder.GenerateActionExtention(i) #>
+<#
+    }
 #>
     }
 }
