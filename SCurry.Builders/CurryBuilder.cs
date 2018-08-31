@@ -17,7 +17,7 @@ namespace SCurry.Builders
                 .Select(x => $"Func<T{x}, ")
                 .Append(result)
                 .Concat(ShortRange(0, count).Select(_ => ">"))
-                .AggregateString();
+                .Join();
         }
 
         public static string ActionReturnType(ushort count)

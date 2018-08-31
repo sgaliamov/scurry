@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 
 namespace SCurry.Builders
 {
@@ -19,7 +18,7 @@ namespace SCurry.Builders
                 types = types.Append("TResult");
             }
 
-            return string.Join(", ", types);
+            return types.Join(", ");
         }
 
         public static IEnumerable<ushort> ShortRange(ushort start, ushort count)
@@ -30,9 +29,7 @@ namespace SCurry.Builders
             }
         }
 
-        public static string AggregateString<T>(this IEnumerable<T> enumerable) =>
-            enumerable.Aggregate(new StringBuilder(), Append).ToString();
-
-        private static StringBuilder Append<T>(StringBuilder sb, T value) => sb.Append(value);
+        public static string Join<T>(this IEnumerable<T> enumerable, string separator = null) =>
+            string.Join(separator, enumerable);
     }
 }
