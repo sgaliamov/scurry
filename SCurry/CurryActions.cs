@@ -9,7 +9,7 @@
 using System;
 
 namespace SCurry
-{      
+{
     public static class CurryActions
     {
         public static Action Curry(this Action action) => action;

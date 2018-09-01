@@ -14,18 +14,23 @@ using System;
 
 namespace SCurry
 {
-    public static class CurryFunctions
+    using _ = Spacer.SpacerInstance;
+
+    public static class PartialApplicationFunctions
     {
 <#
     for(ushort i = 0; i <= MaxInputArgumentsCount; i++)
     {
+        foreach(var code in PartialApplicationBuilder.GenerateFuncExtentions(i))
+        {
 #>
-        <#= CurryBuilder.GenerateFuncExtention(i) #>
+        <#= code #>
 <#
+        }
     }
 #>
     }
 }
 <#+
-    const int MaxInputArgumentsCount = 16;
+    const int MaxInputArgumentsCount = 6;
 #>

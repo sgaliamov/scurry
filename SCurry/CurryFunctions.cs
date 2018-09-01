@@ -9,7 +9,7 @@
 using System;
 
 namespace SCurry
-{      
+{
     public static class CurryFunctions
     {
         public static Func<TResult> Curry<TResult>(this Func<TResult> func) => func;
