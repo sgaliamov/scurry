@@ -19,7 +19,7 @@ namespace SCurry
     public static class PartialApplicationFunctions
     {
 <#
-    for(ushort i = 0; i <= MaxInputArgumentsCount; i++)
+    for(var i = 0; i <= MaxInputArgumentsCount; i++)
     {
         foreach(var code in PartialApplicationBuilder.GenerateFuncExtentions(i))
         {

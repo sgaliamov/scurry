@@ -9,7 +9,7 @@ namespace SCurry.Builders
 
     public static class PartialApplicationBuilder
     {
-        public static IEnumerable<string> GenerateFuncExtentions(ushort count)
+        public static IEnumerable<string> GenerateFuncExtentions(int count)
         {
             if (count == 0)
             {
@@ -83,7 +83,7 @@ namespace SCurry.Builders
         ///     111
         ///     where 0 will be spacer, 1 will be argument.
         /// </summary>
-        private static bool[] Markers(int value, ushort length) =>
+        private static bool[] Markers(int value, int length) =>
             new BitArray(new[] { value })
                 .OfType<bool>()
                 .Take(length)
