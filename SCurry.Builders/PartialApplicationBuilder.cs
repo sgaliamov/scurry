@@ -13,31 +13,38 @@ namespace SCurry.Builders
         {
             if (count == 0)
             {
-                yield return "public static Func<TResult> Partial<TResult>(this Func<TResult> func) => func;";
-                yield break;
+                return new[] { "public static Func<TResult> Partial<TResult>(this Func<TResult> func) => func;" };
             }
 
             var allTypes = TypeParameters(count, true);
 
-            for (var index = 0; index < Math.Pow(2, count); index++)
-            {
-                var markers = Markers(count, index);
-                var info = BuildInfo(markers);
+            return Enumerable.Range(0, (int)Math.Pow(2, count))
+                .Select(index => Markers(index, count))
+                .Select(BuildInfo)
+                .Select((info, index) =>
+                {
+                    var returnType = BuildReturnType(info);
+                    var callAgruments = BuildCallAgruments(info);
+                    var bodyArguments = index == 0 ? string.Empty : BuildBodyArguments(info);
+                    var body = index == 0 ? "func" : BuildBody(info);
 
-                var returnType = BuildReturnType(info);
-                var callAgruments = info.Select(x => x.CallAgr).Join(", ");
-                var bodyArguments = index == 0 ? string.Empty : BuildBodyArguments(info);
-                var body = index == 0 ? "func" : BuildBody(info);
-
-                yield return $"public static Func<{returnType}> Partial<{allTypes}>"
-                             + $"(this Func<{allTypes}> func, {callAgruments}) => "
-                             + $"{bodyArguments}{body};";
-            }
+                    return $"public static Func<{returnType}> Partial<{allTypes}>"
+                           + $"(this Func<{allTypes}> func, {callAgruments}) => "
+                           + $"{bodyArguments}{body};";
+                });
         }
+
+        private static string BuildCallAgruments(IEnumerable<Info> info) => info
+            .Where(x => x != null)
+            .Select(x => x.CallAgr)
+            .Join(", ");
 
         private static string BuildBodyArguments(IEnumerable<Info> info)
         {
-            var args = info.Where(x => x.BodyArg != null).Select(x => x.BodyArg).ToArray();
+            var args = info
+                .Where(x => x.BodyArg != null)
+                .Select(x => x.BodyArg)
+                .ToArray();
 
             return $"({args.Join(", ")}) => ";
         }
@@ -67,7 +74,7 @@ namespace SCurry.Builders
             .ToArray();
 
         /// <summary>
-        ///     For <paramref name="count" /> = 3:
+        ///     For <paramref name="length" /> = 3:
         ///     000
         ///     100
         ///     010
@@ -76,10 +83,11 @@ namespace SCurry.Builders
         ///     111
         ///     where 0 will be spacer, 1 will be argument.
         /// </summary>
-        private static IEnumerable<bool> Markers(ushort count, int index) =>
-            new BitArray(new[] { index })
+        private static bool[] Markers(int value, ushort length) =>
+            new BitArray(new[] { value })
                 .OfType<bool>()
-                .Take(count);
+                .Take(length)
+                .ToArray();
 
         private sealed class Info
         {
