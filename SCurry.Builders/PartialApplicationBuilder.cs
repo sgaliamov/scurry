@@ -16,23 +16,30 @@ namespace SCurry.Builders
                 return new[] { "public static Func<TResult> Partial<TResult>(this Func<TResult> func) => func;" };
             }
 
+            var markers = Enumerable.Range(0, (int)Math.Pow(2, count))
+                .Select(index => Markers(index, count))
+                .ToArray();
+
             var allTypes = TypeParameters(count, true);
 
-            return Enumerable.Range(0, (int)Math.Pow(2, count))
-                .Select(index => Markers(index, count))
-                .Select(BuildInfo)
-                .Select((info, index) =>
-                {
-                    var returnType = BuildReturnType(info);
-                    var callAgruments = BuildCallAgruments(info);
-                    var bodyArguments = index == 0 ? string.Empty : BuildBodyArguments(info);
-                    var body = index == 0 ? "func" : BuildBody(info);
-
-                    return $"public static Func<{returnType}> Partial<{allTypes}>"
-                           + $"(this Func<{allTypes}> func, {callAgruments}) => "
-                           + $"{bodyArguments}{body};";
-                });
+            return GenerateFuncExtentions(markers, allTypes);
         }
+
+        private static IEnumerable<string> GenerateFuncExtentions(
+            IEnumerable<bool[]> markers,
+            string allTypes) => markers
+            .Select(BuildInfo)
+            .Select((info, index) =>
+            {
+                var returnType = BuildReturnType(info);
+                var callAgruments = BuildCallAgruments(info);
+                var bodyArguments = index == 0 ? string.Empty : BuildBodyArguments(info);
+                var body = index == 0 ? "func" : BuildBody(info);
+
+                return $"public static Func<{returnType}> Partial<{allTypes}>"
+                       + $"(this Func<{allTypes}> func, {callAgruments}) => "
+                       + $"{bodyArguments}{body};";
+            });
 
         private static string BuildCallAgruments(IEnumerable<Info> info) => info
             .Where(x => x != null)
