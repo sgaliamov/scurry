@@ -33,7 +33,7 @@ configuration: Release
 before_build:
 - pwsh: dotnet restore --verbosity q
 
-build:
+build_script:
 - pwsh: |
     if ($env:APPVEYOR_REPO_BRANCH -eq "master") {
         .\build.ps1 $env:CONFIGURATION
