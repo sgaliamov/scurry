@@ -7,11 +7,13 @@ Description of development and deployment processes.
 1. Create new feature branch from *develop*.
 1. Apply new code and push.
 1. Rebase on *develop*:
+
    ``` bash
    git fetch origin develop:develop
    git rebase develop
    git push -f
    ```
+
 1. Create PR from the feature branch to *develop*. All checks should pass. *Note*: despite *skip_branch_with_pr: true* PR will trigger two builds.
 1. Squash and merge RP.
 1. Remove feature branch from local and remote.
@@ -28,6 +30,7 @@ Description of development and deployment processes.
 1. Set version tag for the merge commit and push it to *origin/master*. *Note*: it will not trigger CI/CD because of *skip_tags: true* setting.
 1. Add release notes at https://github.com/sgaliamov/scurry/tags and publish the release.
 1. Rebase *develop* on *master*:
+
    ``` bash
    git checkout develop
    git fetch origin master:master
