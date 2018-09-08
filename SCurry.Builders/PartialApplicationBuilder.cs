@@ -45,7 +45,8 @@ namespace SCurry.Builders
             string allTypes,
             bool isFunc)
         {
-            var target = isFunc ? "Func" : "Action";
+            var targetType = isFunc ? "Func" : "Action";
+            var target = isFunc ? "func" : "action";
 
             return markers
                 .Select(BuildInfo)
@@ -53,10 +54,10 @@ namespace SCurry.Builders
                 {
                     var returnType = BuildReturnType(info, isFunc);
                     var callArguments = BuildCallArguments(info);
-                    var fullBody = $"{BuildBodyArguments(info)}{BuildBody(info)}";
+                    var fullBody = $"{BuildBodyArguments(info)}{BuildBody(info, target)}";
 
-                    return $"public static {target}{returnType} Partial<{allTypes}>"
-                           + $"(this {target}<{allTypes}> func, {callArguments}) => {fullBody};";
+                    return $"public static {targetType}{returnType} Partial<{allTypes}>"
+                           + $"(this {targetType}<{allTypes}> {target}, {callArguments}) => {fullBody};";
                 })
                 .ToArray();
         }
@@ -78,11 +79,11 @@ namespace SCurry.Builders
             return $"({args.Join(", ")}) => ";
         }
 
-        private static string BuildBody(IEnumerable<Info> info)
+        private static string BuildBody(IEnumerable<Info> info, string target)
         {
             var args = info.Select(x => x.BodyCallArg).ToArray();
 
-            return $"func({args.Join(", ")})";
+            return $"{target}({args.Join(", ")})";
         }
 
         private static string BuildReturnType(IEnumerable<Info> info, bool isFunc)
