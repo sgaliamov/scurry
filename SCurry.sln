@@ -31,7 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppVeyor files", "AppVeyor 
 		appveyor.yml = appveyor.yml
 		.appveyor\before_deploy.ps1 = .appveyor\before_deploy.ps1
 		.appveyor\build_script.ps1 = .appveyor\build_script.ps1
-		.build\codecov.sh = .build\codecov.sh
+		.appveyor\codecov.sh = .appveyor\codecov.sh
 		.appveyor\test_script.ps1 = .appveyor\test_script.ps1
 	EndProjectSection
 EndProject
