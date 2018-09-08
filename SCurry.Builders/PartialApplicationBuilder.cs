@@ -9,37 +9,56 @@ namespace SCurry.Builders
 
     public static class PartialApplicationBuilder
     {
-        public static IEnumerable<string> GenerateFuncExtentions(int count)
+        public static string[] GenerateFuncExtentions(int count)
         {
             if (count == 0)
             {
                 return new[] { "public static Func<TResult> Partial<TResult>(this Func<TResult> func) => func;" };
             }
 
-            var markers = Enumerable.Range(1, (int)Math.Pow(2, count) - 1)
+            var markers = Markers(count);
+            var allTypes = TypeParameters(count, true);
+
+            return GenerateExtentions(markers, allTypes, true);
+        }
+
+        public static string[] GenerateActionExtentions(int count)
+        {
+            if (count == 0)
+            {
+                return new[] { "public static Action Partial(this Action action) => action;" };
+            }
+
+            var markers = Markers(count);
+            var allTypes = TypeParameters(count, false);
+
+            return GenerateExtentions(markers, allTypes, false);
+        }
+
+        private static bool[][] Markers(int count) =>
+            Enumerable.Range(1, (int)Math.Pow(2, count) - 1)
                 .Select(index => Markers(index, count))
                 .ToArray();
 
-            var allTypes = TypeParameters(count, true);
-
-            return GenerateFuncExtentions(markers, allTypes);
-        }
-
-        private static IEnumerable<string> GenerateFuncExtentions(
+        private static string[] GenerateExtentions(
             IEnumerable<bool[]> markers,
-            string allTypes)
+            string allTypes,
+            bool isFunc)
         {
+            var target = isFunc ? "Func" : "Action";
+
             return markers
                 .Select(BuildInfo)
                 .Select((info, index) =>
                 {
-                    var returnType = BuildReturnType(info);
+                    var returnType = BuildReturnType(info, isFunc);
                     var callArguments = BuildCallArguments(info);
                     var fullBody = $"{BuildBodyArguments(info)}{BuildBody(info)}";
 
-                    return $"public static Func<{returnType}> Partial<{allTypes}>"
-                           + $"(this Func<{allTypes}> func, {callArguments}) => {fullBody};";
-                });
+                    return $"public static {target}{returnType} Partial<{allTypes}>"
+                           + $"(this {target}<{allTypes}> func, {callArguments}) => {fullBody};";
+                })
+                .ToArray();
         }
 
         private static string BuildCallArguments(IEnumerable<Info> info) => info
@@ -66,11 +85,25 @@ namespace SCurry.Builders
             return $"func({args.Join(", ")})";
         }
 
-        private static string BuildReturnType(IEnumerable<Info> info) => info
-            .Where(x => x.ReturnType != null)
-            .Select(x => x.ReturnType)
-            .Append("TResult")
-            .Join(", ");
+        private static string BuildReturnType(IEnumerable<Info> info, bool isFunc)
+        {
+            var items = info
+                .Where(x => x.ReturnType != null)
+                .Select(x => x.ReturnType);
+
+            if (isFunc)
+            {
+                items = items.Append("TResult");
+            }
+
+            var types = items.ToArray();
+            if (types.Length == 0)
+            {
+                return string.Empty;
+            }
+
+            return $"<{types.Join(", ")}>";
+        }
 
         private static Info[] BuildInfo(IEnumerable<bool> markers) => markers
             .Select((hasArg, index) => new { hasArg, number = index + 1 })

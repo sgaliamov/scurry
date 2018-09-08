@@ -29,6 +29,10 @@
             <Generator>TextTemplatingFileGenerator</Generator>
             <LastGenOutput>CurryFunctions.generated.cs</LastGenOutput>
         </None>
+        <None Update="PartialApplicationActions.tt">
+          <LastGenOutput>PartialApplicationActions.generated.cs</LastGenOutput>
+          <Generator>TextTemplatingFileGenerator</Generator>
+        </None>
         <None Update="PartialApplicationFunctions.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
             <LastGenOutput>PartialApplicationFunctions.generated.cs</LastGenOutput>
@@ -45,6 +49,11 @@
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
             <DependentUpon>CurryFunctions.tt</DependentUpon>
+        </Compile>
+        <Compile Update="PartialApplicationActions.generated.cs">
+          <DependentUpon>PartialApplicationActions.tt</DependentUpon>
+          <DesignTime>True</DesignTime>
+          <AutoGen>True</AutoGen>
         </Compile>
         <Compile Update="PartialApplicationFunctions.generated.cs">
             <DesignTime>True</DesignTime>
