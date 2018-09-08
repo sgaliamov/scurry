@@ -5,3 +5,4 @@ bin/
 *.orig
 *.rej
 coverage.xml
+*.generated.cs

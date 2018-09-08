@@ -23,30 +23,30 @@
     <ItemGroup>
         <None Update="CurryActions.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>CurryActions.cs</LastGenOutput>
+            <LastGenOutput>CurryActions.generated.cs</LastGenOutput>
         </None>
         <None Update="CurryFunctions.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>CurryFunctions.cs</LastGenOutput>
+            <LastGenOutput>CurryFunctions.generated.cs</LastGenOutput>
         </None>
         <None Update="PartialApplicationFunctions.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>PartialApplicationFunctions.cs</LastGenOutput>
+            <LastGenOutput>PartialApplicationFunctions.generated.cs</LastGenOutput>
         </None>
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Update="CurryActions.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>CurryActions.tt</DependentUpon>
+        <Compile Update="CurryActions.generated.cs">
+          <DesignTime>True</DesignTime>
+          <AutoGen>True</AutoGen>
+          <DependentUpon>CurryActions.tt</DependentUpon>
         </Compile>
-        <Compile Update="CurryFunctions.cs">
+        <Compile Update="CurryFunctions.generated.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
             <DependentUpon>CurryFunctions.tt</DependentUpon>
         </Compile>
-        <Compile Update="PartialApplicationFunctions.cs">
+        <Compile Update="PartialApplicationFunctions.generated.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
             <DependentUpon>PartialApplicationFunctions.tt</DependentUpon>

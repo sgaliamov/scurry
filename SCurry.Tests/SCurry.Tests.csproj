@@ -11,14 +11,6 @@
     <Import Project="../.build/t4-transform.csproj" />
 
     <ItemGroup>
-        <None Include="CurryActionsTests.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>CurryActionsTests.tt</DependentUpon>
-        </None>
-    </ItemGroup>
-
-    <ItemGroup>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
         <PackageReference Include="xunit" Version="2.4.0" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
@@ -31,11 +23,11 @@
     <ItemGroup>
         <None Update="CurryActionsTests.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>CurryActionsTests.cs</LastGenOutput>
+            <LastGenOutput>CurryActionsTests.generated.cs</LastGenOutput>
         </None>
         <None Update="CurryFunctionsTests.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>CurryFunctionsTests.cs</LastGenOutput>
+            <LastGenOutput>CurryFunctionsTests.generated.cs</LastGenOutput>
         </None>
         <None Update="TestFunctions.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
@@ -44,17 +36,17 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Update="CurryActionsTests.cs">
+        <Compile Update="CurryActionsTests.generated.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
             <DependentUpon>CurryActionsTests.tt</DependentUpon>
         </Compile>
-        <Compile Update="CurryFunctionsTests.cs">
+        <Compile Update="CurryFunctionsTests.generated.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
             <DependentUpon>CurryFunctionsTests.tt</DependentUpon>
         </Compile>
-        <Compile Update="TestFunctions.cs">
+        <Compile Update="TestFunctions.generated.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
             <DependentUpon>TestFunctions.tt</DependentUpon>
