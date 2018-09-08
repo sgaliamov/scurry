@@ -34,17 +34,17 @@ namespace SCurry.Builders
                 .Select((info, index) =>
                 {
                     var returnType = BuildReturnType(info);
-                    var callAgruments = BuildCallAgruments(info);
+                    var callArguments = BuildCallArguments(info);
                     var bodyArguments = index == 0 ? string.Empty : BuildBodyArguments(info);
                     var body = index == 0 ? "func" : BuildBody(info);
 
                     return $"public static Func<{returnType}> Partial<{allTypes}>"
-                           + $"(this Func<{allTypes}> func, {callAgruments}) => "
+                           + $"(this Func<{allTypes}> func, {callArguments}) => "
                            + $"{bodyArguments}{body};";
                 });
         }
 
-        private static string BuildCallAgruments(IEnumerable<Info> info) => info
+        private static string BuildCallArguments(IEnumerable<Info> info) => info
             .Where(x => x != null)
             .Select(x => x.CallAgr)
             .Join(", ");
@@ -85,12 +85,12 @@ namespace SCurry.Builders
 
         /// <summary>
         ///     For <paramref name="length" /> = 3:
-        ///     000
-        ///     100
-        ///     010
-        ///     110
+        ///     [0, 0, 0]
+        ///     [1, 0, 0]
+        ///     [0, 1, 0]
+        ///     [1, 1, 0]
         ///     ...
-        ///     111
+        ///     [1, 1, 1]
         ///     where 0 will be spacer, 1 will be argument.
         /// </summary>
         private static bool[] Markers(int value, int length) =>
