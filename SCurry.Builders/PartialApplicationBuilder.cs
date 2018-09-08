@@ -9,35 +9,52 @@ namespace SCurry.Builders
 
     public static class PartialApplicationBuilder
     {
-        public static IEnumerable<string> GenerateFuncExtentions(ushort count)
+        public static IEnumerable<string> GenerateFuncExtentions(int count)
         {
             if (count == 0)
             {
-                yield return "public static Func<TResult> Partial<TResult>(this Func<TResult> func) => func;";
-                yield break;
+                return new[] { "public static Func<TResult> Partial<TResult>(this Func<TResult> func) => func;" };
             }
+
+            var markers = Enumerable.Range(1, (int)Math.Pow(2, count) - 1)
+                .Select(index => Markers(index, count))
+                .ToArray();
 
             var allTypes = TypeParameters(count, true);
 
-            for (var index = 0; index < Math.Pow(2, count); index++)
-            {
-                var markers = Markers(count, index);
-                var info = BuildInfo(markers);
-
-                var returnType = BuildReturnType(info);
-                var callAgruments = info.Select(x => x.CallAgr).Join(", ");
-                var bodyArguments = index == 0 ? string.Empty : BuildBodyArguments(info);
-                var body = index == 0 ? "func" : BuildBody(info);
-
-                yield return $"public static Func<{returnType}> Partial<{allTypes}>"
-                             + $"(this Func<{allTypes}> func, {callAgruments}) => "
-                             + $"{bodyArguments}{body};";
-            }
+            return GenerateFuncExtentions(markers, allTypes);
         }
+
+        private static IEnumerable<string> GenerateFuncExtentions(
+            IEnumerable<bool[]> markers,
+            string allTypes)
+        {
+            return markers
+                .Select(BuildInfo)
+                .Select((info, index) =>
+                {
+                    var returnType = BuildReturnType(info);
+                    var callArguments = BuildCallArguments(info);
+                    var fullBody = $"{BuildBodyArguments(info)}{BuildBody(info)}";
+
+                    return $"public static Func<{returnType}> Partial<{allTypes}>"
+                           + $"(this Func<{allTypes}> func, {callArguments}) => {fullBody};";
+                });
+        }
+
+        private static string BuildCallArguments(IEnumerable<Info> info) => info
+            .Reverse()
+            .SkipWhile(x => !x.HasArg)
+            .Reverse()
+            .Select(x => x.CallAgr)
+            .Join(", ");
 
         private static string BuildBodyArguments(IEnumerable<Info> info)
         {
-            var args = info.Where(x => x.BodyArg != null).Select(x => x.BodyArg).ToArray();
+            var args = info
+                .Where(x => x.BodyArg != null)
+                .Select(x => x.BodyArg)
+                .ToArray();
 
             return $"({args.Join(", ")}) => ";
         }
@@ -62,31 +79,34 @@ namespace SCurry.Builders
                 ReturnType = x.hasArg ? null : $"T{x.number}",
                 CallAgr = x.hasArg ? $"T{x.number} arg{x.number}" : $"_ gap{x.number}",
                 BodyArg = x.hasArg ? null : $"arg{x.number}",
-                BodyCallArg = $"arg{x.number}"
+                BodyCallArg = $"arg{x.number}",
+                HasArg = x.hasArg
             })
             .ToArray();
 
         /// <summary>
-        ///     For <paramref name="count" /> = 3:
-        ///     000
-        ///     100
-        ///     010
-        ///     110
+        ///     For <paramref name="length" /> = 3:
+        ///     [0, 0, 0]
+        ///     [1, 0, 0]
+        ///     [0, 1, 0]
+        ///     [1, 1, 0]
         ///     ...
-        ///     111
+        ///     [1, 1, 1]
         ///     where 0 will be spacer, 1 will be argument.
         /// </summary>
-        private static IEnumerable<bool> Markers(ushort count, int index) =>
-            new BitArray(new[] { index })
+        private static bool[] Markers(int value, int length) =>
+            new BitArray(new[] { value })
                 .OfType<bool>()
-                .Take(count);
+                .Take(length)
+                .ToArray();
 
-        private sealed class Info
+        private struct Info
         {
-            public string ReturnType { get; set; }
-            public string CallAgr { get; set; }
-            public string BodyArg { get; set; }
-            public string BodyCallArg { get; set; }
+            public string ReturnType;
+            public string CallAgr;
+            public string BodyArg;
+            public string BodyCallArg;
+            public bool HasArg;
         }
     }
 }

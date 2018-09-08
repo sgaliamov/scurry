@@ -1,4 +1,5 @@
 ﻿<#@ template debug="false" hostspecific="false" language="C#" compilerOptions="optimize+" #>
+<#@ output extension=".generated.cs" #>
 <#@ assembly name="netstandard" #>
 <#@ assembly name="$(ProjectDir)..\SCurry.Builders\bin\$(Configuration)\netstandard2.0\SCurry.Builders.dll" #>
 <#@ import namespace="SCurry.Builders" #>
@@ -19,7 +20,7 @@ namespace SCurry
     public static class PartialApplicationFunctions
     {
 <#
-    for(ushort i = 0; i <= MaxInputArgumentsCount; i++)
+    for(var i = 0; i <= MaxInputArgumentsCount; i++)
     {
         foreach(var code in PartialApplicationBuilder.GenerateFuncExtentions(i))
         {

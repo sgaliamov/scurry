@@ -1,52 +1,56 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
-    <Authors>S. Galiamov</Authors>
-    <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>git@github.com:sgaliamov/scurry.git</RepositoryUrl>
-    <PackageLicenseUrl>https://github.com/sgaliamov/scurry/blob/develop/LICENSE</PackageLicenseUrl>
-    <PackageTags>C#, curry, uncurry, partial function application, functional programming</PackageTags>
-    <PackageProjectUrl>https://github.com/sgaliamov/scurry</PackageProjectUrl>
-    <Version></Version>
-    <AssemblyVersion></AssemblyVersion>
-    <FileVersion></FileVersion>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <Authors>S. Galiamov</Authors>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>git@github.com:sgaliamov/scurry.git</RepositoryUrl>
+        <PackageLicenseUrl>https://github.com/sgaliamov/scurry/blob/develop/LICENSE</PackageLicenseUrl>
+        <PackageTags>C#, curry, uncurry, partial function application, functional programming</PackageTags>
+        <PackageProjectUrl>https://github.com/sgaliamov/scurry</PackageProjectUrl>
+        <Version></Version>
+        <AssemblyVersion></AssemblyVersion>
+        <FileVersion></FileVersion>
+    </PropertyGroup>
 
-  <Import Project="../.build/t4-transform.csproj" />
+    <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+        <DebugType>full</DebugType>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <None Update="CurryActions.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>CurryActions.cs</LastGenOutput>
-    </None>
-    <None Update="CurryFunctions.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>CurryFunctions.cs</LastGenOutput>
-    </None>
-    <None Update="PartialApplicationFunctions.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>PartialApplicationFunctions.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
+    <Import Project="../.build/t4-transform.csproj" />
 
-  <ItemGroup>
-    <Compile Update="CurryActions.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>CurryActions.tt</DependentUpon>
-    </Compile>
-    <Compile Update="CurryFunctions.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>CurryFunctions.tt</DependentUpon>
-    </Compile>
-    <Compile Update="PartialApplicationFunctions.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>PartialApplicationFunctions.tt</DependentUpon>
-    </Compile>
-  </ItemGroup>
+    <ItemGroup>
+        <None Update="CurryActions.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>CurryActions.generated.cs</LastGenOutput>
+        </None>
+        <None Update="CurryFunctions.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>CurryFunctions.generated.cs</LastGenOutput>
+        </None>
+        <None Update="PartialApplicationFunctions.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>PartialApplicationFunctions.generated.cs</LastGenOutput>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="CurryActions.generated.cs">
+          <DesignTime>True</DesignTime>
+          <AutoGen>True</AutoGen>
+          <DependentUpon>CurryActions.tt</DependentUpon>
+        </Compile>
+        <Compile Update="CurryFunctions.generated.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>CurryFunctions.tt</DependentUpon>
+        </Compile>
+        <Compile Update="PartialApplicationFunctions.generated.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>PartialApplicationFunctions.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
 
 </Project>

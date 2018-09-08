@@ -1,61 +1,56 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
-    <DebugType>full</DebugType>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.1</TargetFramework>
+    </PropertyGroup>
 
-  <Import Project="../.build/t4-transform.csproj" />
+    <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+        <DebugType>full</DebugType>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <None Include="CurryActionsTests.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>CurryActionsTests.tt</DependentUpon>
-    </None>
-  </ItemGroup>
+    <Import Project="../.build/t4-transform.csproj" />
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
-    <PackageReference Include="xunit" Version="2.4.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
+        <PackageReference Include="xunit" Version="2.4.0" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\scurry\SCurry.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\scurry\SCurry.csproj" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <None Update="CurryActionsTests.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>CurryActionsTests.cs</LastGenOutput>
-    </None>
-    <None Update="CurryFunctionsTests.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>CurryFunctionsTests.cs</LastGenOutput>
-    </None>
-    <None Update="TestFunctions.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>TestFunctions.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
+    <ItemGroup>
+        <None Update="CurryActionsTests.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>CurryActionsTests.generated.cs</LastGenOutput>
+        </None>
+        <None Update="CurryFunctionsTests.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>CurryFunctionsTests.generated.cs</LastGenOutput>
+        </None>
+        <None Update="TestFunctions.tt">
+            <Generator>TextTemplatingFileGenerator</Generator>
+            <LastGenOutput>TestFunctions.cs</LastGenOutput>
+        </None>
+    </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="CurryActionsTests.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>CurryActionsTests.tt</DependentUpon>
-    </Compile>
-    <Compile Update="CurryFunctionsTests.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>CurryFunctionsTests.tt</DependentUpon>
-    </Compile>
-    <Compile Update="TestFunctions.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>TestFunctions.tt</DependentUpon>
-    </Compile>
-  </ItemGroup>
+    <ItemGroup>
+        <Compile Update="CurryActionsTests.generated.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>CurryActionsTests.tt</DependentUpon>
+        </Compile>
+        <Compile Update="CurryFunctionsTests.generated.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>CurryFunctionsTests.tt</DependentUpon>
+        </Compile>
+        <Compile Update="TestFunctions.generated.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>TestFunctions.tt</DependentUpon>
+        </Compile>
+    </ItemGroup>
 
 </Project>

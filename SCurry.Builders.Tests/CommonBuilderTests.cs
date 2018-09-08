@@ -11,7 +11,7 @@ namespace SCurry.Builders.Tests
         [InlineData(0)]
         [InlineData(1)]
         [InlineData(3)]
-        public void TypeParameters_AppendResult_Test(ushort count)
+        public void TypeParameters_AppendResult_Test(int count)
         {
             var expected = count == 0
                 ? "TResult"
@@ -28,7 +28,7 @@ namespace SCurry.Builders.Tests
         [InlineData(0)]
         [InlineData(1)]
         [InlineData(3)]
-        public void TypeParameters_NoResult_Test(ushort count)
+        public void TypeParameters_NoResult_Test(int count)
         {
             var expected = count == 0
                 ? string.Empty

@@ -12,7 +12,7 @@ namespace SCurry.Builders.Tests
         [InlineData(0)]
         [InlineData(1)]
         [InlineData(3)]
-        public void Body_Test(ushort count)
+        public void Body_Test(int count)
         {
             var target = _fixture.Create<string>();
             var expected = count == 0 || count == 1
@@ -28,7 +28,7 @@ namespace SCurry.Builders.Tests
         [InlineData(0)]
         [InlineData(1)]
         [InlineData(3)]
-        public void FuncReturnType_Test(ushort count)
+        public void FuncReturnType_Test(int count)
         {
             var result = _fixture.Create<string>();
             var expected = count == 0
@@ -46,7 +46,7 @@ namespace SCurry.Builders.Tests
         [InlineData(0)]
         [InlineData(1)]
         [InlineData(3)]
-        public void ActionReturnType_Test(ushort count)
+        public void ActionReturnType_Test(int count)
         {
             var expected = count == 0
                 ? "Action"
@@ -63,7 +63,7 @@ namespace SCurry.Builders.Tests
         [InlineData(0)]
         [InlineData(1)]
         [InlineData(3)]
-        public void GenerateFuncExtention_Test(ushort count)
+        public void GenerateFuncExtention_Test(int count)
         {
             var expected = count == 0
                 ? "public static Func<TResult> Curry<TResult>(this Func<TResult> func) => func;"
@@ -82,7 +82,7 @@ namespace SCurry.Builders.Tests
         [InlineData(0)]
         [InlineData(1)]
         [InlineData(3)]
-        public void GenerateActionExtention_Test(ushort count)
+        public void GenerateActionExtention_Test(int count)
         {
             var expected = count == 0
                 ? "public static Action Curry(this Action action) => action;"
