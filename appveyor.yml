@@ -31,7 +31,12 @@ dotnet_csproj:
 configuration: Release
 
 build_script:
-- pwsh: .\.appveyor\build_script.ps1
+- pwsh: |
+    if ($env:APPVEYOR_REPO_BRANCH -eq "master") {
+        .\build.ps1 $env:CONFIGURATION
+    } else {
+        .\build.ps1 Debug
+    }
 
 before_test:
 - pwsh: nuget install OpenCover -Verbosity quiet -Version 4.6.519
