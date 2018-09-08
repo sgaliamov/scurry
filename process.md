@@ -6,7 +6,7 @@ Description of development and deployment processes.
 
 1. Create new feature branch from *develop*.
 1. Apply new code and push.
-1. Rebase on *develop*:
+1. Rebase on *develop* before create PR:
 
    ``` bash
    git fetch origin develop:develop
