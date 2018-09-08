@@ -27,19 +27,22 @@ namespace SCurry.Builders
 
         private static IEnumerable<string> GenerateFuncExtentions(
             IEnumerable<bool[]> markers,
-            string allTypes) => markers
-            .Select(BuildInfo)
-            .Select((info, index) =>
-            {
-                var returnType = BuildReturnType(info);
-                var callAgruments = BuildCallAgruments(info);
-                var bodyArguments = index == 0 ? string.Empty : BuildBodyArguments(info);
-                var body = index == 0 ? "func" : BuildBody(info);
+            string allTypes)
+        {
+            return markers
+                .Select(BuildInfo)
+                .Select((info, index) =>
+                {
+                    var returnType = BuildReturnType(info);
+                    var callAgruments = BuildCallAgruments(info);
+                    var bodyArguments = index == 0 ? string.Empty : BuildBodyArguments(info);
+                    var body = index == 0 ? "func" : BuildBody(info);
 
-                return $"public static Func<{returnType}> Partial<{allTypes}>"
-                       + $"(this Func<{allTypes}> func, {callAgruments}) => "
-                       + $"{bodyArguments}{body};";
-            });
+                    return $"public static Func<{returnType}> Partial<{allTypes}>"
+                           + $"(this Func<{allTypes}> func, {callAgruments}) => "
+                           + $"{bodyArguments}{body};";
+                });
+        }
 
         private static string BuildCallAgruments(IEnumerable<Info> info) => info
             .Where(x => x != null)
