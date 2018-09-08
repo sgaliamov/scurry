@@ -25,15 +25,9 @@ namespace SCurry.Builders.Tests
             var expected = new[]
             {
                 "public static "
-                + "Func<T1, T2, TResult> "
-                + "Partial<T1, T2, TResult>(this Func<T1, T2, TResult> func, "
-                + "_ gap1, _ gap2) "
-                + "=> func;",
-
-                "public static "
                 + "Func<T2, TResult> "
                 + "Partial<T1, T2, TResult>(this Func<T1, T2, TResult> func, "
-                + "T1 arg1, _ gap2) "
+                + "T1 arg1) "
                 + "=> (arg2) => func(arg1, arg2);",
 
                 "public static "
@@ -49,9 +43,11 @@ namespace SCurry.Builders.Tests
                 + "=> () => func(arg1, arg2);"
             };
 
+            // act
             var actual = PartialApplicationBuilder.GenerateFuncExtentions(2).ToArray();
 
-            for (var i = 0; i < expected.Length; i++)
+            // asserts
+            for (var i = 0; i < actual.Length; i++)
             {
                 Assert.Equal(expected[i], actual[i]);
             }

@@ -16,7 +16,7 @@ namespace SCurry.Builders
                 return new[] { "public static Func<TResult> Partial<TResult>(this Func<TResult> func) => func;" };
             }
 
-            var markers = Enumerable.Range(0, (int)Math.Pow(2, count))
+            var markers = Enumerable.Range(1, (int)Math.Pow(2, count) - 1)
                 .Select(index => Markers(index, count))
                 .ToArray();
 
@@ -35,17 +35,17 @@ namespace SCurry.Builders
                 {
                     var returnType = BuildReturnType(info);
                     var callArguments = BuildCallArguments(info);
-                    var bodyArguments = index == 0 ? string.Empty : BuildBodyArguments(info);
-                    var body = index == 0 ? "func" : BuildBody(info);
+                    var fullBody = $"{BuildBodyArguments(info)}{BuildBody(info)}";
 
                     return $"public static Func<{returnType}> Partial<{allTypes}>"
-                           + $"(this Func<{allTypes}> func, {callArguments}) => "
-                           + $"{bodyArguments}{body};";
+                           + $"(this Func<{allTypes}> func, {callArguments}) => {fullBody};";
                 });
         }
 
         private static string BuildCallArguments(IEnumerable<Info> info) => info
-            .Where(x => x != null)
+            .Reverse()
+            .SkipWhile(x => !x.HasArg)
+            .Reverse()
             .Select(x => x.CallAgr)
             .Join(", ");
 
@@ -79,7 +79,8 @@ namespace SCurry.Builders
                 ReturnType = x.hasArg ? null : $"T{x.number}",
                 CallAgr = x.hasArg ? $"T{x.number} arg{x.number}" : $"_ gap{x.number}",
                 BodyArg = x.hasArg ? null : $"arg{x.number}",
-                BodyCallArg = $"arg{x.number}"
+                BodyCallArg = $"arg{x.number}",
+                HasArg = x.hasArg
             })
             .ToArray();
 
@@ -99,12 +100,13 @@ namespace SCurry.Builders
                 .Take(length)
                 .ToArray();
 
-        private sealed class Info
+        private struct Info
         {
-            public string ReturnType { get; set; }
-            public string CallAgr { get; set; }
-            public string BodyArg { get; set; }
-            public string BodyCallArg { get; set; }
+            public string ReturnType;
+            public string CallAgr;
+            public string BodyArg;
+            public string BodyCallArg;
+            public bool HasArg;
         }
     }
 }
