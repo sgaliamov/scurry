@@ -40,13 +40,14 @@ Description of development and deployment processes.
 
 ## Road Map
 
-- [ ] use spacer for partial apply
 - [ ] implement uncurry
-- [ ] implement partial apply
 - [ ] pipe function
 - [ ] add examples to use
 - [ ] add description for the package
+- [ ] increase code coverage
 - [ ] support out/ref parameters?
+- [x] implement partial apply
+- [x] use spacer for partial apply
 - [x] support all actions
 - [x] CI/CD on github
 - [x] global packages folder
