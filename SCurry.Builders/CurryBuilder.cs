@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SCurry.Builders
 {
@@ -74,5 +76,11 @@ namespace SCurry.Builders
                     .Append(bodyCall)
             );
         }
+
+        protected override ExtensionParameters CreateExtensionParameters(bool hasArg, int number) =>
+            throw new NotImplementedException();
+
+        protected override string BuildBodyArguments(IReadOnlyCollection<ExtensionParameters> info) =>
+            throw new NotImplementedException();
     }
 }

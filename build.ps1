@@ -1,6 +1,7 @@
 param(
     [string][Alias("c")]$configuration = "Debug",
-    [switch][Alias("t")]$transform = $false
+    [switch][Alias("t")]$transform = $false,
+    [switch][Alias("test")]$runTest = $false
 )
 
 if ($transform) {
@@ -12,6 +13,14 @@ if ($transform) {
 
 Write-Host "Building..." -ForegroundColor Green
 msbuild .\SCurry.sln /v:m /m /t:"Restore,Build" /p:Configuration=$configuration
+
+if ($runTest) {
+    Write-Host
+    Write-Host "Testing..." -ForegroundColor Green
+    Get-ChildItem .\**\*.Tests.csproj -Recurse | ForEach-Object {
+        dotnet test $_ -c $configuration --no-build
+    }
+}
 
 Write-Host "Done." -ForegroundColor Green
 Write-Host
