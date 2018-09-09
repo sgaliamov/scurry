@@ -9,35 +9,35 @@ namespace SCurry.Builders
 
     public static class PartialApplicationBuilder
     {
-        public static string[] GenerateFuncExtentions(int count)
+        public static string[] GenerateFuncExtentions(int argsCount)
         {
-            if (count == 0)
+            if (argsCount == 0)
             {
                 return new[] { "public static Func<TResult> Partial<TResult>(this Func<TResult> func) => func;" };
             }
 
-            var markers = Markers(count);
-            var allTypes = TypeParameters(count, true);
+            var markers = Markers(argsCount);
+            var allTypes = TypeParameters(argsCount, true);
 
             return GenerateExtentions(markers, allTypes, true);
         }
 
-        public static string[] GenerateActionExtentions(int count)
+        public static string[] GenerateActionExtentions(int argsCount)
         {
-            if (count == 0)
+            if (argsCount == 0)
             {
                 return new[] { "public static Action Partial(this Action action) => action;" };
             }
 
-            var markers = Markers(count);
-            var allTypes = TypeParameters(count, false);
+            var markers = Markers(argsCount);
+            var allTypes = TypeParameters(argsCount, false);
 
             return GenerateExtentions(markers, allTypes, false);
         }
 
-        private static bool[][] Markers(int count) =>
-            Enumerable.Range(1, (int)Math.Pow(2, count) - 1)
-                .Select(index => Markers(index, count))
+        private static bool[][] Markers(int argsCount) =>
+            Enumerable.Range(1, (int)Math.Pow(2, argsCount) - 1)
+                .Select(index => Markers(index, argsCount))
                 .ToArray();
 
         private static string[] GenerateExtentions(
@@ -64,14 +64,14 @@ namespace SCurry.Builders
                 .ToArray();
         }
 
-        private static string BuildCallArguments(IEnumerable<ExtensionInfo> info) => info
+        private static string BuildCallArguments(IEnumerable<ExtensionParameters> info) => info
             .Reverse()
             .SkipWhile(x => !x.HasArg)
             .Reverse()
             .Select(x => x.CallAgr)
             .Join(", ");
 
-        private static string BuildBodyArguments(IReadOnlyCollection<ExtensionInfo> info)
+        private static string BuildBodyArguments(IReadOnlyCollection<ExtensionParameters> info)
         {
             if (info.Count == 0)
             {
@@ -86,7 +86,7 @@ namespace SCurry.Builders
             return $"({args.Join(", ")}) => ";
         }
 
-        private static string BuildBody(IReadOnlyCollection<ExtensionInfo> info, string target)
+        private static string BuildBody(IReadOnlyCollection<ExtensionParameters> info, string target)
         {
             if (info.Count == 0)
             {
@@ -101,7 +101,7 @@ namespace SCurry.Builders
             return $"{target}({args.Join(", ")})";
         }
 
-        private static string BuildReturnType(IEnumerable<ExtensionInfo> info, bool isFunc)
+        private static string BuildReturnType(IEnumerable<ExtensionParameters> info, bool isFunc)
         {
             var items = info
                 .Where(x => x.ReturnType != null)
@@ -121,10 +121,10 @@ namespace SCurry.Builders
             return $"<{types.Join(", ")}>";
         }
 
-        private static ExtensionInfo[] BuildInfo(IEnumerable<bool> markers) =>
+        private static ExtensionParameters[] BuildInfo(IEnumerable<bool> markers) =>
             markers
                 .Select((hasArg, index) => new { hasArg, number = index + 1 })
-                .Select(x => new ExtensionInfo
+                .Select(x => new ExtensionParameters
                 {
                     ReturnType = x.hasArg ? null : $"T{x.number}",
                     CallAgr = x.hasArg ? $"T{x.number} arg{x.number}" : $"_ gap{x.number}",

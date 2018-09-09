@@ -9,11 +9,11 @@ namespace SCurry.Builders
         /// <summary>
         ///     T1, T2, T3, TResult
         /// </summary>
-        public static string TypeParameters(int count, bool appendResult)
+        public static string TypeParameters(int count, bool isFunc)
         {
             var types = Enumerable.Range(1, count).Select(x => $"T{x.ToString(CultureInfo.InvariantCulture)}");
 
-            if (appendResult)
+            if (isFunc)
             {
                 types = types.Append("TResult");
             }

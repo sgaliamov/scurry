@@ -6,23 +6,23 @@ namespace SCurry.Builders
 
     public static class CurryBuilder
     {
-        public static string FuncReturnType(int count, string result)
+        public static string FuncReturnType(int argsCount, string result)
         {
-            if (count == 0)
+            if (argsCount == 0)
             {
                 return $"Func<{result}>";
             }
 
-            return Enumerable.Range(1, count)
+            return Enumerable.Range(1, argsCount)
                 .Select(x => $"Func<T{x}, ")
                 .Append(result)
-                .Concat(Enumerable.Range(0, count).Select(_ => ">"))
+                .Concat(Enumerable.Range(0, argsCount).Select(_ => ">"))
                 .Join();
         }
 
-        public static string ActionReturnType(int count)
+        public static string ActionReturnType(int argsCount)
         {
-            switch (count)
+            switch (argsCount)
             {
                 case 0:
                     return "Action";
@@ -31,47 +31,47 @@ namespace SCurry.Builders
                     return "Action<T1>";
 
                 default:
-                    return FuncReturnType(count - 1, $"Action<T{count}>");
+                    return FuncReturnType(argsCount - 1, $"Action<T{argsCount}>");
             }
         }
 
-        public static string GenerateFuncExtention(int count)
+        public static string GenerateFuncExtention(int argsCount)
         {
-            var types = TypeParameters(count, true);
+            var types = TypeParameters(argsCount, true);
 
-            return $"public static {FuncReturnType(count, "TResult")} Curry<{types}>"
-                   + $"(this Func<{types}> func) => {Body("func", count)};";
+            return $"public static {FuncReturnType(argsCount, "TResult")} Curry<{types}>"
+                   + $"(this Func<{types}> func) => {Body("func", argsCount)};";
         }
 
-        public static string GenerateActionExtention(int count)
+        public static string GenerateActionExtention(int argsCount)
         {
-            var types = TypeParameters(count, false);
+            var types = TypeParameters(argsCount, false);
 
             if (!string.IsNullOrWhiteSpace(types))
             {
                 types = $"<{types}>";
             }
 
-            return $"public static {ActionReturnType(count)} Curry{types}"
-                   + $"(this Action{types} action) => {Body("action", count)};";
+            return $"public static {ActionReturnType(argsCount)} Curry{types}"
+                   + $"(this Action{types} action) => {Body("action", argsCount)};";
         }
 
         /// <summary>
         ///     target(arg1, arg2, arg3)
         /// </summary>
-        public static string Body(string target, int count)
+        public static string Body(string target, int argsCount)
         {
-            if (count == 0 || count == 1)
+            if (argsCount == 0 || argsCount == 1)
             {
                 return target;
             }
 
-            var args = string.Join(", ", Enumerable.Range(1, count).Select(x => $"arg{x}"));
+            var args = string.Join(", ", Enumerable.Range(1, argsCount).Select(x => $"arg{x}"));
             var bodyCall = $"{target}({args})";
 
             return string.Join(
                 string.Empty,
-                Enumerable.Range(1, count)
+                Enumerable.Range(1, argsCount)
                     .Select(x => $"arg{x} => ")
                     .Append(bodyCall)
             );

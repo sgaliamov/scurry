@@ -1,6 +1,6 @@
 ﻿namespace SCurry.Builders
 {
-    public struct ExtensionInfo
+    public struct ExtensionParameters
     {
         public string ReturnType;
         public string CallAgr;
