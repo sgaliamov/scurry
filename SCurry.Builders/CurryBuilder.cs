@@ -2,11 +2,9 @@
 
 namespace SCurry.Builders
 {
-    using static CommonBuilder;
-
-    public static class CurryBuilder
+    public sealed class CurryBuilder : Builder
     {
-        public static string FuncReturnType(int argsCount, string result)
+        public string FuncReturnType(int argsCount, string result)
         {
             if (argsCount == 0)
             {
@@ -20,7 +18,7 @@ namespace SCurry.Builders
                 .Join();
         }
 
-        public static string ActionReturnType(int argsCount)
+        public string ActionReturnType(int argsCount)
         {
             switch (argsCount)
             {
@@ -35,7 +33,7 @@ namespace SCurry.Builders
             }
         }
 
-        public static string GenerateFuncExtention(int argsCount)
+        public string GenerateFuncExtention(int argsCount)
         {
             var types = TypeParameters(argsCount, true);
 
@@ -43,7 +41,7 @@ namespace SCurry.Builders
                    + $"(this Func<{types}> func) => {Body("func", argsCount)};";
         }
 
-        public static string GenerateActionExtention(int argsCount)
+        public string GenerateActionExtention(int argsCount)
         {
             var types = TypeParameters(argsCount, false);
 
@@ -59,7 +57,7 @@ namespace SCurry.Builders
         /// <summary>
         ///     target(arg1, arg2, arg3)
         /// </summary>
-        public static string Body(string target, int argsCount)
+        public string Body(string target, int argsCount)
         {
             if (argsCount == 0 || argsCount == 1)
             {

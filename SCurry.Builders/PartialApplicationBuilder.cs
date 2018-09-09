@@ -5,11 +5,9 @@ using System.Linq;
 
 namespace SCurry.Builders
 {
-    using static CommonBuilder;
-
-    public static class PartialApplicationBuilder
+    public sealed class PartialApplicationBuilder : Builder
     {
-        public static string[] GenerateFuncExtentions(int argsCount)
+        public string[] GenerateFuncExtentions(int argsCount)
         {
             if (argsCount == 0)
             {
@@ -22,7 +20,7 @@ namespace SCurry.Builders
             return GenerateExtentions(markers, allTypes, true);
         }
 
-        public static string[] GenerateActionExtentions(int argsCount)
+        public string[] GenerateActionExtentions(int argsCount)
         {
             if (argsCount == 0)
             {
@@ -35,12 +33,12 @@ namespace SCurry.Builders
             return GenerateExtentions(markers, allTypes, false);
         }
 
-        private static bool[][] Markers(int argsCount) =>
+        private bool[][] Markers(int argsCount) =>
             Enumerable.Range(1, (int)Math.Pow(2, argsCount) - 1)
                 .Select(index => Markers(index, argsCount))
                 .ToArray();
 
-        private static string[] GenerateExtentions(
+        private string[] GenerateExtentions(
             IEnumerable<bool[]> markers,
             string allTypes,
             bool isFunc)
@@ -64,14 +62,14 @@ namespace SCurry.Builders
                 .ToArray();
         }
 
-        private static string BuildCallArguments(IEnumerable<ExtensionParameters> info) => info
+        private string BuildCallArguments(IEnumerable<ExtensionParameters> info) => info
             .Reverse()
             .SkipWhile(x => !x.HasArg)
             .Reverse()
             .Select(x => x.CallAgr)
             .Join(", ");
 
-        private static string BuildBodyArguments(IReadOnlyCollection<ExtensionParameters> info)
+        private string BuildBodyArguments(IReadOnlyCollection<ExtensionParameters> info)
         {
             if (info.Count == 0)
             {
@@ -86,7 +84,7 @@ namespace SCurry.Builders
             return $"({args.Join(", ")}) => ";
         }
 
-        private static string BuildBody(IReadOnlyCollection<ExtensionParameters> info, string target)
+        private string BuildBody(IReadOnlyCollection<ExtensionParameters> info, string target)
         {
             if (info.Count == 0)
             {
@@ -101,7 +99,7 @@ namespace SCurry.Builders
             return $"{target}({args.Join(", ")})";
         }
 
-        private static string BuildReturnType(IEnumerable<ExtensionParameters> info, bool isFunc)
+        private string BuildReturnType(IEnumerable<ExtensionParameters> info, bool isFunc)
         {
             var items = info
                 .Where(x => x.ReturnType != null)
@@ -121,7 +119,7 @@ namespace SCurry.Builders
             return $"<{types.Join(", ")}>";
         }
 
-        private static ExtensionParameters[] BuildInfo(IEnumerable<bool> markers) =>
+        private ExtensionParameters[] BuildInfo(IEnumerable<bool> markers) =>
             markers
                 .Select((hasArg, index) => new { hasArg, number = index + 1 })
                 .Select(x => new ExtensionParameters
@@ -144,7 +142,7 @@ namespace SCurry.Builders
         ///     [1, 1, 1]
         ///     where 0 will be spacer, 1 will be argument.
         /// </summary>
-        private static bool[] Markers(int value, int length) =>
+        private bool[] Markers(int value, int length) =>
             new BitArray(new[] { value })
                 .OfType<bool>()
                 .Take(length)

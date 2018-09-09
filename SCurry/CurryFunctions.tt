@@ -18,10 +18,12 @@ namespace SCurry
     public static class CurryFunctions
     {
 <#
+    var builder = new CurryBuilder();
+
     for(var i = 0; i <= MaxInputArgumentsCount; i++)
     {
 #>
-        <#= CurryBuilder.GenerateFuncExtention(i) #>
+        <#= builder.GenerateFuncExtention(i) #>
 <#
     }
 #>

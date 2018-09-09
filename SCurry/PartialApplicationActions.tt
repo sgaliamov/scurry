@@ -20,9 +20,11 @@ namespace SCurry
     public static class PartialApplicationActions
     {
 <#
+    var builder = new PartialApplicationBuilder();
+
     for(var i = 0; i <= MaxInputArgumentsCount; i++)
     {
-        foreach(var code in PartialApplicationBuilder.GenerateActionExtentions(i))
+        foreach(var code in builder.GenerateActionExtentions(i))
         {
 #>
         <#= code #>

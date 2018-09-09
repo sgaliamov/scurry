@@ -2,11 +2,13 @@
 
 namespace SCurry.Builders.Tests
 {
-    using static CommonBuilder;
-
     [Trait("Category", "Builder")]
     public class CommonBuilderTests
     {
+        private readonly Builder _target;
+
+        public CommonBuilderTests() => _target = new Builder();
+
         [Theory]
         [InlineData(0)]
         [InlineData(1)]
@@ -19,7 +21,7 @@ namespace SCurry.Builders.Tests
                     ? "T1, TResult"
                     : "T1, T2, T3, TResult";
 
-            var actual = TypeParameters(count, true);
+            var actual = _target.TypeParameters(count, true);
 
             Assert.Equal(expected, actual);
         }
@@ -36,7 +38,7 @@ namespace SCurry.Builders.Tests
                     ? "T1"
                     : "T1, T2, T3";
 
-            var actual = TypeParameters(count, false);
+            var actual = _target.TypeParameters(count, false);
 
             Assert.Equal(expected, actual);
         }

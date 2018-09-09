@@ -6,12 +6,14 @@ namespace SCurry.Builders.Tests
     [Trait("Category", "Builder")]
     public class PartialApplicationBuilderTests
     {
+        private readonly PartialApplicationBuilder _target = new PartialApplicationBuilder();
+
         [Fact]
         public void GenerateActionExtentions_0_Test()
         {
             const string expected = "public static Action Partial(this Action action) => action;";
 
-            var actual = PartialApplicationBuilder.GenerateActionExtentions(0).Single();
+            var actual = _target.GenerateActionExtentions(0).Single();
 
             Assert.Equal(expected, actual);
         }
@@ -41,7 +43,7 @@ namespace SCurry.Builders.Tests
             };
 
             // act
-            var actual = PartialApplicationBuilder.GenerateActionExtentions(2);
+            var actual = _target.GenerateActionExtentions(2);
 
             // asserts
             for (var i = 0; i < actual.Length; i++)
@@ -58,7 +60,7 @@ namespace SCurry.Builders.Tests
                                     + "Partial<TResult>(this Func<TResult> func) "
                                     + "=> func;";
 
-            var actual = PartialApplicationBuilder.GenerateFuncExtentions(0).Single();
+            var actual = _target.GenerateFuncExtentions(0).Single();
 
             Assert.Equal(expected, actual);
         }
@@ -88,7 +90,7 @@ namespace SCurry.Builders.Tests
             };
 
             // act
-            var actual = PartialApplicationBuilder.GenerateFuncExtentions(2);
+            var actual = _target.GenerateFuncExtentions(2);
 
             // asserts
             for (var i = 0; i < actual.Length; i++)

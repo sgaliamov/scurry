@@ -7,6 +7,12 @@ namespace SCurry.Builders.Tests
     public class CurryBuilderTests
     {
         private readonly Fixture _fixture = new Fixture();
+        private readonly CurryBuilder _target;
+
+        public CurryBuilderTests()
+        {
+            _target = new CurryBuilder();
+        }
 
         [Theory]
         [InlineData(0)]
@@ -19,7 +25,7 @@ namespace SCurry.Builders.Tests
                 ? target
                 : $"arg1 => arg2 => arg3 => {target}(arg1, arg2, arg3)";
 
-            var actual = CurryBuilder.Body(target, count);
+            var actual = _target.Body(target, count);
 
             Assert.Equal(expected, actual);
         }
@@ -37,7 +43,7 @@ namespace SCurry.Builders.Tests
                     ? $"Func<T1, {result}>"
                     : $"Func<T1, Func<T2, Func<T3, {result}>>>";
 
-            var actual = CurryBuilder.FuncReturnType(count, result);
+            var actual = _target.FuncReturnType(count, result);
 
             Assert.Equal(expected, actual);
         }
@@ -54,7 +60,7 @@ namespace SCurry.Builders.Tests
                     ? "Action<T1>"
                     : "Func<T1, Func<T2, Action<T3>>>";
 
-            var actual = CurryBuilder.ActionReturnType(count);
+            var actual = _target.ActionReturnType(count);
 
             Assert.Equal(expected, actual);
         }
@@ -73,7 +79,7 @@ namespace SCurry.Builders.Tests
                       + "(this Func<T1, T2, T3, TResult> func) => "
                       + "arg1 => arg2 => arg3 => func(arg1, arg2, arg3);";
 
-            var actual = CurryBuilder.GenerateFuncExtention(count);
+            var actual = _target.GenerateFuncExtention(count);
 
             Assert.Equal(expected, actual);
         }
@@ -92,7 +98,7 @@ namespace SCurry.Builders.Tests
                       + "(this Action<T1, T2, T3> action) => "
                       + "arg1 => arg2 => arg3 => action(arg1, arg2, arg3);";
 
-            var actual = CurryBuilder.GenerateActionExtention(count);
+            var actual = _target.GenerateActionExtention(count);
 
             Assert.Equal(expected, actual);
         }
