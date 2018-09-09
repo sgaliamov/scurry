@@ -8,11 +8,6 @@ namespace SCurry.Builders
     {
         public string FuncReturnType(int argsCount, string result)
         {
-            if (argsCount == 0)
-            {
-                return $"Func<{result}>";
-            }
-
             return Enumerable.Range(1, argsCount)
                 .Select(x => $"Func<T{x}, ")
                 .Append(result)
@@ -24,9 +19,6 @@ namespace SCurry.Builders
         {
             switch (argsCount)
             {
-                case 0:
-                    return "Action";
-
                 case 1:
                     return "Action<T1>";
 
@@ -61,7 +53,7 @@ namespace SCurry.Builders
         /// </summary>
         public string Body(string target, int argsCount)
         {
-            if (argsCount == 0 || argsCount == 1)
+            if (argsCount == 1)
             {
                 return target;
             }

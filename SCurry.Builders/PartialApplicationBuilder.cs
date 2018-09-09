@@ -7,13 +7,9 @@ namespace SCurry.Builders
     {
         public string[] GenerateFuncExtentions(int argsCount)
         {
-            if (argsCount == 0)
+            if (argsCount <= 0)
             {
-                return new[]
-                {
-                    "public static Func<TResult> Partial<TResult>"
-                    + "(this Func<TResult> func) => func;"
-                };
+                throw new ArgumentException(nameof(argsCount));
             }
 
             return GenerateExtentions("Partial", argsCount, true);
@@ -21,13 +17,9 @@ namespace SCurry.Builders
 
         public string[] GenerateActionExtentions(int argsCount)
         {
-            if (argsCount == 0)
+            if (argsCount <= 0)
             {
-                return new[]
-                {
-                    "public static Action Partial(this Action "
-                    + "action) => action;"
-                };
+                throw new ArgumentException(nameof(argsCount));
             }
 
             return GenerateExtentions("Partial", argsCount, false);
@@ -45,11 +37,6 @@ namespace SCurry.Builders
 
         protected override string BuildBodyArguments(IReadOnlyCollection<ExtensionParameters> info)
         {
-            if (info.Count == 0)
-            {
-                return string.Empty;
-            }
-
             var args = info
                 .Where(x => x.BodyArg != null)
                 .Select(x => x.BodyArg)

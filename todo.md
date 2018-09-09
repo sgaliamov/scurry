@@ -1,7 +1,7 @@
 # To do
 
 - [ ] implement uncurry
-- [ ] refactor builders to use markers and ExtensionInfo
+- [ ] refactor builders to use markers and ExtensionParameters
 - [ ] simple partial application without gaps for all delegates
 - [ ] increase code coverage
 - [ ] pipe function

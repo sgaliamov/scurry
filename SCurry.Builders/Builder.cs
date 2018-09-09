@@ -64,11 +64,6 @@ namespace SCurry.Builders
 
         private string BuildBody(IReadOnlyCollection<ExtensionParameters> info, string target)
         {
-            if (info.Count == 0)
-            {
-                return target;
-            }
-
             var args = info
                 .Where(x => x.BodyCallArg != null)
                 .Select(x => x.BodyCallArg)
