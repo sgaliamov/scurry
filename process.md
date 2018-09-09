@@ -28,7 +28,7 @@ Description of development and deployment processes.
 1. Squash and merge RP. [AppVeyor](https://ci.appveyor.com/project/sgaliamov/scurry/deployments) will publish nuget package.
 1. After deploy remove the release branch and clean redundant builds from [AppVeyor](https://ci.appveyor.com/project/sgaliamov/scurry/history).
 1. Set version tag for the merge commit and push it to *origin/master*. *Note*: it will not trigger CI/CD because of *skip_tags: true* setting.
-1. Add release notes at https://github.com/sgaliamov/scurry/tags and publish the release.
+1. Add release notes at <https://github.com/sgaliamov/scurry/tags> and publish the release.
 1. Rebase *develop* on *master*:
 
    ``` bash
@@ -45,7 +45,7 @@ Description of development and deployment processes.
 - [ ] add examples to use
 - [ ] add description for the package
 - [ ] increase code coverage
-- [ ] support out/ref parameters?
+- [x] support out/ref parameters? no
 - [x] implement partial apply
 - [x] use spacer for partial apply
 - [x] support all actions

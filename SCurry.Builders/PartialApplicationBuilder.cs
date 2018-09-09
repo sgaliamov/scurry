@@ -54,23 +54,30 @@ namespace SCurry.Builders
                 {
                     var returnType = BuildReturnType(info, isFunc);
                     var callArguments = BuildCallArguments(info);
-                    var fullBody = $"{BuildBodyArguments(info)}{BuildBody(info, target)}";
+                    var bodyArguments = BuildBodyArguments(info);
+                    var body = BuildBody(info, target);
 
                     return $"public static {targetType}{returnType} Partial<{allTypes}>"
-                           + $"(this {targetType}<{allTypes}> {target}, {callArguments}) => {fullBody};";
+                           + $"(this {targetType}<{allTypes}> {target}, {callArguments}) "
+                           + $"=> {bodyArguments}{body};";
                 })
                 .ToArray();
         }
 
-        private static string BuildCallArguments(IEnumerable<Info> info) => info
+        private static string BuildCallArguments(IEnumerable<ExtensionInfo> info) => info
             .Reverse()
             .SkipWhile(x => !x.HasArg)
             .Reverse()
             .Select(x => x.CallAgr)
             .Join(", ");
 
-        private static string BuildBodyArguments(IEnumerable<Info> info)
+        private static string BuildBodyArguments(IReadOnlyCollection<ExtensionInfo> info)
         {
+            if (info.Count == 0)
+            {
+                return string.Empty;
+            }
+
             var args = info
                 .Where(x => x.BodyArg != null)
                 .Select(x => x.BodyArg)
@@ -79,14 +86,22 @@ namespace SCurry.Builders
             return $"({args.Join(", ")}) => ";
         }
 
-        private static string BuildBody(IEnumerable<Info> info, string target)
+        private static string BuildBody(IReadOnlyCollection<ExtensionInfo> info, string target)
         {
-            var args = info.Select(x => x.BodyCallArg).ToArray();
+            if (info.Count == 0)
+            {
+                return target;
+            }
+
+            var args = info
+                .Where(x => x.BodyCallArg != null)
+                .Select(x => x.BodyCallArg)
+                .ToArray();
 
             return $"{target}({args.Join(", ")})";
         }
 
-        private static string BuildReturnType(IEnumerable<Info> info, bool isFunc)
+        private static string BuildReturnType(IEnumerable<ExtensionInfo> info, bool isFunc)
         {
             var items = info
                 .Where(x => x.ReturnType != null)
@@ -106,17 +121,18 @@ namespace SCurry.Builders
             return $"<{types.Join(", ")}>";
         }
 
-        private static Info[] BuildInfo(IEnumerable<bool> markers) => markers
-            .Select((hasArg, index) => new { hasArg, number = index + 1 })
-            .Select(x => new Info
-            {
-                ReturnType = x.hasArg ? null : $"T{x.number}",
-                CallAgr = x.hasArg ? $"T{x.number} arg{x.number}" : $"_ gap{x.number}",
-                BodyArg = x.hasArg ? null : $"arg{x.number}",
-                BodyCallArg = $"arg{x.number}",
-                HasArg = x.hasArg
-            })
-            .ToArray();
+        private static ExtensionInfo[] BuildInfo(IEnumerable<bool> markers) =>
+            markers
+                .Select((hasArg, index) => new { hasArg, number = index + 1 })
+                .Select(x => new ExtensionInfo
+                {
+                    ReturnType = x.hasArg ? null : $"T{x.number}",
+                    CallAgr = x.hasArg ? $"T{x.number} arg{x.number}" : $"_ gap{x.number}",
+                    BodyArg = x.hasArg ? null : $"arg{x.number}",
+                    BodyCallArg = $"arg{x.number}",
+                    HasArg = x.hasArg
+                })
+                .ToArray();
 
         /// <summary>
         ///     For <paramref name="length" /> = 3:
@@ -133,14 +149,5 @@ namespace SCurry.Builders
                 .OfType<bool>()
                 .Take(length)
                 .ToArray();
-
-        private struct Info
-        {
-            public string ReturnType;
-            public string CallAgr;
-            public string BodyArg;
-            public string BodyCallArg;
-            public bool HasArg;
-        }
     }
 }
