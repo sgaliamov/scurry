@@ -69,8 +69,11 @@ namespace SCurry.Builders
             );
         }
 
-        protected override ExtensionParameters CreateExtensionParameters(bool hasArg, int number) =>
-            throw new NotImplementedException();
+        protected override ExtensionParameters CreateExtensionParameters(bool hasArg, int number) => new ExtensionParameters
+        {
+            HasArg = hasArg,
+            ReturnType = hasArg ? $"Func<T{number}" : null
+        };
 
         protected override string BuildBodyArguments(IReadOnlyCollection<ExtensionParameters> info) =>
             throw new NotImplementedException();

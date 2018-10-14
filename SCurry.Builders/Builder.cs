@@ -8,6 +8,9 @@ namespace SCurry.Builders
 {
     public abstract class Builder
     {
+        protected const int MaxInputArgumentsCount = 16;
+        protected const int GapsCount = 6;
+
         /// <summary>
         ///     T1, T2, T3, TResult
         /// </summary>
@@ -39,7 +42,7 @@ namespace SCurry.Builders
                     var bodyArguments = BuildBodyArguments(info);
                     var body = BuildBody(info, target);
 
-                    return $"public static {targetType}{returnType} {name}<{allTypes}>"
+                    return $"public static {returnType} {name}<{allTypes}>"
                            + $"(this {targetType}<{allTypes}> {target}, {callArguments}) "
                            + $"=> {bodyArguments}{body};";
                 })
@@ -74,6 +77,8 @@ namespace SCurry.Builders
 
         private string BuildReturnType(IEnumerable<ExtensionParameters> info, bool isFunc)
         {
+            var target = isFunc ? "Func" : "Action";
+
             var items = info
                 .Where(x => x.ReturnType != null)
                 .Select(x => x.ReturnType);
@@ -84,12 +89,12 @@ namespace SCurry.Builders
             }
 
             var types = items.ToArray();
-            if (types.Length == 0)
+            if (types.Length == 0 && !isFunc)
             {
-                return string.Empty;
+                return target;
             }
 
-            return $"<{types.Join(", ")}>";
+            return $"{target}<{types.Join(", ")}>";
         }
 
         private ExtensionParameters[] BuildInfo(IEnumerable<bool> markers) =>
