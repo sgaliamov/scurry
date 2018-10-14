@@ -13,7 +13,7 @@ namespace SCurry.Builders.Tests
         [Fact]
         public void Build_Actoin_2gaps_5agrs()
         {
-            var type = _fixture.Create<MarkersCollection.MarkersType>();
+            var type = _fixture.Create<MarkersType>();
 
             var actual = new MarkersCollection(type, 2, 5);
 
@@ -26,10 +26,12 @@ namespace SCurry.Builders.Tests
                     new[] { true, true, true, true },
                     new[] { true, true, true, true, true }
                 }
-                .Select(x => new MarkersCollection.MarkerFlags(x))
+                .Select(x => new MarkerFlags(type, x))
                 .ToArray();
 
-            actual.Should().BeEquivalentTo(new MarkersCollection(type, flags));
+            var expected = new MarkersCollection(flags);
+
+            actual.Should().BeEquivalentTo(expected);
         }
     }
 }
