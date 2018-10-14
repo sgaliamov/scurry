@@ -1,4 +1,4 @@
-﻿namespace SCurry.Builders
+﻿namespace SCurry.Builders.Shared
 {
     public static class Constants
     {

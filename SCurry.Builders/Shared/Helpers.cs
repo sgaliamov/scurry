@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SCurry.Builders
+namespace SCurry.Builders.Shared
 {
     public static class Helpers
     {
