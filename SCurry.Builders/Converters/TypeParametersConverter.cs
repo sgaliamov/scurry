@@ -4,7 +4,7 @@ using SCurry.Builders.Shared;
 
 namespace SCurry.Builders.Converters
 {
-    internal sealed class TypeParametersConverter : IConverter
+    public sealed class TypeParametersConverter : IConverter
     {
         public string Convert(MarkerFlags markers)
         {
