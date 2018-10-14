@@ -9,7 +9,6 @@ namespace SCurry.Builders
     public abstract class Builder
     {
         protected const int MaxInputArgumentsCount = 16;
-        protected const int GapsCount = 6;
 
         /// <summary>
         ///     T1, T2, T3, TResult
