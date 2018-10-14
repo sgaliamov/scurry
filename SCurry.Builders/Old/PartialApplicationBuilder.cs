@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SCurry.Builders.Shared;
 
-namespace SCurry.Builders
+namespace SCurry.Builders.Old
 {
     public sealed class PartialApplicationBuilder : Builder
     {

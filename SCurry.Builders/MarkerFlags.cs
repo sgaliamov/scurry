@@ -1,7 +1,4 @@
-﻿using SCurry.Builders.Converters;
-using SCurry.Builders.Shared;
-
-namespace SCurry.Builders
+﻿namespace SCurry.Builders
 {
     public sealed class MarkerFlags
     {
@@ -11,10 +8,12 @@ namespace SCurry.Builders
             Type = type;
         }
 
+        public string Delegate => Type == MarkersType.Action ? "Action" : "Func";
+
         public bool[] Flags { get; }
 
-        public MarkersType Type { get; }
+        public string Target => Type == MarkersType.Action ? "action" : "func";
 
-        public string Apply(IConverter converter) => converter.Convert(this);
+        public MarkersType Type { get; }
     }
 }

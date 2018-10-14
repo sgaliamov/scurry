@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using SCurry.Builders.Shared;
 
 namespace SCurry.Builders.Converters

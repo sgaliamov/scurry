@@ -1,4 +1,5 @@
 ﻿using AutoFixture;
+using SCurry.Builders.Old;
 using Xunit;
 
 namespace SCurry.Builders.Tests

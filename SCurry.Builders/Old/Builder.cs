@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Linq;
 using SCurry.Builders.Shared;
 
-namespace SCurry.Builders
+namespace SCurry.Builders.Old
 {
     public abstract class Builder
     {
