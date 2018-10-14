@@ -17,7 +17,9 @@ namespace SCurry.Builders.Converters
                 types = types.Append("TResult");
             }
 
-            return types.Join(", ");
+            var result = types.Join(", ");
+
+            return string.IsNullOrWhiteSpace(result) ? "" : $"<{result}>";
         }
     }
 }

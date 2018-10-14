@@ -3,9 +3,8 @@ using SCurry.Builders.Shared;
 
 namespace SCurry.Builders.Converters
 {
-    internal sealed class CurryBodyConverter : IConverter
+    public sealed class CurryBodyConverter : IConverter
     {
-
         public string Convert(MarkerFlags markers)
         {
             new CurryBodyArgsConverter();

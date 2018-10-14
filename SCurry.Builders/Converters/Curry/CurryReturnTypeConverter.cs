@@ -3,7 +3,7 @@ using SCurry.Builders.Shared;
 
 namespace SCurry.Builders.Converters
 {
-    internal sealed class CurryReturnTypeConverter : IConverter
+    public sealed class CurryReturnTypeConverter : IConverter
     {
         public string Convert(MarkerFlags markers)
         {

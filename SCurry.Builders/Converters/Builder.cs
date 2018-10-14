@@ -1,16 +1,19 @@
-﻿using SCurry.Builders.Shared;
+﻿using SCurry.Builders.Converters;
+using SCurry.Builders.Shared;
 
-namespace SCurry.Builders.Converters
+namespace SCurry.Builders
 {
     public sealed class Builder : IConverter
     {
+        private readonly IConverter _body;
         private readonly string _name;
         private readonly TypeParametersConverter _parameters = new TypeParametersConverter();
-        private readonly IConverter _body;
         private readonly IConverter _result;
+        private readonly IConverter _targetArgs;
 
-        public Builder(string name, IConverter result, IConverter body)
+        public Builder(string name, IConverter result, IConverter body, IConverter targetArgs)
         {
+            _targetArgs = targetArgs;
             _result = result;
             _body = body;
             _name = name;
@@ -18,12 +21,12 @@ namespace SCurry.Builders.Converters
 
         public string Convert(MarkerFlags markers)
         {
-            var types = _parameters.Convert(markers);
             var result = _result.Convert(markers);
+            var types = _parameters.Convert(markers);
+            var args = _targetArgs.Convert(markers);
             var body = _body.Convert(markers);
 
-            return $"public static {result} {_name}<{types}>"
-                   + $"(this {markers.Delegate}<{types}> {markers.Target}) => {body}";
+            return $"public static {result} {_name}{types}(this {args}) => {body}";
         }
     }
 }
