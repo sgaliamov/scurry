@@ -1,7 +1,6 @@
-﻿using SCurry.Builders.Converters;
-using SCurry.Builders.Shared;
+﻿using SCurry.Builders.Shared;
 
-namespace SCurry.Builders
+namespace SCurry.Builders.Converters
 {
     public sealed class Builder : IConverter
     {

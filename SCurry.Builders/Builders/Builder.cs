@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using SCurry.Builders.Old;
 using SCurry.Builders.Shared;
 
-namespace SCurry.Builders.Old
+namespace SCurry.Builders.Builders
 {
     public abstract class Builder
     {

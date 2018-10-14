@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SCurry.Builders.Old;
 using SCurry.Builders.Shared;
 
-namespace SCurry.Builders.Old
+namespace SCurry.Builders.Builders
 {
     public sealed class PartialApplicationBuilder : Builder
     {

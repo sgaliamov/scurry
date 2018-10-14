@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using SCurry.Builders.Old;
 
-namespace SCurry.Builders.Old
+namespace SCurry.Builders.Builders
 {
     public sealed class UncurryBuilder : Builder
     {

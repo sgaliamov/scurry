@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using SCurry.Builders.Shared;
 
-namespace SCurry.Builders.Converters
+namespace SCurry.Builders.Converters.Curry
 {
     public sealed class CurryBodyConverter : IConverter
     {
