@@ -20,21 +20,5 @@ namespace SCurry
     public static class PartialApplicationFunctions
     {
         public static Func<TResult> Partial<TResult>(this Func<TResult> func) => func;
-<#
-    var builder = new PartialApplicationBuilder();
-
-    for(var i = 1; i <= MaxInputArgumentsCount; i++)
-    {
-        foreach(var code in builder.GenerateFuncExtentions(i))
-        {
-#>
-        <#= code #>
-<#
-        }
-    }
-#>
     }
 }
-<#+
-    const int MaxInputArgumentsCount = 6;
-#>

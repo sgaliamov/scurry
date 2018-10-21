@@ -20,21 +20,6 @@ namespace SCurry
     public static class PartialApplicationActions
     {
         public static Action Partial(this Action action) => action;
-<#
-    var builder = new PartialApplicationBuilder();
 
-    for(var i = 1; i <= MaxInputArgumentsCount; i++)
-    {
-        foreach(var code in builder.GenerateActionExtentions(i))
-        {
-#>
-        <#= code #>
-<#
-        }
-    }
-#>
     }
 }
-<#+
-    const int MaxInputArgumentsCount = 6;
-#>
