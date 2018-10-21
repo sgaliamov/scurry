@@ -2,6 +2,6 @@
 {
     public interface IConverter
     {
-        string Convert(MarkerFlags markers);
+        string Convert(MethodDefinition markers);
     }
 }

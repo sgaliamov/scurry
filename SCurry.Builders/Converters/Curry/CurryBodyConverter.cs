@@ -5,13 +5,13 @@ namespace SCurry.Builders.Converters.Curry
 {
     public sealed class CurryBodyConverter : IConverter
     {
-        public string Convert(MarkerFlags markers)
+        public string Convert(MethodDefinition markers)
         {
             new CurryBodyArgsConverter();
 
-            return markers.Flags
-                .Where(x => x)
-                .Select((i, x) => $"arg{i}")
+            return markers.Parameters
+                .Where(x => x.HasArgument)
+                .Select(x => x.ArgumentName)
                 .Join(" => ");
         }
     }

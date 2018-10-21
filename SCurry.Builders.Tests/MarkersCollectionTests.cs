@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using AutoFixture;
 using FluentAssertions;
+using SCurry.Builders.Models;
 using Xunit;
 
 namespace SCurry.Builders.Tests
@@ -13,11 +14,11 @@ namespace SCurry.Builders.Tests
         [Fact]
         public void Build_Actoin_2gaps_5agrs()
         {
-            var type = _fixture.Create<MarkersType>();
+            var type = _fixture.Create<MethodType>();
 
-            var actual = new MarkersCollection(type, 2, 5);
+            var actual = MethodsCollection.Create(type, 2, 5);
 
-            var flags = new[]
+            var methods = new[]
                 {
                     new[] { true, false, false, false, false },
                     new[] { false, true, false, false, false },
@@ -26,10 +27,17 @@ namespace SCurry.Builders.Tests
                     new[] { true, true, true, true },
                     new[] { true, true, true, true, true }
                 }
-                .Select(x => new MarkerFlags(type, x))
+                .Select(markers =>
+                {
+                    var parameters = markers
+                        .Select((hasArg, index) => new Parameter(hasArg, index + 1))
+                        .ToArray();
+
+                    return new MethodDefinition(type, parameters);
+                })
                 .ToArray();
 
-            var expected = new MarkersCollection(flags);
+            var expected = new MethodsCollection(methods);
 
             actual.Should().BeEquivalentTo(expected);
         }

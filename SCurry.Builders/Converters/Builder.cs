@@ -18,14 +18,14 @@ namespace SCurry.Builders.Converters
             _name = name;
         }
 
-        public string Convert(MarkerFlags markers)
+        public string Convert(MethodDefinition markers)
         {
             var result = _result.Convert(markers);
             var types = _parameters.Convert(markers);
             var args = _targetArgs.Convert(markers);
             var body = _body.Convert(markers);
 
-            return $"public static {result} {_name}{types}(this {args}) => {body}";
+            return $"public static {result} {_name}{types}({args}) => {body}";
         }
     }
 }

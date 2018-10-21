@@ -5,9 +5,9 @@ namespace SCurry.Builders.Converters.Curry
 {
     internal sealed class CurryBodyArgsConverter : IConverter
     {
-        public string Convert(MarkerFlags markers) => markers.Flags
-            .Where(x => x)
-            .Select((i, x) => $"arg{i} => ")
+        public string Convert(MethodDefinition markers) => markers.Parameters
+            .Where(x => x.HasArgument)
+            .Select(x => x.ArgumentName)
             .Join();
     }
 }

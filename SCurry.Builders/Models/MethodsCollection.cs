@@ -4,18 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using SCurry.Builders.Shared;
 
-namespace SCurry.Builders
+namespace SCurry.Builders.Models
 {
-    public sealed class MarkersCollection
+    public sealed class MethodsCollection
     {
-        public MarkersCollection(MarkerFlags[] markers) => Markers = markers;
+        public static MethodsCollection Create(MethodType type, int gapsCount, int maxCount) =>
+            new MethodsCollection(GetMarkers(type, gapsCount, maxCount));
 
-        public MarkersCollection(MarkersType type, int gapsCount, int maxCount)
-            : this(GetMarkers(type, gapsCount, maxCount)) { }
+        public MethodsCollection(MethodDefinition[] markers) => Markers = markers;
 
-        public MarkerFlags[] Markers { get; }
+        public MethodDefinition[] Markers { get; }
 
-        private static MarkerFlags[] GetMarkers(MarkersType type, int gapsCount, int maxCount)
+        private static MethodDefinition[] GetMarkers(MethodType type, int gapsCount, int maxCount)
         {
             if (maxCount > Constants.MaxInputArgumentsCount)
             {
@@ -34,29 +34,36 @@ namespace SCurry.Builders
             return gapped.Concat(rest).ToArray();
         }
 
-        private static IEnumerable<MarkerFlags> GetMarkersWithGaps(MarkersType type, int gapsCount, int argsCount)
+        private static IEnumerable<MethodDefinition> GetMarkersWithGaps(
+            MethodType type,
+            int gapsCount,
+            int argsCount)
         {
             var max = (1 << gapsCount) - 1;
 
             return Enumerable.Range(1, max)
-                .Select(index => new MarkerFlags(type, ValueToMarkers(index, argsCount)));
+                .Select(index => new MethodDefinition(type, ValueToMarkers(index, argsCount)));
         }
 
-        private static IEnumerable<MarkerFlags> GetMarkersWithoutGaps(MarkersType type, int startCount, int argsCount)
+        private static IEnumerable<MethodDefinition> GetMarkersWithoutGaps(
+            MethodType type,
+            int startCount,
+            int argsCount)
         {
             do
             {
                 var min = (1 << startCount) - 1;
                 var flags = ValueToMarkers(min, startCount);
 
-                yield return new MarkerFlags(type, flags);
+                yield return new MethodDefinition(type, flags);
             } while (++startCount <= argsCount);
         }
 
-        private static bool[] ValueToMarkers(int value, int length) =>
+        private static Parameter[] ValueToMarkers(int value, int length) =>
             new BitArray(new[] { value })
                 .OfType<bool>()
                 .Take(length)
+                .Select((hasArg, index) => new Parameter(hasArg, index + 1))
                 .ToArray();
     }
 }

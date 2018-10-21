@@ -1,18 +1,18 @@
-﻿using System.Globalization;
-using System.Linq;
+﻿using System.Linq;
+using SCurry.Builders.Models;
 using SCurry.Builders.Shared;
 
 namespace SCurry.Builders.Converters
 {
     public sealed class TypeParametersConverter : IConverter
     {
-        public string Convert(MarkerFlags markers)
+        public string Convert(MethodDefinition markers)
         {
-            var types = markers.Flags
-                .Where(x => x)
-                .Select(x => $"T{x.ToString(CultureInfo.InvariantCulture)}");
+            var types = markers.Parameters
+                .Where(x => x.HasArgument)
+                .Select(x => x.TypeName);
 
-            if (markers.Type == MarkersType.Function)
+            if (markers.Type == MethodType.Function)
             {
                 types = types.Append("TResult");
             }

@@ -8,11 +8,11 @@ namespace SCurry.Builders.Converters.Curry
 
         public CurryArgumentsConverter(TypeParametersConverter typeParameters) => _typeParameters = typeParameters;
 
-        public string Convert(MarkerFlags markers)
+        public string Convert(MethodDefinition markers)
         {
             var types = _typeParameters.Convert(markers);
 
-            return $"{markers.Delegate}{types} {markers.Target}";
+            return $"this {markers.Delegate}{types} {markers.Target}";
         }
     }
 }
