@@ -19,7 +19,7 @@ namespace SCurry.Builders.Builders
                 new ReturnTypeConverter(),
                 new NameConverter("Partial", typeParameters),
                 new ArgumentsConverter(typeParameters),
-                new BodyConverter(new BodyCallConverter(new AllArgumentsConverter())));
+                new BodyConverter(new BodyCallConverter()));
         }
 
         public IEnumerable<string> GenerateFuncExtentions(int gapsCount, int argsCount)

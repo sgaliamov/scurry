@@ -19,13 +19,11 @@ namespace SCurry.Builders.Builders
                 new ReturnTypeConverter(),
                 new NameConverter("Curry", typeParameters),
                 new ArgumentsConverter(typeParameters),
-                new BodyConverter(new BodyCallConverter(new AllArgumentsConverter())));
+                new BodyConverter(new BodyCallConverter()));
         }
 
         public IEnumerable<string> GenerateFuncExtentions(int gapsCount, int argsCount)
         {
-            yield return "public static Func<TResult> Curry<TResult>(this Func<TResult> func) => func;";
-
             var functions = MethodDefinitionsBuilder
                 .Build(MethodType.Function, gapsCount, argsCount)
                 .Select(_builder.Convert);
@@ -38,8 +36,6 @@ namespace SCurry.Builders.Builders
 
         public IEnumerable<string> GenerateActionExtentions(int gapsCount, int argsCount)
         {
-            yield return "public static Action Curry(this Action action) => action;";
-
             var actions = MethodDefinitionsBuilder
                 .Build(MethodType.Action, gapsCount, argsCount)
                 .Select(_builder.Convert);
