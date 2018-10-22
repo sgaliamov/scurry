@@ -1,7 +1,9 @@
-﻿namespace SCurry.Builders.Shared
+﻿using SCurry.Builders.Models;
+
+namespace SCurry.Builders.Shared
 {
     public interface IConverter
     {
-        string Convert(MethodDefinition markers);
+        string Convert(MethodDefinition definition);
     }
 }

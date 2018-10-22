@@ -6,35 +6,28 @@ using SCurry.Builders.Shared;
 
 namespace SCurry.Builders.Models
 {
-    public sealed class MethodsCollection
+    public static class MethodDefinitionsBuilder
     {
-        public static MethodsCollection Create(MethodType type, int gapsCount, int maxCount) =>
-            new MethodsCollection(GetMarkers(type, gapsCount, maxCount));
-
-        public MethodsCollection(MethodDefinition[] markers) => Markers = markers;
-
-        public MethodDefinition[] Markers { get; }
-
-        private static MethodDefinition[] GetMarkers(MethodType type, int gapsCount, int maxCount)
+        public static MethodDefinition[] Build(MethodType type, int gapsCount, int argsCount)
         {
-            if (maxCount > Constants.MaxInputArgumentsCount)
+            if (argsCount > Constants.MaxInputArgumentsCount)
             {
-                throw new ArgumentOutOfRangeException(nameof(maxCount));
+                throw new ArgumentOutOfRangeException(nameof(argsCount));
             }
 
-            if (gapsCount < 0 || gapsCount > maxCount)
+            if (gapsCount < 0 || gapsCount > argsCount)
             {
                 throw new ArgumentOutOfRangeException(nameof(gapsCount));
             }
 
-            var gapped = GetMarkersWithGaps(type, gapsCount, maxCount);
+            var gapped = GenerateWithGaps(type, gapsCount, argsCount);
 
-            var rest = GetMarkersWithoutGaps(type, gapsCount + 1, maxCount);
+            var rest = GenerateWithoutGaps(type, gapsCount + 1, argsCount);
 
             return gapped.Concat(rest).ToArray();
         }
 
-        private static IEnumerable<MethodDefinition> GetMarkersWithGaps(
+        private static IEnumerable<MethodDefinition> GenerateWithGaps(
             MethodType type,
             int gapsCount,
             int argsCount)
@@ -45,7 +38,7 @@ namespace SCurry.Builders.Models
                 .Select(index => new MethodDefinition(type, ValueToMarkers(index, argsCount)));
         }
 
-        private static IEnumerable<MethodDefinition> GetMarkersWithoutGaps(
+        private static IEnumerable<MethodDefinition> GenerateWithoutGaps(
             MethodType type,
             int startCount,
             int argsCount)

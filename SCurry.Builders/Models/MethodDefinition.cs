@@ -1,6 +1,4 @@
-﻿using SCurry.Builders.Models;
-
-namespace SCurry.Builders
+﻿namespace SCurry.Builders.Models
 {
     public sealed class MethodDefinition
     {
