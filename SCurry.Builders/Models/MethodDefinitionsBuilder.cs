@@ -15,9 +15,14 @@ namespace SCurry.Builders.Models
                 throw new ArgumentOutOfRangeException(nameof(argsCount));
             }
 
-            if (gapsCount < 0 || gapsCount > argsCount)
+            if (gapsCount < 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(gapsCount));
+            }
+
+            if (gapsCount > argsCount)
+            {
+                gapsCount = argsCount;
             }
 
             var gapped = GenerateWithAllGaps(type, gapsCount, argsCount);
@@ -43,6 +48,11 @@ namespace SCurry.Builders.Models
             int startCount,
             int argsCount)
         {
+            if (startCount > argsCount)
+            {
+                yield break;
+            }
+
             do
             {
                 var min = (1 << startCount) - 1;
