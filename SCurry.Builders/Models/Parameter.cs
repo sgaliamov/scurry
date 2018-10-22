@@ -1,5 +1,8 @@
-﻿namespace SCurry.Builders.Models
+﻿using System.Diagnostics;
+
+namespace SCurry.Builders.Models
 {
+    [DebuggerDisplay("{" + nameof(HasArgument) + "}")]
     public sealed class Parameter
     {
         public Parameter(bool hasArgument, int number)

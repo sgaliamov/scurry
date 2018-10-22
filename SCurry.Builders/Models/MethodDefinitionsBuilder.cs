@@ -8,9 +8,9 @@ namespace SCurry.Builders.Models
 {
     public static class MethodDefinitionsBuilder
     {
-        public static MethodDefinition[] Build(MethodType type, int gapsCount, int argsCount)
+        public static MethodDefinition[] Build(MethodType type, int gapsCount, int startCount, int argsCount)
         {
-            if (argsCount > Constants.MaxInputArgumentsCount)
+            if (argsCount < 0 || argsCount > Constants.MaxInputArgumentsCount)
             {
                 throw new ArgumentOutOfRangeException(nameof(argsCount));
             }
@@ -20,22 +20,26 @@ namespace SCurry.Builders.Models
                 throw new ArgumentOutOfRangeException(nameof(gapsCount));
             }
 
+            if (gapsCount == 0)
+            {
+                return GenerateWithoutGaps(type, startCount, argsCount).ToArray();
+            }
+
             var gapped = GenerateWithGaps(type, gapsCount, argsCount);
 
-            var rest = GenerateWithoutGaps(type, gapsCount + 1, argsCount);
+            var rest = GenerateWithoutGaps(type, startCount, argsCount);
 
             return gapped.Concat(rest).ToArray();
         }
 
-        private static IEnumerable<MethodDefinition> GenerateWithGaps(
-            MethodType type,
+        private static IEnumerable<MethodDefinition> GenerateWithGaps(MethodType type,
             int gapsCount,
             int argsCount)
         {
             var max = (1 << gapsCount) - 1;
 
             return Enumerable.Range(1, max)
-                .Select(index => new MethodDefinition(type, ValueToMarkers(index, argsCount)));
+                .Select(index => new MethodDefinition(type, ValueToParameters(index, argsCount)));
         }
 
         private static IEnumerable<MethodDefinition> GenerateWithoutGaps(
@@ -46,13 +50,13 @@ namespace SCurry.Builders.Models
             do
             {
                 var min = (1 << startCount) - 1;
-                var flags = ValueToMarkers(min, startCount);
+                var flags = ValueToParameters(min, startCount);
 
                 yield return new MethodDefinition(type, flags);
             } while (++startCount <= argsCount);
         }
 
-        private static Parameter[] ValueToMarkers(int value, int length) =>
+        private static Parameter[] ValueToParameters(int value, int length) =>
             new BitArray(new[] { value })
                 .OfType<bool>()
                 .Take(length)
