@@ -1,83 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using SCurry.Builders.Old;
-using SCurry.Builders.Shared;
+using SCurry.Builders.Converters;
+using SCurry.Builders.Converters.Curry;
+using SCurry.Builders.Converters.Shared;
+using SCurry.Builders.Models;
 
 namespace SCurry.Builders.Builders
 {
-    public sealed class CurryBuilder : Builder
+    public sealed class CurryBuilder
     {
-        public string FuncReturnType(int argsCount, string result)
+        private readonly Builder _builder;
+
+        public CurryBuilder()
         {
-            return Enumerable.Range(1, argsCount)
-                .Select(x => $"Func<T{x}, ")
-                .Append(result)
-                .Concat(Enumerable.Range(0, argsCount).Select(_ => ">"))
-                .Join();
+            var typeParameters = new TypeParametersConverter();
+
+            _builder = new Builder(
+                new ReturnTypeConverter(),
+                new NameConverter("Curry", typeParameters),
+                new ArgumentsConverter(typeParameters),
+                new BodyConverter(new BodyCallConverter(new AllArgumentsConverter())));
         }
 
-        public string ActionReturnType(int argsCount)
+        public IEnumerable<string> GenerateFuncExtentions(int gapsCount, int argsCount)
         {
-            switch (argsCount)
-            {
-                case 1:
-                    return "Action<T1>";
+            yield return "public static Func<TResult> Curry<TResult>(this Func<TResult> func) => func;";
+            yield return "public static Func<T1, TResult> Curry<T1, TResult>(this Func<T1, TResult> func) => func;";
 
-                default:
-                    return FuncReturnType(argsCount - 1, $"Action<T{argsCount}>");
+            var functions = MethodDefinitionsBuilder
+                .Build(MethodType.Function, gapsCount, 2, argsCount)
+                .Select(_builder.Convert);
+
+            foreach (var definition in functions)
+            {
+                yield return definition;
             }
         }
 
-        public string GenerateFuncExtention(int argsCount)
+        public IEnumerable<string> GenerateActionExtentions(int gapsCount, int argsCount)
         {
-            var types = TypeParameters(argsCount, true);
+            yield return "public static Action Curry(this Action action) => action;";
+            yield return "public static Action<T1> Curry<T1>(this Action<T1> action) => action;";
 
-            return $"public static {FuncReturnType(argsCount, "TResult")} Curry<{types}>"
-                   + $"(this Func<{types}> func) => {Body("func", argsCount)};";
-        }
+            var actions = MethodDefinitionsBuilder
+                .Build(MethodType.Action, gapsCount, 2, argsCount)
+                .Select(_builder.Convert);
 
-        public string GenerateActionExtention(int argsCount)
-        {
-            var types = TypeParameters(argsCount, false);
-
-            if (!string.IsNullOrWhiteSpace(types))
+            foreach (var definition in actions)
             {
-                types = $"<{types}>";
+                yield return definition;
             }
-
-            return $"public static {ActionReturnType(argsCount)} Curry{types}"
-                   + $"(this Action{types} action) => {Body("action", argsCount)};";
         }
-
-        /// <summary>
-        ///     target(arg1, arg2, arg3)
-        /// </summary>
-        public string Body(string target, int argsCount)
-        {
-            if (argsCount == 1)
-            {
-                return target;
-            }
-
-            var args = string.Join(", ", Enumerable.Range(1, argsCount).Select(x => $"arg{x}"));
-            var bodyCall = $"{target}({args})";
-
-            return string.Join(
-                string.Empty,
-                Enumerable.Range(1, argsCount)
-                    .Select(x => $"arg{x} => ")
-                    .Append(bodyCall)
-            );
-        }
-
-        protected override ExtensionParameters CreateExtensionParameters(bool hasArg, int number) => new ExtensionParameters
-        {
-            HasArg = hasArg,
-            ReturnType = hasArg ? $"Func<T{number}" : null
-        };
-
-        protected override string BuildBodyArguments(IReadOnlyCollection<ExtensionParameters> info) =>
-            throw new NotImplementedException();
     }
 }
