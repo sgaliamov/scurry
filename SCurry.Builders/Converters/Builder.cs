@@ -1,31 +1,31 @@
-﻿using SCurry.Builders.Shared;
+﻿using SCurry.Builders.Models;
+using SCurry.Builders.Shared;
 
 namespace SCurry.Builders.Converters
 {
     public sealed class Builder : IConverter
     {
+        private readonly IConverter _args;
         private readonly IConverter _body;
-        private readonly string _name;
-        private readonly TypeParametersConverter _parameters = new TypeParametersConverter();
+        private readonly IConverter _name;
         private readonly IConverter _result;
-        private readonly IConverter _targetArgs;
 
-        public Builder(string name, IConverter result, IConverter body, IConverter targetArgs)
+        public Builder(IConverter result, IConverter name, IConverter args, IConverter body)
         {
-            _targetArgs = targetArgs;
+            _args = args;
             _result = result;
             _body = body;
             _name = name;
         }
 
-        public string Convert(MethodDefinition markers)
+        public string Convert(MethodDefinition definition)
         {
-            var result = _result.Convert(markers);
-            var types = _parameters.Convert(markers);
-            var args = _targetArgs.Convert(markers);
-            var body = _body.Convert(markers);
+            var result = _result.Convert(definition);
+            var name = _name.Convert(definition);
+            var args = _args.Convert(definition);
+            var body = _body.Convert(definition);
 
-            return $"public static {result} {_name}{types}({args}) => {body}";
+            return $"public static {result} {name}({args}) => {body}";
         }
     }
 }

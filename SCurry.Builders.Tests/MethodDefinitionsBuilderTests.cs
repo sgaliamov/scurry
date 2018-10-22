@@ -11,51 +11,7 @@ namespace SCurry.Builders.Tests
     public class MethodDefinitionsBuilderTests
     {
         [Fact]
-        public void Build_With_2_Gaps_5_Agrs_StartWith_2()
-        {
-            var type = _fixture.Create<MethodType>();
-
-            var markers = new[]
-            {
-                new[] { 1, 0, 0, 0, 0 },
-                new[] { 0, 1, 0, 0, 0 },
-                new[] { 1, 1, 0, 0, 0 },
-                new[] { 1, 1 },
-                new[] { 1, 1, 1 },
-                new[] { 1, 1, 1, 1 },
-                new[] { 1, 1, 1, 1, 1 }
-            };
-            var expected = Convert(markers, type);
-
-            var actual = MethodDefinitionsBuilder.Build(type, 2, 2, 5);
-
-            actual.Should().BeEquivalentTo(expected.AsEnumerable());
-        }
-
-        [Fact]
-        public void Build_With_2_Gaps_3_Agrs_StartWith_0()
-        {
-            var type = _fixture.Create<MethodType>();
-
-            var markers = new[]
-            {
-                new[] { 1, 0, 0 },
-                new[] { 0, 1, 0 },
-                new[] { 1, 1, 0 },
-                new int[0], 
-                new[] { 1 },
-                new[] { 1, 1 },
-                new[] { 1, 1, 1 }
-            };
-            var expected = Convert(markers, type);
-
-            var actual = MethodDefinitionsBuilder.Build(type, 2, 0, 3);
-
-            actual.Should().BeEquivalentTo(expected.AsEnumerable());
-        }
-
-        [Fact]
-        public void Build_With_3_Gaps_5_Agrs_StartWith_4()
+        public void Build_With_3_Gaps_5_Agrs()
         {
             var type = _fixture.Create<MethodType>();
 
@@ -68,29 +24,31 @@ namespace SCurry.Builders.Tests
                 new[] { 1, 0, 1, 0, 0 },
                 new[] { 0, 1, 1, 0, 0 },
                 new[] { 1, 1, 1, 0, 0 },
-                new[] { 1, 1, 1, 1 },
+                new[] { 1, 1, 1, 1, 0 },
                 new[] { 1, 1, 1, 1, 1 }
             };
             var expected = Convert(markers, type);
 
-            var actual = MethodDefinitionsBuilder.Build(type, 3, 4, 5);
+            var actual = MethodDefinitionsBuilder.Build(type, 3, 5);
 
             actual.Should().BeEquivalentTo(expected.AsEnumerable());
         }
 
         [Fact]
-        public void Build_With_No_Gaps_4_Agrs_StartWith_3()
+        public void Build_With_No_Gaps_4_Agrs()
         {
             var type = _fixture.Create<MethodType>();
 
             var markers = new[]
             {
-                new[] { 1, 1, 1 },
+                new[] { 1, 0, 0, 0 },
+                new[] { 1, 1, 0, 0 },
+                new[] { 1, 1, 1, 0 },
                 new[] { 1, 1, 1, 1 }
             };
             var expected = Convert(markers, type);
 
-            var actual = MethodDefinitionsBuilder.Build(type, 0, 3, 4);
+            var actual = MethodDefinitionsBuilder.Build(type, 0, 4);
 
             actual.Should().BeEquivalentTo(expected.AsEnumerable());
         }

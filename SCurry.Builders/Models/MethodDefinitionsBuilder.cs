@@ -8,7 +8,7 @@ namespace SCurry.Builders.Models
 {
     public static class MethodDefinitionsBuilder
     {
-        public static MethodDefinition[] Build(MethodType type, int gapsCount, int startCount, int argsCount)
+        public static MethodDefinition[] Build(MethodType type, int gapsCount, int argsCount)
         {
             if (argsCount < 0 || argsCount > Constants.MaxInputArgumentsCount)
             {
@@ -20,19 +20,15 @@ namespace SCurry.Builders.Models
                 throw new ArgumentOutOfRangeException(nameof(gapsCount));
             }
 
-            if (gapsCount == 0)
-            {
-                return GenerateWithoutGaps(type, startCount, argsCount).ToArray();
-            }
+            var gapped = GenerateWithAllGaps(type, gapsCount, argsCount);
 
-            var gapped = GenerateWithGaps(type, gapsCount, argsCount);
-
-            var rest = GenerateWithoutGaps(type, startCount, argsCount);
+            var rest = GenerateWithTrailingGaps(type, gapsCount + 1, argsCount);
 
             return gapped.Concat(rest).ToArray();
         }
 
-        private static IEnumerable<MethodDefinition> GenerateWithGaps(MethodType type,
+        private static IEnumerable<MethodDefinition> GenerateWithAllGaps(
+            MethodType type,
             int gapsCount,
             int argsCount)
         {
@@ -42,7 +38,7 @@ namespace SCurry.Builders.Models
                 .Select(index => new MethodDefinition(type, ValueToParameters(index, argsCount)));
         }
 
-        private static IEnumerable<MethodDefinition> GenerateWithoutGaps(
+        private static IEnumerable<MethodDefinition> GenerateWithTrailingGaps(
             MethodType type,
             int startCount,
             int argsCount)
@@ -50,7 +46,7 @@ namespace SCurry.Builders.Models
             do
             {
                 var min = (1 << startCount) - 1;
-                var flags = ValueToParameters(min, startCount);
+                var flags = ValueToParameters(min, argsCount);
 
                 yield return new MethodDefinition(type, flags);
             } while (++startCount <= argsCount);
@@ -60,7 +56,7 @@ namespace SCurry.Builders.Models
             new BitArray(new[] { value })
                 .OfType<bool>()
                 .Take(length)
-                .Select((hasArg, index) => new Parameter(hasArg, index + 1))
+                .Select((isArg, index) => new Parameter(isArg, index + 1))
                 .ToArray();
     }
 }
