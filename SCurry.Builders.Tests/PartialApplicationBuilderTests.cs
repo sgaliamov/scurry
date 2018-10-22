@@ -1,6 +1,6 @@
 ﻿using System.Linq;
+using FluentAssertions;
 using SCurry.Builders.Builders;
-using SCurry.Builders.Old;
 using Xunit;
 
 namespace SCurry.Builders.Tests
@@ -8,20 +8,22 @@ namespace SCurry.Builders.Tests
     [Trait("Category", "Builder")]
     public class PartialApplicationBuilderTests
     {
-        private readonly PartialApplicationBuilder _target = new PartialApplicationBuilder();
-
         [Fact]
-        public void GenerateActionExtentions_0_Test()
+        public void Generate_Action_Extentions_For_1_Argument()
         {
-            const string expected = "public static Action Partial(this Action action) => action;";
+            var expected = new[]
+            {
+                "public static Action Partial(this Action action) => action;",
+                "public static Action Partial<T1>(this Action<T1> action, T1 arg1) => () => action(arg1);"
+            };
 
-            var actual = _target.GenerateActionExtentions(0).Single();
+            var actual = _target.GenerateActionExtentions(0, 1).ToArray();
 
-            Assert.Equal(expected, actual);
+            actual.Should().BeEquivalentTo(expected);
         }
 
         [Fact]
-        public void GenerateActionExtentions_2_Test()
+        public void Generate_Action_Extentions_For_2_Argument_2_Gaps()
         {
             var expected = new[]
             {
@@ -44,31 +46,27 @@ namespace SCurry.Builders.Tests
                 + "=> () => action(arg1, arg2);"
             };
 
-            // act
-            var actual = _target.GenerateActionExtentions(2);
+            var actual = _target.GenerateActionExtentions(2, 2);
 
-            // asserts
-            for (var i = 0; i < actual.Length; i++)
-            {
-                Assert.Equal(expected[i], actual[i]);
-            }
+            actual.Should().BeEquivalentTo(expected);
         }
 
         [Fact]
-        public void GenerateFuncExtentions_0_Test()
+        public void Generate_Function_Extentions_For_1_Argument()
         {
-            const string expected = "public static "
-                                    + "Func<TResult> "
-                                    + "Partial<TResult>(this Func<TResult> func) "
-                                    + "=> func;";
+            var expected = new[]
+            {
+                "public static Func<TResult> Partial<TResult>(this Func<TResult> func) => func;",
+                "public static Func<TResult> Partial<T1, TResult>(this Func<T1, TResult> func, T1 arg1) => () => func(arg1);"
+            };
 
-            var actual = _target.GenerateFuncExtentions(0).Single();
+            var actual = _target.GenerateFuncExtentions(0, 1).ToArray();
 
-            Assert.Equal(expected, actual);
+            actual.Should().BeEquivalentTo(expected);
         }
 
         [Fact]
-        public void GenerateFuncExtentions_2_Test()
+        public void Generate_Function_Extentions_For_2_Argument_2_Gaps()
         {
             var expected = new[]
             {
@@ -92,13 +90,12 @@ namespace SCurry.Builders.Tests
             };
 
             // act
-            var actual = _target.GenerateFuncExtentions(2);
+            var actual = _target.GenerateFuncExtentions(2, 2);
 
             // asserts
-            for (var i = 0; i < actual.Length; i++)
-            {
-                Assert.Equal(expected[i], actual[i]);
-            }
+            actual.Should().BeEquivalentTo(expected);
         }
+
+        private readonly PartialApplicationBuilder _target = new PartialApplicationBuilder();
     }
 }

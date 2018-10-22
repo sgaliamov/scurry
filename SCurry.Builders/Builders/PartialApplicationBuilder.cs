@@ -1,51 +1,53 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using SCurry.Builders.Old;
-using SCurry.Builders.Shared;
+using SCurry.Builders.Converters;
+using SCurry.Builders.Converters.PartialApplication;
+using SCurry.Builders.Converters.Shared;
+using SCurry.Builders.Models;
 
 namespace SCurry.Builders.Builders
 {
-    public sealed class PartialApplicationBuilder : Builder
+    public sealed class PartialApplicationBuilder
     {
-        public string[] GenerateFuncExtentions(int argsCount)
-        {
-            if (argsCount <= 0)
-            {
-                throw new ArgumentException(nameof(argsCount));
-            }
+        private readonly Builder _builder;
 
-            return GenerateExtentions("Partial", argsCount, true);
+        public PartialApplicationBuilder()
+        {
+            var typeParameters = new TypeParametersConverter();
+
+            _builder = new Builder(
+                new ReturnTypeConverter(),
+                new NameConverter("Partial", typeParameters),
+                new ArgumentsConverter(typeParameters),
+                new BodyConverter(new BodyCallConverter(new AllArgumentsConverter())));
         }
 
-        public string[] GenerateActionExtentions(int argsCount)
+        public IEnumerable<string> GenerateFuncExtentions(int gapsCount, int argsCount)
         {
-            if (argsCount <= 0)
-            {
-                throw new ArgumentException(nameof(argsCount));
-            }
+            yield return "public static Func<TResult> Partial<TResult>(this Func<TResult> func) => func;";
 
-            return GenerateExtentions("Partial", argsCount, false);
+            var functions = MethodDefinitionsBuilder
+                .Build(MethodType.Function, gapsCount, argsCount)
+                .Select(_builder.Convert);
+
+            foreach (var definition in functions)
+            {
+                yield return definition;
+            }
         }
 
-        protected override ExtensionParameters CreateExtensionParameters(bool hasArg, int number) =>
-            new ExtensionParameters
-            {
-                ReturnType = hasArg ? null : $"T{number}",
-                CallAgr = hasArg ? $"T{number} arg{number}" : $"_ gap{number}",
-                BodyArg = hasArg ? null : $"arg{number}",
-                BodyCallArg = $"arg{number}",
-                HasArg = hasArg
-            };
-
-        protected override string BuildBodyArguments(IReadOnlyCollection<ExtensionParameters> info)
+        public IEnumerable<string> GenerateActionExtentions(int gapsCount, int argsCount)
         {
-            var args = info
-                .Where(x => x.BodyArg != null)
-                .Select(x => x.BodyArg)
-                .ToArray();
+            yield return "public static Action Partial(this Action action) => action;";
 
-            return $"({args.Join(", ")}) => ";
+            var actions = MethodDefinitionsBuilder
+                .Build(MethodType.Action, gapsCount, argsCount)
+                .Select(_builder.Convert);
+
+            foreach (var definition in actions)
+            {
+                yield return definition;
+            }
         }
     }
 }
