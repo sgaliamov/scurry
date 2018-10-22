@@ -25,10 +25,9 @@ namespace SCurry.Builders.Builders
         public IEnumerable<string> GenerateFuncExtentions(int gapsCount, int argsCount)
         {
             yield return "public static Func<TResult> Curry<TResult>(this Func<TResult> func) => func;";
-            yield return "public static Func<T1, TResult> Curry<T1, TResult>(this Func<T1, TResult> func) => func;";
 
             var functions = MethodDefinitionsBuilder
-                .Build(MethodType.Function, gapsCount, 2, argsCount)
+                .Build(MethodType.Function, gapsCount, argsCount)
                 .Select(_builder.Convert);
 
             foreach (var definition in functions)
@@ -40,10 +39,9 @@ namespace SCurry.Builders.Builders
         public IEnumerable<string> GenerateActionExtentions(int gapsCount, int argsCount)
         {
             yield return "public static Action Curry(this Action action) => action;";
-            yield return "public static Action<T1> Curry<T1>(this Action<T1> action) => action;";
 
             var actions = MethodDefinitionsBuilder
-                .Build(MethodType.Action, gapsCount, 2, argsCount)
+                .Build(MethodType.Action, gapsCount, argsCount)
                 .Select(_builder.Convert);
 
             foreach (var definition in actions)

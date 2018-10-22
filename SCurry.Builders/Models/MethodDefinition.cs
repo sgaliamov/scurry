@@ -1,16 +1,25 @@
-﻿namespace SCurry.Builders.Models
+﻿using System.Linq;
+
+namespace SCurry.Builders.Models
 {
     public sealed class MethodDefinition
     {
         public MethodDefinition(MethodType type, Parameter[] parameters)
         {
-            Parameters = parameters;
             Type = type;
+            Parameters = parameters;
+            TrimmedParameters = parameters
+                .Reverse()
+                .SkipWhile(x => !x.IsArgument)
+                .Reverse()
+                .ToArray();
         }
+
+        public MethodType Type { get; }
 
         public Parameter[] Parameters { get; }
 
-        public MethodType Type { get; }
+        public Parameter[] TrimmedParameters { get; }
 
         public string Delegate => Type == MethodType.Action ? "Action" : "Func";
 

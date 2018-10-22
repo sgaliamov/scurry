@@ -9,7 +9,7 @@ namespace SCurry.Builders.Converters.Shared
         public string Convert(MethodDefinition definition)
         {
             var types = definition
-                .Parameters
+                .TrimmedParameters
                 .Select(x => x.TypeName);
 
             if (definition.Type == MethodType.Function)

@@ -14,7 +14,7 @@ namespace SCurry.Builders.Converters.Shared
         {
             var args = _argumentsConverter.Convert(definition);
 
-            return $"{definition.Target}({args});";
+            return $"{definition.Target}({args})";
         }
     }
 }

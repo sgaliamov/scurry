@@ -8,7 +8,7 @@ namespace SCurry.Builders.Converters.Curry
     {
         public string Convert(MethodDefinition definition)
         {
-            var argsCount = definition.Parameters.Length;
+            var argsCount = definition.TrimmedParameters.Length;
 
             var result = definition.Type == MethodType.Action
                 ? $"Action<T{argsCount}>"
@@ -18,7 +18,7 @@ namespace SCurry.Builders.Converters.Curry
                 ? argsCount
                 : argsCount - 1;
 
-            return definition.Parameters
+            return definition.TrimmedParameters
                 .Take(take)
                 .Select(x => $"Func<{x.TypeName}, ")
                 .Append(result)

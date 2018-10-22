@@ -25,7 +25,7 @@ namespace SCurry.Builders.Converters
             var args = _args.Convert(definition);
             var body = _body.Convert(definition);
 
-            return $"public static {result} {name}({args}) => {body}";
+            return $"public static {result} {name}({args}) => {body};";
         }
     }
 }

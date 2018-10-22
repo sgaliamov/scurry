@@ -7,7 +7,7 @@ namespace SCurry.Builders.Converters.Shared
     internal sealed class AllArgumentsConverter : IConverter
     {
         public string Convert(MethodDefinition definition) => definition
-            .Parameters
+            .TrimmedParameters
             .Select(x => x.ArgumentName)
             .Join(", ");
     }
