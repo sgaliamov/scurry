@@ -5,7 +5,7 @@ using SCurry.Builders.Shared;
 
 namespace SCurry.Builders.Converters.PartialApplication
 {
-    public sealed class ArgumentsConverter : IConverter
+    internal sealed class ArgumentsConverter : IConverter
     {
         private readonly TypeParametersConverter _typeParameters;
 

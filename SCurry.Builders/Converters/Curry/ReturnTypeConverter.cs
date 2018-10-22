@@ -4,11 +4,11 @@ using SCurry.Builders.Shared;
 
 namespace SCurry.Builders.Converters.Curry
 {
-    public sealed class ReturnTypeConverter : IConverter
+    internal sealed class ReturnTypeConverter : IConverter
     {
         public string Convert(MethodDefinition definition)
         {
-            var argsCount = definition.TrimmedParameters.Length;
+            var argsCount = definition.Parameters.Length;
 
             var result = definition.Type == MethodType.Action
                 ? $"Action<T{argsCount}>"
@@ -18,7 +18,7 @@ namespace SCurry.Builders.Converters.Curry
                 ? argsCount
                 : argsCount - 1;
 
-            return definition.TrimmedParameters
+            return definition.Parameters
                 .Take(take)
                 .Select(x => $"Func<{x.TypeName}, ")
                 .Append(result)

@@ -3,7 +3,7 @@ using SCurry.Builders.Shared;
 
 namespace SCurry.Builders.Converters
 {
-    public sealed class Builder : IConverter
+    internal sealed class Builder : IConverter
     {
         private readonly IConverter _args;
         private readonly IConverter _body;

@@ -4,12 +4,12 @@ using SCurry.Builders.Shared;
 
 namespace SCurry.Builders.Converters.Shared
 {
-    public sealed class TypeParametersConverter : IConverter
+    internal sealed class TypeParametersConverter : IConverter
     {
         public string Convert(MethodDefinition definition)
         {
             var types = definition
-                .TrimmedParameters
+                .Parameters
                 .Select(x => x.TypeName);
 
             if (definition.Type == MethodType.Function)

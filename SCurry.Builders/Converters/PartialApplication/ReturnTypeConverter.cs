@@ -4,7 +4,7 @@ using SCurry.Builders.Shared;
 
 namespace SCurry.Builders.Converters.PartialApplication
 {
-    public sealed class ReturnTypeConverter : IConverter
+    internal sealed class ReturnTypeConverter : IConverter
     {
         public string Convert(MethodDefinition definition)
         {

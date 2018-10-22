@@ -3,7 +3,7 @@ using SCurry.Builders.Shared;
 
 namespace SCurry.Builders.Converters.Shared
 {
-    public sealed class NameConverter : IConverter
+    internal sealed class NameConverter : IConverter
     {
         private readonly string _name;
         private readonly TypeParametersConverter _types;

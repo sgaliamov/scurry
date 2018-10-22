@@ -1,10 +1,11 @@
-﻿using SCurry.Builders.Converters.Shared;
+﻿using System.Linq;
+using SCurry.Builders.Converters.Shared;
 using SCurry.Builders.Models;
 using SCurry.Builders.Shared;
 
 namespace SCurry.Builders.Converters.Curry
 {
-    public sealed class ArgumentsConverter : IConverter
+    internal sealed class ArgumentsConverter : IConverter
     {
         private readonly TypeParametersConverter _typeParameters;
 
