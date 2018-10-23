@@ -3,14 +3,14 @@ using SCurry.Builders.Shared;
 
 namespace SCurry.Builders.Converters
 {
-    internal sealed class Builder : IConverter
+    public sealed class MethodConverter : IConverter
     {
         private readonly IConverter _args;
         private readonly IConverter _body;
         private readonly IConverter _name;
         private readonly IConverter _result;
 
-        public Builder(IConverter result, IConverter name, IConverter args, IConverter body)
+        public MethodConverter(IConverter result, IConverter name, IConverter args, IConverter body)
         {
             _args = args;
             _result = result;
