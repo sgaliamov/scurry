@@ -1,9 +1,8 @@
 ﻿using System.Linq;
-using SCurry.Builders.Converters.Shared;
 using SCurry.Builders.Models;
 using SCurry.Builders.Shared;
 
-namespace SCurry.Builders.Converters.Curry
+namespace SCurry.Builders.Converters.Shared
 {
     internal sealed class ArgumentsConverter : IConverter
     {
