@@ -106,7 +106,7 @@ namespace SCurry.Builders.Tests
                 .Select(m =>
                 {
                     var parameters = m
-                        .Select((hasArg, index) => new Parameter(hasArg == 1, index + 1))
+                        .Select((isArg, index) => new Parameter(isArg == 1, index + 1))
                         .ToArray();
 
                     return new MethodDefinition(type, parameters);

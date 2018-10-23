@@ -15,7 +15,18 @@ namespace SCurry.Builders.Converters.Curry
         {
             var types = _typeParameters.Convert(definition);
 
-            return $"this {definition.Delegate}{types} {definition.Target}";
+            var args = definition
+                .Parameters
+                .Where(x => x.IsArgument)
+                .Select(x => $"{x.TypeName} {x.ArgumentName}")
+                .Join(", ");
+
+            if (!string.IsNullOrWhiteSpace(args))
+            {
+                args = ", " + args;
+            }
+
+            return $"this {definition.Delegate}{types} {definition.Target}{args}";
         }
     }
 }
