@@ -41,6 +41,33 @@ namespace SCurry.Builders.Tests.Converters
         }
 
         [Fact]
+        public void Generate_Func_Extentions_For_0_Arguments_With_2_Gaps()
+        {
+            var expected = new[]
+            {
+                "public static Func<TResult> Curry<TResult>(this Func<TResult> func) => func;"
+            };
+
+            var actual = Convert(MethodType.Function, 2, 0);
+
+            actual.Should().BeEquivalentTo(expected);
+        }
+
+        [Fact]
+        public void Generate_Func_Extentions_For_1_Arguments_With_0_Gaps()
+        {
+            var expected = new[]
+            {
+                "public static Func<T1, TResult> Curry<T1, TResult>(this Func<T1, TResult> func) => func;",
+                "public static Func<TResult> Curry<T1, TResult>(this Func<T1, TResult> func, T1 arg1) => () => func(arg1);",
+            };
+
+            var actual = Convert(MethodType.Function, 0, 1);
+
+            actual.Should().BeEquivalentTo(expected);
+        }
+
+        [Fact]
         public void Generate_Func_Extentions_For_3_Arguments_With_0_Gaps()
         {
             var expected = new[]

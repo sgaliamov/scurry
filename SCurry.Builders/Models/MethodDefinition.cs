@@ -22,6 +22,8 @@ namespace SCurry.Builders.Models
 
         public string Delegate => Type == MethodType.Action ? "Action" : "Func";
 
+        public string SimpleReturnType => Type == MethodType.Action ? "Action" : "Func<TResult>";
+
         public string Target => Type == MethodType.Action ? "action" : "func";
     }
 }
