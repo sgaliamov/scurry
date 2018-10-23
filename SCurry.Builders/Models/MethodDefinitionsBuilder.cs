@@ -37,9 +37,9 @@ namespace SCurry.Builders.Models
             int gapsCount,
             int argsCount)
         {
-            var max = (1 << gapsCount) - 1;
+            var max = 1 << gapsCount;
 
-            return Enumerable.Range(1, max)
+            return Enumerable.Range(0, max)
                 .Select(index => new MethodDefinition(type, ValueToParameters(index, argsCount)));
         }
 
