@@ -1,5 +1,4 @@
 ﻿using SCurry.Builders.Models;
-using SCurry.Builders.Shared;
 
 namespace SCurry.Builders.Converters
 {
