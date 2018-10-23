@@ -1,12 +1,13 @@
 # To do
 
-- [ ] implement uncurry
-- [ ] refactor builders to use markers and ExtensionParameters
 - [ ] simple partial application without gaps for all delegates
+- [ ] limit partial for curry
+- [ ] implement uncurry
 - [ ] increase code coverage
 - [ ] pipe function
 - [ ] add examples to use
 - [ ] add description for the package
+- [x] refactor builders to use markers and ExtensionParameters
 - [x] support out/ref parameters? no
 - [x] implement partial apply
 - [x] use spacer for partial apply

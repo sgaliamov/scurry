@@ -16,6 +16,8 @@ using System;
 
 namespace SCurry
 {
+    using _ = Spacer.SpacerInstance;
+
     public static class CurryFunctions
     {
 <#
