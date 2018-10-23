@@ -12,7 +12,7 @@ namespace SCurry.Builders.Converters.PartialApplication
                       .Select(x => x.TypeName)
                       .AppendIf(
                           () => definition.Type == MethodType.Function,
-                          "TResult")
+                          () => "TResult")
                       .Join(", ")
                       .MapIfExists(types => $"<{types}>")
                       .Map(types => $"{definition.Delegate}{types}");

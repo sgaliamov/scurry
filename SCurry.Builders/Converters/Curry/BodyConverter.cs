@@ -13,7 +13,12 @@ namespace SCurry.Builders.Converters.Curry
 
         public string Convert(MethodDefinition definition)
         {
-            if (definition.TrimmedParameters.Length < 1)
+            if (definition.Parameters.Length == 0)
+            {
+                return definition.Target;
+            }
+
+            if (definition.Parameters.Length == 1 && definition.TrimmedParameters.Length == 0)
             {
                 return definition.Target;
             }

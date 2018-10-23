@@ -11,11 +11,11 @@ namespace SCurry.Builders.Shared
 
         public static T Map<T>(this T str, Func<T, T> map) => map(str);
 
-        public static IEnumerable<T> AppendIf<T>(this IEnumerable<T> enumerable, Func<bool> predicate, T value)
+        public static IEnumerable<T> AppendIf<T>(this IEnumerable<T> enumerable, Func<bool> predicate, Func<T> value)
         {
             if (predicate())
             {
-                return enumerable.Append(value);
+                return enumerable.Append(value());
             }
 
             return enumerable;

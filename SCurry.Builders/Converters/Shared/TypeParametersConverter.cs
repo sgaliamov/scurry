@@ -9,7 +9,7 @@ namespace SCurry.Builders.Converters.Shared
         public string Convert(MethodDefinition definition) =>
             definition.Parameters
                       .Select(x => x.TypeName)
-                      .AppendIf(() => definition.Type == MethodType.Function, "TResult")
+                      .AppendIf(() => definition.Type == MethodType.Function, () => "TResult")
                       .Join(", ")
                       .MapIfExists(s => $"<{s}>");
     }

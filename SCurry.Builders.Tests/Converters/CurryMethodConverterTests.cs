@@ -43,10 +43,10 @@ namespace SCurry.Builders.Tests.Converters
         {
             var expected = new[]
             {
-                "public static Action<T1> Curry<T1>(this Action<T1> action) => action;",
-                "public static Func<T1, Action<T2>> Curry<T1, T2>(this Action<T1, T2> action) => arg1 => arg2 => action(arg1, arg2);",
-                "public static Func<T1, Func<T2, Action<T3>>> Curry<T1, T2, T3>(this Action<T1, T2, T3> action) "
-                + "=> arg1 => arg2 => arg3 => action(arg1, arg2, arg3);"
+                "public static Func<T1, Func<T2, Action<T3>>> Curry<T1, T2, T3>(this Action<T1, T2, T3> action) => arg1 => arg2 => arg3 => action(arg1, arg2, arg3);",
+                "public static Func<T2, Action<T3>> Curry<T1, T2, T3>(this Action<T1, T2, T3> action, T1 arg1) => arg2 => arg3 => action(arg1, arg2, arg3);",
+                "public static Action<T3> Curry<T1, T2, T3>(this Action<T1, T2, T3> action, T1 arg1, T2 arg2) => arg3 => action(arg1, arg2, arg3);",
+                "public static Action Curry<T1, T2, T3>(this Action<T1, T2, T3> action, T1 arg1, T2 arg2, T3 arg3) => () => action(arg1, arg2, arg3);"
             };
 
             var actual = Convert(MethodType.Action, 0, 3);
@@ -110,6 +110,22 @@ namespace SCurry.Builders.Tests.Converters
             };
 
             var actual = Convert(MethodType.Function, 0, 3);
+
+            actual.Should().BeEquivalentTo(expected);
+        }
+
+        [Fact]
+        public void Generate_Func_Extentions_For_3_Arguments_With_2_Gaps()
+        {
+            var expected = new[]
+            {
+                "public static Func<T1, Func<T2, Func<T3, TResult>>> Curry<T1, T2, T3, TResult>(this Func<T1, T2, T3, TResult> func) => arg1 => arg2 => arg3 => func(arg1, arg2, arg3);",
+                "public static Func<T2, Func<T3, TResult>> Curry<T1, T2, T3, TResult>(this Func<T1, T2, T3, TResult> func, T1 arg1) => arg2 => arg3 => func(arg1, arg2, arg3);",
+                "public static Func<T3, TResult> Curry<T1, T2, T3, TResult>(this Func<T1, T2, T3, TResult> func, T1 arg1, T2 arg2) => arg3 => func(arg1, arg2, arg3);",
+                "public static Func<TResult> Curry<T1, T2, T3, TResult>(this Func<T1, T2, T3, TResult> func, T1 arg1, T2 arg2, T3 arg3) => () => func(arg1, arg2, arg3);"
+            };
+
+            var actual = Convert(MethodType.Function, 2, 3);
 
             actual.Should().BeEquivalentTo(expected);
         }
