@@ -3,6 +3,6 @@
     public static class Constants
     {
         public const int MaxInputArgumentsCount = 8;
-        public const int DefaultGapsCount = 8;
+        public const int DefaultGapsCount = 5;
     }
 }
