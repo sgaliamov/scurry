@@ -13,13 +13,18 @@ namespace SCurry.Builders.Converters.Curry
 
         public string Convert(MethodDefinition definition)
         {
+            if (definition.TrimmedParameters.Length < 1)
+            {
+                return definition.Target;
+            }
+
             var call = _callConverter.Convert(definition);
 
             var chain = definition.Parameters
-                .Where(x => !x.IsArgument)
-                .Select(x => x.ArgumentName)
-                .Join(" => ")
-                .IfEmpty("()");
+                                  .Where(x => !x.IsArgument)
+                                  .Select(x => x.ArgumentName)
+                                  .Join(" => ")
+                                  .IfEmpty("()");
 
             return $"{chain} => {call}";
         }

@@ -16,9 +16,9 @@ namespace SCurry.Builders.Converters.PartialApplication
             var call = _callConverter.Convert(definition);
 
             var chain = definition.Parameters
-                .Where(x => !x.IsArgument)
-                .Select(x => x.ArgumentName)
-                .Join(", ");
+                                  .Where(x => !x.IsArgument)
+                                  .Select(x => x.ArgumentName)
+                                  .Join(", ");
 
             return $"({chain}) => {call}";
         }

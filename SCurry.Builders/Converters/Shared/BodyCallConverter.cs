@@ -6,14 +6,10 @@ namespace SCurry.Builders.Converters.Shared
 {
     internal sealed class BodyCallConverter : IConverter
     {
-        public string Convert(MethodDefinition definition)
-        {
-            var args = definition
-                .Parameters
-                .Select(x => x.ArgumentName)
-                .Join(", ");
-
-            return $"{definition.Target}({args})";
-        }
+        public string Convert(MethodDefinition definition) =>
+            definition.Parameters
+                      .Select(x => x.ArgumentName)
+                      .Join(", ")
+                      .Map(args => $"{definition.Target}({args})");
     }
 }

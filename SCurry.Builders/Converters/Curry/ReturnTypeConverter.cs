@@ -19,11 +19,11 @@ namespace SCurry.Builders.Converters.Curry
                 : argsCount - 1;
 
             return definition.Parameters
-                .Take(take)
-                .Select(x => $"Func<{x.TypeName}, ")
-                .Append(result)
-                .Concat(Enumerable.Range(0, take).Select(_ => ">"))
-                .Join();
+                             .Take(take)
+                             .Select(x => $"Func<{x.TypeName}, ")
+                             .Append(result)
+                             .Concat(Enumerable.Range(0, take).Select(_ => ">"))
+                             .Join();
         }
     }
 }

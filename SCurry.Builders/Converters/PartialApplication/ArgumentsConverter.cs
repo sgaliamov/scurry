@@ -16,9 +16,9 @@ namespace SCurry.Builders.Converters.PartialApplication
             var types = _typeParameters.Convert(definition);
 
             var args = definition
-                .Parameters
-                .Select(x => x.CallArgument)
-                .Join(", ");
+                       .Parameters
+                       .Select(x => x.CallArgument)
+                       .Join(", ");
 
             return $"this {definition.Delegate}{types} {definition.Target}, {args}";
         }

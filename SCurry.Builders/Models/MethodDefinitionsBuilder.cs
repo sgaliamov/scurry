@@ -40,7 +40,7 @@ namespace SCurry.Builders.Models
             var max = 1 << gapsCount;
 
             return Enumerable.Range(0, max)
-                .Select(index => new MethodDefinition(type, ValueToParameters(index, argsCount)));
+                             .Select(index => new MethodDefinition(type, ValueToParameters(index, argsCount)));
         }
 
         private static IEnumerable<MethodDefinition> GenerateWithTrailingGaps(
@@ -63,10 +63,9 @@ namespace SCurry.Builders.Models
         }
 
         private static Parameter[] ValueToParameters(int value, int length) =>
-            new BitArray(new[] { value })
-                .OfType<bool>()
-                .Take(length)
-                .Select((isArg, index) => new Parameter(isArg, index + 1))
-                .ToArray();
+            new BitArray(new[] { value }).OfType<bool>()
+                                         .Take(length)
+                                         .Select((isArg, index) => new Parameter(isArg, index + 1))
+                                         .ToArray();
     }
 }

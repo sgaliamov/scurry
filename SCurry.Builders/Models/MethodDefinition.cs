@@ -8,11 +8,10 @@ namespace SCurry.Builders.Models
         {
             Type = type;
             Parameters = parameters;
-            TrimmedParameters = parameters
-                .Reverse()
-                .SkipWhile(x => !x.IsArgument)
-                .Reverse()
-                .ToArray();
+            TrimmedParameters = parameters.Reverse()
+                                          .SkipWhile(x => !x.IsArgument)
+                                          .Reverse()
+                                          .ToArray();
         }
 
         public MethodType Type { get; }

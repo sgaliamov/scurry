@@ -14,13 +14,8 @@ namespace SCurry.Builders.Converters.Shared
             _types = types;
         }
 
-        public string Convert(MethodDefinition definition)
-        {
-            var types = _types.Convert(definition);
-
-            return $"{_name}{types}";
-        }
-
-       
+        public string Convert(MethodDefinition definition) =>
+            _types.Convert(definition)
+                  .Map(types => $"{_name}{types}");
     }
 }

@@ -16,10 +16,10 @@ namespace SCurry.Builders.Converters.Curry
             var types = _typeParameters.Convert(definition);
 
             var args = definition
-                .TrimmedParameters
-                .Select(x => x.CallArgument)
-                .Join(", ")
-                .MapIfExists(x => ", " + x);
+                       .TrimmedParameters
+                       .Select(x => x.CallArgument)
+                       .Join(", ")
+                       .MapIfExists(x => ", " + x);
 
             return $"this {definition.Delegate}{types} {definition.Target}{args}";
         }
