@@ -1,6 +1,6 @@
 ﻿using SCurry.Builders.Models;
 
-namespace SCurry.Builders.Shared
+namespace SCurry.Builders.Converters
 {
     public interface IConverter
     {

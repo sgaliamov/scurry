@@ -7,9 +7,14 @@ namespace SCurry.Builders.Builders
 {
     public class DefaultBuilder
     {
-        private readonly MethodConverter _methodConverter;
+        private readonly IMethodDefinitionsBuilder _definitionsBuilder;
+        private readonly IConverter _methodConverter;
 
-        public DefaultBuilder(MethodConverter converter) => _methodConverter = converter;
+        public DefaultBuilder(IConverter converter, IMethodDefinitionsBuilder definitionsBuilder)
+        {
+            _methodConverter = converter;
+            _definitionsBuilder = definitionsBuilder;
+        }
 
         public IEnumerable<string> GenerateFuncExtentions(int gapsCount, int maxArgsCount) =>
             Generate(MethodType.Function, gapsCount, maxArgsCount);
@@ -24,7 +29,7 @@ namespace SCurry.Builders.Builders
         {
             for (var argsCount = 0; argsCount <= maxArgsCount; argsCount++)
             {
-                var definitions = MethodDefinitionsBuilder
+                var definitions = _definitionsBuilder
                                   .Build(methodType, gapsCount, argsCount)
                                   .Select(_methodConverter.Convert);
 

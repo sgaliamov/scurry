@@ -25,7 +25,7 @@ namespace SCurry.Builders.Tests
             };
             var expected = Convert(markers, type);
 
-            var actual = MethodDefinitionsBuilder.Build(type, 0, 4);
+            var actual = _target.Build(type, 0, 4);
 
             actual.Should().BeEquivalentTo(expected.AsEnumerable());
         }
@@ -48,7 +48,7 @@ namespace SCurry.Builders.Tests
             };
             var expected = Convert(markers, type);
 
-            var actual = MethodDefinitionsBuilder.Build(type, 3, 3);
+            var actual = _target.Build(type, 3, 3);
 
             actual.Should().BeEquivalentTo(expected.AsEnumerable());
         }
@@ -72,7 +72,7 @@ namespace SCurry.Builders.Tests
             };
             var expected = Convert(markers, type);
 
-            var actual = MethodDefinitionsBuilder.Build(type, 3, 4);
+            var actual = _target.Build(type, 3, 4);
 
             actual.Should().BeEquivalentTo(expected.AsEnumerable());
         }
@@ -97,7 +97,7 @@ namespace SCurry.Builders.Tests
             };
             var expected = Convert(markers, type);
 
-            var actual = MethodDefinitionsBuilder.Build(type, 3, 5);
+            var actual = _target.Build(type, 3, 5);
 
             actual.Should().BeEquivalentTo(expected.AsEnumerable());
         }
@@ -120,10 +120,12 @@ namespace SCurry.Builders.Tests
             };
             var expected = Convert(markers, type);
 
-            var actual = MethodDefinitionsBuilder.Build(type, 4, 3);
+            var actual = _target.Build(type, 4, 3);
 
             actual.Should().BeEquivalentTo(expected.AsEnumerable());
         }
+
+        private readonly MethodDefinitionsBuilder _target = new MethodDefinitionsBuilder();
 
         private readonly Fixture _fixture = new Fixture();
 

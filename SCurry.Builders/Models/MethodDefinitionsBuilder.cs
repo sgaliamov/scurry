@@ -6,9 +6,9 @@ using SCurry.Builders.Shared;
 
 namespace SCurry.Builders.Models
 {
-    public static class MethodDefinitionsBuilder
+    public sealed class MethodDefinitionsBuilder : IMethodDefinitionsBuilder
     {
-        public static MethodDefinition[] Build(MethodType type, int gapsCount, int argsCount)
+        public MethodDefinition[] Build(MethodType type, int gapsCount, int argsCount)
         {
             if (argsCount < 0 || argsCount > Constants.MaxInputArgumentsCount)
             {
