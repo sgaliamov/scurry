@@ -18,7 +18,8 @@ namespace SCurry.Builders.Converters.Curry
             var chain = definition.Parameters
                 .Where(x => !x.IsArgument)
                 .Select(x => x.ArgumentName)
-                .Join(" => ");
+                .Join(" => ")
+                .IfEmpty("()");
 
             return $"{chain} => {call}";
         }

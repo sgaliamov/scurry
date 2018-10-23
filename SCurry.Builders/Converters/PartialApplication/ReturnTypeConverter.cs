@@ -6,22 +6,13 @@ namespace SCurry.Builders.Converters.PartialApplication
 {
     internal sealed class ReturnTypeConverter : IConverter
     {
-        public string Convert(MethodDefinition definition)
-        {
-            var types = definition
-                .Parameters
-                .Where(x => !x.IsArgument)
-                .Select(x => x.TypeName);
-
-            if (definition.Type == MethodType.Function)
-            {
-                types = types.Append("TResult");
-            }
-
-            return $"{definition.Delegate}{AddBrackets(types.Join(", "))}";
-        }
-
-        private static string AddBrackets(string types) =>
-            string.IsNullOrWhiteSpace(types) ? types : $"<{types}>";
+        public string Convert(MethodDefinition definition) => definition
+            .Parameters
+            .Where(x => !x.IsArgument)
+            .Select(x => x.TypeName)
+            .AppendIf(() => definition.Type == MethodType.Function, "TResult")
+            .Join(", ")
+            .MapIfExists(types => $"<{types}>")
+            .Map(types => $"{definition.Delegate}{types}");
     }
 }
