@@ -1,4 +1,4 @@
-﻿namespace SCurry.Builders.Builders
+﻿namespace SCurry.Builders
 {
     public sealed class UncurryBuilder { }
 }

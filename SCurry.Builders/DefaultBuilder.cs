@@ -3,7 +3,7 @@ using System.Linq;
 using SCurry.Builders.Converters;
 using SCurry.Builders.Models;
 
-namespace SCurry.Builders.Builders
+namespace SCurry.Builders
 {
     public class DefaultBuilder
     {

@@ -1,7 +1,7 @@
 ﻿using SCurry.Builders.Converters;
 using SCurry.Builders.Models;
 
-namespace SCurry.Builders.Builders
+namespace SCurry.Builders
 {
     public sealed class CurryBuilder : DefaultBuilder
     {

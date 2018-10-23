@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using FluentAssertions;
-using SCurry.Builders.Builders;
 using Xunit;
 
 namespace SCurry.Builders.Tests
