@@ -4,10 +4,10 @@ using SCurry.Builders.Converters;
 using SCurry.Builders.Models;
 using Xunit;
 
-namespace SCurry.Builders.Tests
+namespace SCurry.Builders.Tests.Converters
 {
     [Trait("Category", "Builder")]
-    public class CurryBuilderTests
+    public class CurryMethodConverterTests
     {
         [Fact]
         public void Generate_Action_Extentions_For_3_Arguments_With_0_Gaps()
