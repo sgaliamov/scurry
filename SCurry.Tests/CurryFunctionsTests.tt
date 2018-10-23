@@ -43,7 +43,7 @@ namespace SCurry.Tests
     }
 }
 <#+
-    const int MaxInputArgumentsCount = 16;
+    const int MaxInputArgumentsCount = 8;
 
     string Calls(int count)
     {

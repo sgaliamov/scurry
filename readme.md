@@ -20,3 +20,8 @@ Currying and partial application for C# functions and actions.
 ## Examples
 
 TBD
+
+## Links
+
+* [Todo list](./todo.md).
+* [Development process](./process.md).

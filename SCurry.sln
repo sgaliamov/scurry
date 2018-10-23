@@ -7,10 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCurry", "scurry\SCurry.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4D128822-7A17-4D9C-B4C9-948B6F0F7AC6}"
 	ProjectSection(SolutionItems) = preProject
-		.codecov.yml = .codecov.yml
 		.gitignore = .gitignore
 		process.md = process.md
 		readme.md = readme.md
+		todo.md = todo.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCurry.Tests", "SCurry.Tests\SCurry.Tests.csproj", "{C5680E07-C83D-4A5B-8857-C5D877BA306A}"
@@ -29,6 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build scripts", "Build scri
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppVeyor files", "AppVeyor files", "{35841C7B-B921-4DA4-B7FB-3166CD8CC975}"
 	ProjectSection(SolutionItems) = preProject
+		.codecov.yml = .codecov.yml
 		appveyor.yml = appveyor.yml
 		.appveyor\before_deploy.ps1 = .appveyor\before_deploy.ps1
 		.appveyor\codecov.sh = .appveyor\codecov.sh
