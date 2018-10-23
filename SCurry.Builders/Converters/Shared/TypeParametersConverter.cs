@@ -6,6 +6,8 @@ namespace SCurry.Builders.Converters.Shared
 {
     internal sealed class TypeParametersConverter : IConverter
     {
+        public static readonly TypeParametersConverter Instance = new TypeParametersConverter();
+
         public string Convert(MethodDefinition definition) => definition
             .Parameters
             .Select(x => x.TypeName)
