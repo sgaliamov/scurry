@@ -2,6 +2,8 @@
 <#@ output extension=".generated.cs" #>
 <#@ assembly name="System.Core" #>
 <#@ assembly name="System.Linq" #>
+<#@ assembly name="$(ProjectDir)..\SCurry.Builders\bin\$(Configuration)\netstandard2.0\SCurry.Builders.dll" #>
+<#@ import namespace="SCurry.Builders.Shared" #>
 <#@ import namespace="System.Linq" #>
 /*
    ___ ___ _  _ ___ ___    _ _____ ___ ___     ___ ___  ___  ___ 
@@ -36,7 +38,7 @@ namespace SCurry.Tests
             // assert
             Assert.Equal(0, actual);
         }
-<# for(int count = 1; count <= MaxInputArgumentsCount; count++) #>
+<# for(int count = 1; count <= Constants.MaxInputArgumentsCount; count++) #>
 <# { #>
 
         [Fact]
@@ -60,8 +62,6 @@ namespace SCurry.Tests
     }
 }
 <#+
-    const int MaxInputArgumentsCount = 8;
-
     string ActionArgs(int count)
     {
         return string.Join(
