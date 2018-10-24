@@ -5,7 +5,8 @@ if ($env:APPVEYOR_REPO_BRANCH -eq "develop") {
             -target:"C:\Program Files\dotnet\dotnet.exe" `
             -targetargs:"test $_ --no-build -c debug" `
             -output:"coverage.xml" `
-            -oldstyle
+            -oldstyle `
+			-returntargetcode
 
 		if (!$?) {
 			throw "Tests for $_ failed."
