@@ -32,11 +32,10 @@ configuration: Release
 
 build_script:
 - pwsh: |
-    if ($env:APPVEYOR_REPO_BRANCH -eq "master") {
-        .\build.ps1 $env:CONFIGURATION
-    } else {
-        .\build.ps1 Debug
+    if ($env:APPVEYOR_REPO_BRANCH -ne "master") {
+        $env:CONFIGURATION = Debug
     }
+    .\build.ps1 $env:CONFIGURATION
 
 before_test:
 - pwsh: nuget install OpenCover -Verbosity quiet -Version 4.6.519
