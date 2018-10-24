@@ -13,12 +13,9 @@ namespace SCurry.Builders.Converters.Curry
 
         public string Convert(MethodDefinition definition)
         {
-            if (definition.Parameters.Length == 0)
-            {
-                return definition.Target;
-            }
+            var onlyOneNormalParamter = definition.Parameters.Length == 1 && definition.TrimmedParameters.Length == 0;
 
-            if (definition.Parameters.Length == 1 && definition.TrimmedParameters.Length == 0)
+            if (definition.Parameters.Length == 0 || onlyOneNormalParamter)
             {
                 return definition.Target;
             }

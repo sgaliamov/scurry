@@ -8,16 +8,14 @@ namespace SCurry.Builders.Converters.Curry
     {
         public string Convert(MethodDefinition definition)
         {
-            var argsCount = definition.GappedParameters.Length;
-
-            if (argsCount == 0)
+            if (definition.GappedParameters.Length == 0)
             {
                 return definition.SimpleReturnType;
             }
 
             var take = definition.Type == MethodType.Function
-                ? argsCount
-                : argsCount - 1;
+                ? definition.GappedParameters.Length
+                : definition.GappedParameters.Length - 1;
 
             return definition.GappedParameters
                              .Take(take)

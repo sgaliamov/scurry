@@ -13,12 +13,7 @@ namespace SCurry.Builders.Converters.PartialApplication
 
         public string Convert(MethodDefinition definition)
         {
-            if (definition.Parameters.Length == 0)
-            {
-                return definition.Target;
-            }
-
-            if (definition.TrimmedParameters.Length == 0)
+            if (definition.Parameters.Length == 0 || definition.TrimmedParameters.Length == 0)
             {
                 return definition.Target;
             }
