@@ -13,4 +13,4 @@ coverage:
     changes: no
 
 ignore:
-- *.generated.cs
+  - "**/*.generated.cs"
