@@ -25,7 +25,7 @@ namespace SCurry.Builders.Tests
             };
             var expected = Convert(markers, type);
 
-            var actual = _target.Build(type, 0, 4);
+            var actual = _target.Build(type, 0, 4, 4);
 
             actual.Should().BeEquivalentTo(expected.AsEnumerable());
         }
@@ -48,7 +48,7 @@ namespace SCurry.Builders.Tests
             };
             var expected = Convert(markers, type);
 
-            var actual = _target.Build(type, 3, 3);
+            var actual = _target.Build(type, 3, 3, 4);
 
             actual.Should().BeEquivalentTo(expected.AsEnumerable());
         }
@@ -72,7 +72,7 @@ namespace SCurry.Builders.Tests
             };
             var expected = Convert(markers, type);
 
-            var actual = _target.Build(type, 3, 4);
+            var actual = _target.Build(type, 3, 4, 4);
 
             actual.Should().BeEquivalentTo(expected.AsEnumerable());
         }
@@ -97,7 +97,29 @@ namespace SCurry.Builders.Tests
             };
             var expected = Convert(markers, type);
 
-            var actual = _target.Build(type, 3, 5);
+            var actual = _target.Build(type, 3, 5, 10);
+
+            actual.Should().BeEquivalentTo(expected.AsEnumerable());
+        }
+
+        [Fact]
+        public void Build_With_3_Gaps_5_Agrs_Limit_4()
+        {
+            var type = _fixture.Create<MethodType>();
+
+            var markers = new[]
+            {
+                new[] { 0, 0, 0, 0, 0 },
+                new[] { 1, 0, 0, 0, 0 },
+                new[] { 0, 1, 0, 0, 0 },
+                new[] { 1, 1, 0, 0, 0 },
+                new[] { 0, 0, 1, 0, 0 },
+                new[] { 1, 0, 1, 0, 0 },
+                new[] { 0, 1, 1, 0, 0 }
+            };
+            var expected = Convert(markers, type);
+
+            var actual = _target.Build(type, 3, 5, 4);
 
             actual.Should().BeEquivalentTo(expected.AsEnumerable());
         }
@@ -120,7 +142,7 @@ namespace SCurry.Builders.Tests
             };
             var expected = Convert(markers, type);
 
-            var actual = _target.Build(type, 4, 3);
+            var actual = _target.Build(type, 4, 3, 3);
 
             actual.Should().BeEquivalentTo(expected.AsEnumerable());
         }

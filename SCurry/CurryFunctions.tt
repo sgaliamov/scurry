@@ -25,7 +25,8 @@ namespace SCurry
 
     foreach(var extention in builder.GenerateFuncExtentions(
         Constants.DefaultGapsCount,
-        Constants.MaxInputArgumentsCount))
+        Constants.MaxInputArgumentsCount,
+        Constants.LimitPartial))
     {
 #>
         <#= extention #>

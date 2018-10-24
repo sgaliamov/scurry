@@ -2,6 +2,7 @@
 using FluentAssertions;
 using SCurry.Builders.Converters;
 using SCurry.Builders.Models;
+using SCurry.Builders.Shared;
 using Xunit;
 
 namespace SCurry.Builders.Tests.Converters
@@ -138,7 +139,7 @@ namespace SCurry.Builders.Tests.Converters
         private readonly MethodDefinitionsBuilder _definitionsBuilder = new MethodDefinitionsBuilder();
 
         private string[] Convert(MethodType methodType, int gapsCount, int argsCount) =>
-            _definitionsBuilder.Build(methodType, gapsCount, argsCount)
+            _definitionsBuilder.Build(methodType, gapsCount, argsCount, Constants.LimitPartial)
                                .Select(_target.Convert)
                                .ToArray();
     }

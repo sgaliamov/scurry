@@ -2,7 +2,8 @@
 {
     public static class Constants
     {
-        public const int MaxInputArgumentsCount = 8;
-        public const int DefaultGapsCount = 5;
+        public const int MaxInputArgumentsCount = 16;
+        public const int DefaultGapsCount = 6;
+        public const int LimitPartial = 8;
     }
 }

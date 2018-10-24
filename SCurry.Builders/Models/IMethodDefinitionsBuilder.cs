@@ -2,6 +2,6 @@
 {
     public interface IMethodDefinitionsBuilder
     {
-        MethodDefinition[] Build(MethodType type, int gapsCount, int argsCount);
+        MethodDefinition[] Build(MethodType type, int gapsCount, int argsCount, int limitPartial);
     }
 }
