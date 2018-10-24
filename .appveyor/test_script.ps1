@@ -1,4 +1,4 @@
-if ($env:APPVEYOR_REPO_BRANCH -in "develop", "master") {
+if ($env:APPVEYOR_REPO_BRANCH -eq "develop") {
     Get-ChildItem .\**\*.Tests.csproj -Recurse | ForEach-Object {
         .\OpenCover.4.6.519\tools\OpenCover.Console.exe `
             -register:user `
