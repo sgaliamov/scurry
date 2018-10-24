@@ -8,10 +8,6 @@ if ($env:APPVEYOR_REPO_BRANCH -eq "develop") {
             -oldstyle `
 			-returntargetcode
 
-		if (!$?) {
-			throw "Tests for $_ failed."
-		}
-
         bash .appveyor\codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
     }
 }
