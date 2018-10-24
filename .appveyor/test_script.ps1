@@ -6,11 +6,11 @@ if ($env:APPVEYOR_REPO_BRANCH -eq "develop") {
             -targetargs:"test $_ --no-build -c $env:CONFIGURATION" `
             -output:"coverage.xml" `
             -oldstyle `
-			-returntargetcode
+            -returntargetcode
 
-		if (!$?) {
-			throw "Tests for $_ failed."
-		}
+        if (!$?) {
+            throw "`nTests for $_ failed."
+        }
 
         bash .appveyor\codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
     }
