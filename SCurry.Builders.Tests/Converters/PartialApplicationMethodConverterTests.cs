@@ -141,11 +141,5 @@ namespace SCurry.Builders.Tests.Converters
             _definitionsBuilder.Build(methodType, gapsCount, argsCount)
                                .Select(_target.Convert)
                                .ToArray();
-
-        [Fact]
-        public void MyMethod()
-        {
-            Assert.True(false);
-        }
     }
 }
