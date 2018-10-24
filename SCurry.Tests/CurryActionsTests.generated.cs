@@ -15,7 +15,7 @@ namespace SCurry.Tests
     public class CurryActionsTests
     {
         [Fact]
-        public void Curry_Action_0_Test()
+        public void Curry_Action_0()
         {
             // arrange
             var actual = -1;
@@ -33,7 +33,7 @@ namespace SCurry.Tests
         }
 
         [Fact]
-        public void Curry_Action_1_Test()
+        public void Curry_Action_1()
         {
             // arrange
             var actual = -1;
@@ -51,7 +51,7 @@ namespace SCurry.Tests
         }
 
         [Fact]
-        public void Curry_Action_2_Test()
+        public void Curry_Action_2()
         {
             // arrange
             var actual = -1;
@@ -69,7 +69,7 @@ namespace SCurry.Tests
         }
 
         [Fact]
-        public void Curry_Action_3_Test()
+        public void Curry_Action_3()
         {
             // arrange
             var actual = -1;
@@ -87,7 +87,7 @@ namespace SCurry.Tests
         }
 
         [Fact]
-        public void Curry_Action_4_Test()
+        public void Curry_Action_4()
         {
             // arrange
             var actual = -1;
@@ -105,7 +105,7 @@ namespace SCurry.Tests
         }
 
         [Fact]
-        public void Curry_Action_5_Test()
+        public void Curry_Action_5()
         {
             // arrange
             var actual = -1;
@@ -123,7 +123,7 @@ namespace SCurry.Tests
         }
 
         [Fact]
-        public void Curry_Action_6_Test()
+        public void Curry_Action_6()
         {
             // arrange
             var actual = -1;
@@ -141,7 +141,7 @@ namespace SCurry.Tests
         }
 
         [Fact]
-        public void Curry_Action_7_Test()
+        public void Curry_Action_7()
         {
             // arrange
             var actual = -1;
@@ -159,7 +159,7 @@ namespace SCurry.Tests
         }
 
         [Fact]
-        public void Curry_Action_8_Test()
+        public void Curry_Action_8()
         {
             // arrange
             var actual = -1;
@@ -177,7 +177,7 @@ namespace SCurry.Tests
         }
 
         [Fact]
-        public void Curry_Action_9_Test()
+        public void Curry_Action_9()
         {
             // arrange
             var actual = -1;
@@ -195,7 +195,7 @@ namespace SCurry.Tests
         }
 
         [Fact]
-        public void Curry_Action_10_Test()
+        public void Curry_Action_10()
         {
             // arrange
             var actual = -1;
@@ -213,7 +213,7 @@ namespace SCurry.Tests
         }
 
         [Fact]
-        public void Curry_Action_11_Test()
+        public void Curry_Action_11()
         {
             // arrange
             var actual = -1;
@@ -231,7 +231,7 @@ namespace SCurry.Tests
         }
 
         [Fact]
-        public void Curry_Action_12_Test()
+        public void Curry_Action_12()
         {
             // arrange
             var actual = -1;
@@ -249,7 +249,7 @@ namespace SCurry.Tests
         }
 
         [Fact]
-        public void Curry_Action_13_Test()
+        public void Curry_Action_13()
         {
             // arrange
             var actual = -1;
@@ -267,7 +267,7 @@ namespace SCurry.Tests
         }
 
         [Fact]
-        public void Curry_Action_14_Test()
+        public void Curry_Action_14()
         {
             // arrange
             var actual = -1;
@@ -285,7 +285,7 @@ namespace SCurry.Tests
         }
 
         [Fact]
-        public void Curry_Action_15_Test()
+        public void Curry_Action_15()
         {
             // arrange
             var actual = -1;
@@ -303,7 +303,7 @@ namespace SCurry.Tests
         }
 
         [Fact]
-        public void Curry_Action_16_Test()
+        public void Curry_Action_16()
         {
             // arrange
             var actual = -1;

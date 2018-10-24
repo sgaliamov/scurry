@@ -1,6 +1,9 @@
 ﻿<#@ template debug="false" hostspecific="false" language="C#" compilerOptions="optimize+" #>
+<#@ output extension=".generated.cs" #>
 <#@ assembly name="System.Core" #>
 <#@ assembly name="System.Linq" #>
+<#@ assembly name="$(ProjectDir)..\SCurry.Builders\bin\$(Configuration)\netstandard2.0\SCurry.Builders.dll" #>
+<#@ import namespace="SCurry.Builders.Shared" #>
 <#@ import namespace="System.Linq" #>
 /*
    ___ ___ _  _ ___ ___    _ _____ ___ ___     ___ ___  ___  ___ 
@@ -10,7 +13,7 @@
 
 */
 
-using Xunit; 
+using Xunit;
 
 namespace SCurry.Tests
 {
@@ -18,7 +21,7 @@ namespace SCurry.Tests
     public class CurryFunctionsTests
     {
         [Fact]
-        public void Curry_Func_0_Test()
+        public void Curry_Func_0()
         {
             var curryed = TestFunctions.Zero.Curry();
 
@@ -26,11 +29,11 @@ namespace SCurry.Tests
 
             Assert.Equal(0, actual);
         }
-<# for(int count = 1; count <= MaxInputArgumentsCount; count++) #>
+<# for(int count = 1; count <= Constants.MaxInputArgumentsCount; count++) #>
 <# { #>
 
         [Fact]
-        public void Curry_Func_<#= count #>_Test()
+        public void Curry_Func_<#= count #>()
         {
             var curryedAdd = TestFunctions.Add<#= count #>.Curry();
 
@@ -42,8 +45,6 @@ namespace SCurry.Tests
     }
 }
 <#+
-    const int MaxInputArgumentsCount = 16;
-
     string Calls(int count)
     {
         return string.Join(string.Empty, Enumerable.Range(1, count).Select(x => $"({x})"));

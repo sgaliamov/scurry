@@ -1,4 +1,4 @@
-version: 0.3.{build}
+version: 0.4.{build}
 
 branches:
   only:
@@ -30,35 +30,24 @@ dotnet_csproj:
 
 configuration: Release
 
-before_build:
-- pwsh: dotnet restore --verbosity q
-
-build:
-  project: SCurry.sln
-  parallel: true
-  verbosity: minimal
+build_script:
+- pwsh: |
+    if ($env:APPVEYOR_REPO_BRANCH -ne "master") {
+        $env:CONFIGURATION = debug
+    }
+    .\build.ps1 $env:CONFIGURATION
 
 before_test:
-- pwsh: nuget install OpenCover -Verbosity quiet -Version 4.6.519
+- pwsh: |
+    if ($env:APPVEYOR_REPO_BRANCH -eq "develop") {
+        nuget install OpenCover -Verbosity quiet -Version 4.6.519
+    }
 
 test_script:
-- pwsh: |
-    Get-ChildItem .\**\*.Tests.csproj -Recurse | % {
-        .\OpenCover.4.6.519\tools\OpenCover.Console.exe `
-            -register:user `
-            -target:"C:\Program Files\dotnet\dotnet.exe" `
-            -targetargs:"test $_ --no-build" `
-            -output:"coverage.xml" `
-            -oldstyle
-        bash .build\codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
-    }
+- pwsh: .\.appveyor\test_script.ps1
 
 before_deploy:
-- pwsh: |
-    if ($env:APPVEYOR_REPO_BRANCH -eq "master") {
-        dotnet pack .\SCurry\ --include-source --include-symbols --no-build --no-dependencies
-        Get-ChildItem ".\SCurry\**\*.nupkg" -Recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name -DeploymentName "appveyor-nuget" }
-    }
+- pwsh: .\.appveyor\before_deploy.ps1
 
 deploy:
 - provider: Environment

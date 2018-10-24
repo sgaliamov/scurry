@@ -18,15 +18,15 @@ namespace SCurry
 {
     using _ = Spacer.SpacerInstance;
 
-    public static class CurryActions
+    public static class PartialApplicationActions
     {
 <#
-    var builder = new CurryBuilder();
+    var builder = new PartialApplicationBuilder();
 
     foreach(var extention in builder.GenerateActionExtentions(
         Constants.DefaultGapsCount,
         Constants.MaxInputArgumentsCount,
-        Constants.LimitPartial))
+        Constants.MaxInputArgumentsCount))
     {
 #>
         <#= extention #>

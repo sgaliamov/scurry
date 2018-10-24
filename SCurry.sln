@@ -8,13 +8,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4D128822-7A17-4D9C-B4C9-948B6F0F7AC6}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
-		appveyor.yml = appveyor.yml
-		clean.ps1 = clean.ps1
-		.build\codecov.sh = .build\codecov.sh
+		process.md = process.md
 		readme.md = readme.md
-		.build\SCurry.T4.sln = .build\SCurry.T4.sln
-		.build\t4-transform.csproj = .build\t4-transform.csproj
-		transform.bat = transform.bat
+		todo.md = todo.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCurry.Tests", "SCurry.Tests\SCurry.Tests.csproj", "{C5680E07-C83D-4A5B-8857-C5D877BA306A}"
@@ -22,6 +18,23 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCurry.Builders", "SCurry.Builders\SCurry.Builders.csproj", "{D69618CE-B1BC-4B4A-97AE-592F3DC60786}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCurry.Builders.Tests", "SCurry.Builders.Tests\SCurry.Builders.Tests.csproj", "{2766DE8C-B534-46DE-8BB1-885BF62D4438}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build scripts", "Build scripts", "{176209C7-76F6-4605-AB95-2B0677D10EC0}"
+	ProjectSection(SolutionItems) = preProject
+		build.ps1 = build.ps1
+		clean.ps1 = clean.ps1
+		.build\SCurry.T4.sln = .build\SCurry.T4.sln
+		.build\t4-transform.csproj = .build\t4-transform.csproj
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppVeyor files", "AppVeyor files", "{35841C7B-B921-4DA4-B7FB-3166CD8CC975}"
+	ProjectSection(SolutionItems) = preProject
+		.codecov.yml = .codecov.yml
+		appveyor.yml = appveyor.yml
+		.appveyor\before_deploy.ps1 = .appveyor\before_deploy.ps1
+		.appveyor\codecov.sh = .appveyor\codecov.sh
+		.appveyor\test_script.ps1 = .appveyor\test_script.ps1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +61,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{176209C7-76F6-4605-AB95-2B0677D10EC0} = {4D128822-7A17-4D9C-B4C9-948B6F0F7AC6}
+		{35841C7B-B921-4DA4-B7FB-3166CD8CC975} = {4D128822-7A17-4D9C-B4C9-948B6F0F7AC6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {43831CD2-E827-451C-98E6-E576D2E73033}
