@@ -20,7 +20,7 @@ Description of development and deployment processes.
 
 ## Release
 
-1. Create new release branch from *develop* and name it *Release/YYYY.MM.DD*.
+1. Create new release branch from *develop* and name it *release/YYYY.MM.DD*.
 1. Increment version in [appveyor.yml](./appveyor.yml).
 1. Apply all changes and push to remote.
 1. Create PR from the release branch to *master*. Make sure that all checks pass. It will produce a build with wrong version that should be removed later.
