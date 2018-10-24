@@ -22,7 +22,7 @@ namespace SCurry.Tests
     public class CurryActionsTests
     {
         [Fact]
-        public void Curry_Action_0_Test()
+        public void Curry_Action_0()
         {
             // arrange
             var actual = -1;
@@ -42,7 +42,7 @@ namespace SCurry.Tests
 <# { #>
 
         [Fact]
-        public void Curry_Action_<#= count #>_Test()
+        public void Curry_Action_<#= count #>()
         {
             // arrange
             var actual = -1;

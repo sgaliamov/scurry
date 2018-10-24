@@ -21,7 +21,7 @@ namespace SCurry.Tests
     public class CurryFunctionsTests
     {
         [Fact]
-        public void Curry_Func_0_Test()
+        public void Curry_Func_0()
         {
             var curryed = TestFunctions.Zero.Curry();
 
@@ -33,7 +33,7 @@ namespace SCurry.Tests
 <# { #>
 
         [Fact]
-        public void Curry_Func_<#= count #>_Test()
+        public void Curry_Func_<#= count #>()
         {
             var curryedAdd = TestFunctions.Add<#= count #>.Curry();
 
