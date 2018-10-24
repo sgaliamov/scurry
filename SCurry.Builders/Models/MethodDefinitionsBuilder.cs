@@ -8,7 +8,7 @@ namespace SCurry.Builders.Models
 {
     public sealed class MethodDefinitionsBuilder : IMethodDefinitionsBuilder
     {
-        public MethodDefinition[] Build(MethodType type, int gapsCount, int argsCount)
+        public MethodDefinition[] Build(MethodType type, int gapsCount, int argsCount, int limitPartial)
         {
             if (argsCount < 0 || argsCount > Constants.MaxInputArgumentsCount)
             {
@@ -27,7 +27,7 @@ namespace SCurry.Builders.Models
 
             var gapped = GenerateWithAllGaps(type, gapsCount, argsCount);
 
-            var rest = GenerateWithTrailingGaps(type, gapsCount + 1, argsCount);
+            var rest = GenerateWithTrailingGaps(type, gapsCount + 1, argsCount, limitPartial);
 
             return gapped.Concat(rest).ToArray();
         }
@@ -43,12 +43,17 @@ namespace SCurry.Builders.Models
                              .Select(index => new MethodDefinition(type, ValueToParameters(index, argsCount)));
         }
 
-        private static IEnumerable<MethodDefinition> GenerateWithTrailingGaps(
-            MethodType type,
+        private static IEnumerable<MethodDefinition> GenerateWithTrailingGaps(MethodType type,
             int startCount,
-            int argsCount)
+            int argsCount,
+            int limitPartial)
         {
             if (startCount > argsCount)
+            {
+                yield break;
+            }
+
+            if (argsCount > limitPartial)
             {
                 yield break;
             }

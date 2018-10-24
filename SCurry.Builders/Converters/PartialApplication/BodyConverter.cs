@@ -13,10 +13,14 @@ namespace SCurry.Builders.Converters.PartialApplication
 
         public string Convert(MethodDefinition definition)
         {
+            if (definition.Parameters.Length == 0 || definition.TrimmedParameters.Length == 0)
+            {
+                return definition.Target;
+            }
+
             var call = _callConverter.Convert(definition);
 
-            var chain = definition.Parameters
-                                  .Where(x => !x.IsArgument)
+            var chain = definition.GappedParameters
                                   .Select(x => x.ArgumentName)
                                   .Join(", ");
 

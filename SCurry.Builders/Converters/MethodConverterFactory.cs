@@ -8,13 +8,13 @@ namespace SCurry.Builders.Converters
         public static MethodConverter CurryMethodConverter => new MethodConverter(
             new ReturnTypeConverter(),
             new NameConverter("Curry", TypeParametersConverterInstance),
-            new ArgumentsConverter(TypeParametersConverterInstance),
+            ArgumentsConverter,
             new BodyConverter(BodyCallConverterInstance));
 
         public static MethodConverter PartialApplicationMethodConverter => new MethodConverter(
             new PartialApplication.ReturnTypeConverter(),
             new NameConverter("Partial", TypeParametersConverterInstance),
-            new PartialApplication.ArgumentsConverter(TypeParametersConverterInstance),
+            ArgumentsConverter,
             new PartialApplication.BodyConverter(BodyCallConverterInstance));
 
         private static readonly TypeParametersConverter TypeParametersConverterInstance
@@ -22,5 +22,8 @@ namespace SCurry.Builders.Converters
 
         private static readonly BodyCallConverter BodyCallConverterInstance
             = new BodyCallConverter();
+
+        private static readonly ArgumentsConverter ArgumentsConverter
+            = new ArgumentsConverter(TypeParametersConverterInstance);
     }
 }

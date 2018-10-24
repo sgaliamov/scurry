@@ -31,7 +31,7 @@
         </None>
         <None Update="TestFunctions.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>TestFunctions.cs</LastGenOutput>
+            <LastGenOutput>TestFunctions.generated.cs</LastGenOutput>
         </None>
     </ItemGroup>
 
@@ -51,10 +51,6 @@
             <AutoGen>True</AutoGen>
             <DependentUpon>TestFunctions.tt</DependentUpon>
         </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
     </ItemGroup>
 
 </Project>

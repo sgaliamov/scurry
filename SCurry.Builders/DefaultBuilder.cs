@@ -16,21 +16,22 @@ namespace SCurry.Builders
             _definitionsBuilder = definitionsBuilder;
         }
 
-        public IEnumerable<string> GenerateFuncExtentions(int gapsCount, int maxArgsCount) =>
-            Generate(MethodType.Function, gapsCount, maxArgsCount);
+        public IEnumerable<string> GenerateFuncExtentions(int gapsCount, int maxArgsCount, int limitPartial) =>
+            Generate(MethodType.Function, gapsCount, maxArgsCount, limitPartial);
 
-        public IEnumerable<string> GenerateActionExtentions(int gapsCount, int maxArgsCount) =>
-            Generate(MethodType.Action, gapsCount, maxArgsCount);
+        public IEnumerable<string> GenerateActionExtentions(int gapsCount, int maxArgsCount, int limitPartial) =>
+            Generate(MethodType.Action, gapsCount, maxArgsCount, limitPartial);
 
         private IEnumerable<string> Generate(
             MethodType methodType,
             int gapsCount,
-            int maxArgsCount)
+            int maxArgsCount,
+            int limitPartial)
         {
             for (var argsCount = 0; argsCount <= maxArgsCount; argsCount++)
             {
                 var definitions = _definitionsBuilder
-                                  .Build(methodType, gapsCount, argsCount)
+                                  .Build(methodType, gapsCount, argsCount, limitPartial)
                                   .Select(_methodConverter.Convert);
 
                 foreach (var definition in definitions)

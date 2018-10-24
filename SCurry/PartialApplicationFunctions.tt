@@ -3,6 +3,7 @@
 <#@ assembly name="netstandard" #>
 <#@ assembly name="$(ProjectDir)..\SCurry.Builders\bin\$(Configuration)\netstandard2.0\SCurry.Builders.dll" #>
 <#@ import namespace="SCurry.Builders" #>
+<#@ import namespace="SCurry.Builders.Shared" #>
 /*
    ___ ___ _  _ ___ ___    _ _____ ___ ___     ___ ___  ___  ___ 
   / __| __| \| | __| _ \  /_\_   _| __|   \   / __/ _ \|   \| __|
@@ -19,6 +20,18 @@ namespace SCurry
 
     public static class PartialApplicationFunctions
     {
-        public static Func<TResult> Partial<TResult>(this Func<TResult> func) => func;
+<#
+    var builder = new PartialApplicationBuilder();
+
+    foreach(var extention in builder.GenerateFuncExtentions(
+        Constants.DefaultGapsCount,
+        Constants.MaxInputArgumentsCount,
+        Constants.MaxInputArgumentsCount))
+    {
+#>
+        <#= extention #>
+<#
+    }
+#>
     }
 }

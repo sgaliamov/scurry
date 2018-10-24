@@ -2,6 +2,8 @@
 <#@ output extension=".generated.cs" #>
 <#@ assembly name="System.Core" #>
 <#@ assembly name="System.Linq" #>
+<#@ assembly name="$(ProjectDir)..\SCurry.Builders\bin\$(Configuration)\netstandard2.0\SCurry.Builders.dll" #>
+<#@ import namespace="SCurry.Builders.Shared" #>
 <#@ import namespace="System.Linq" #>
 /*
    ___ ___ _  _ ___ ___    _ _____ ___ ___     ___ ___  ___  ___
@@ -18,7 +20,7 @@ namespace SCurry.Tests
     {
         public static readonly Func<int> Zero = () => 0;
 <#
-    for(int i = 1; i <= MaxInputArgumentsCount; i++)
+    for(int i = 1; i <= Constants.MaxInputArgumentsCount; i++)
     {
 #>
         <#= Generate(i) #>
@@ -28,8 +30,6 @@ namespace SCurry.Tests
     }
 }
 <#+
-    const int MaxInputArgumentsCount = 16;
-
     string Generate(int count)
     {
         var args = string.Join(", ", Enumerable.Range(1, count).Select(x => "arg" + x));

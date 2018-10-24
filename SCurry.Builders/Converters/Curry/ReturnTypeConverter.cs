@@ -8,26 +8,21 @@ namespace SCurry.Builders.Converters.Curry
     {
         public string Convert(MethodDefinition definition)
         {
-            var parameters = definition.Parameters
-                                       .Where(x => !x.IsArgument)
-                                       .ToArray();
-
-            var argsCount = parameters.Length;
-
-            if (argsCount == 0)
+            if (definition.GappedParameters.Length == 0)
             {
                 return definition.SimpleReturnType;
             }
 
             var take = definition.Type == MethodType.Function
-                ? argsCount
-                : argsCount - 1;
+                ? definition.GappedParameters.Length
+                : definition.GappedParameters.Length - 1;
 
-            return parameters.Take(take)
+            return definition.GappedParameters
+                             .Take(take)
                              .Select(x => $"Func<{x.TypeName}, ")
                              .AppendIf(
                                  () => definition.Type == MethodType.Action,
-                                 () => $"Action<{parameters.Last().TypeName}>")
+                                 () => $"Action<{definition.GappedParameters.Last().TypeName}>")
                              .AppendIf(
                                  () => definition.Type == MethodType.Function,
                                  () => "TResult")

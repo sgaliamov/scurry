@@ -13,20 +13,16 @@ namespace SCurry.Builders.Converters.Curry
 
         public string Convert(MethodDefinition definition)
         {
-            if (definition.Parameters.Length == 0)
-            {
-                return definition.Target;
-            }
+            var onlyOneNormalParamter = definition.Parameters.Length == 1 && definition.TrimmedParameters.Length == 0;
 
-            if (definition.Parameters.Length == 1 && definition.TrimmedParameters.Length == 0)
+            if (definition.Parameters.Length == 0 || onlyOneNormalParamter)
             {
                 return definition.Target;
             }
 
             var call = _callConverter.Convert(definition);
 
-            var chain = definition.Parameters
-                                  .Where(x => !x.IsArgument)
+            var chain = definition.GappedParameters
                                   .Select(x => x.ArgumentName)
                                   .Join(" => ")
                                   .IfEmpty("()");
