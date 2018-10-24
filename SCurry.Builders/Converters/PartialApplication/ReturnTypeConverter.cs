@@ -8,11 +8,7 @@ namespace SCurry.Builders.Converters.PartialApplication
     {
         public string Convert(MethodDefinition definition)
         {
-            var parameters = definition.Parameters
-                                       .Where(x => !x.IsArgument)
-                                       .ToArray();
-
-            var argsCount = parameters.Length;
+            var argsCount = definition.GappedParameters.Length;
 
             if (argsCount == 0)
             {
@@ -23,14 +19,15 @@ namespace SCurry.Builders.Converters.PartialApplication
                 ? argsCount
                 : argsCount - 1;
 
-            return parameters.Take(take)
+            return definition.GappedParameters
+                             .Take(take)
                              .Select(x => x.TypeName)
                              .AppendIf(
                                  () => definition.Type == MethodType.Function,
                                  () => "TResult")
                              .AppendIf(
                                  () => definition.Type == MethodType.Action,
-                                 () => $"{parameters.Last().TypeName}")
+                                 () => $"{definition.GappedParameters.Last().TypeName}")
                              .Join(", ")
                              .MapIfExists(types => $"<{types}>")
                              .Map(types => $"{definition.Delegate}{types}");

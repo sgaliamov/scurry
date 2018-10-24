@@ -25,8 +25,7 @@ namespace SCurry.Builders.Converters.Curry
 
             var call = _callConverter.Convert(definition);
 
-            var chain = definition.Parameters
-                                  .Where(x => !x.IsArgument)
+            var chain = definition.GappedParameters
                                   .Select(x => x.ArgumentName)
                                   .Join(" => ")
                                   .IfEmpty("()");
