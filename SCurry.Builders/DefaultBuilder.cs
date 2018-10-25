@@ -16,10 +16,10 @@ namespace SCurry.Builders
             _definitionsBuilder = definitionsBuilder;
         }
 
-        public IEnumerable<string> GenerateFuncExtentions(int gapsCount, int maxArgsCount, int limitPartial) =>
+        public IEnumerable<string> GenerateFuncExtensions(int gapsCount, int maxArgsCount, int limitPartial) =>
             Generate(MethodType.Function, gapsCount, maxArgsCount, limitPartial);
 
-        public IEnumerable<string> GenerateActionExtentions(int gapsCount, int maxArgsCount, int limitPartial) =>
+        public IEnumerable<string> GenerateActionExtensions(int gapsCount, int maxArgsCount, int limitPartial) =>
             Generate(MethodType.Action, gapsCount, maxArgsCount, limitPartial);
 
         private IEnumerable<string> Generate(

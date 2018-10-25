@@ -1,10 +1,10 @@
 # To do
 
-- [ ] implement uncurry
 - [ ] increase code coverage
 - [ ] pipe function
 - [ ] add examples to use
 - [ ] add description for the package
+- [x] implement uncurry
 - [x] limit partial for curry
 - [x] simple partial application without gaps for all delegates
 - [x] refactor builders to use markers and ExtensionParameters

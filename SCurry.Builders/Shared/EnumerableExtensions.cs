@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace SCurry.Builders.Shared
 {
-    public static class EnumerableExtentions
+    public static class EnumerableExtensions
     {
         public static string Join<T>(this IEnumerable<T> enumerable, string separator = null) =>
             string.Join(separator, enumerable);

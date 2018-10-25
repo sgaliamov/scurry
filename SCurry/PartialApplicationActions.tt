@@ -23,7 +23,7 @@ namespace SCurry
 <#
     var builder = new PartialApplicationBuilder();
 
-    foreach(var extention in builder.GenerateActionExtentions(
+    foreach(var extention in builder.GenerateActionExtensions(
         Constants.DefaultGapsCount,
         Constants.MaxInputArgumentsCount,
         Constants.MaxInputArgumentsCount))

@@ -11,7 +11,7 @@ namespace SCurry.Builders.Tests
     public class MethodDefinitionsBuilderTests
     {
         [Fact]
-        public void Build_With_0_Gaps_4_Agrs()
+        public void Build_With_0_Gaps_4_Args()
         {
             var type = _fixture.Create<MethodType>();
 
@@ -31,7 +31,23 @@ namespace SCurry.Builders.Tests
         }
 
         [Fact]
-        public void Build_With_3_Gaps_3_Agrs()
+        public void Build_With_0_Gaps_5_Args_Limit_0()
+        {
+            var type = _fixture.Create<MethodType>();
+
+            var expected = Convert(new[]
+                {
+                    new[] { 0, 0, 0, 0, 0 }
+                },
+                type);
+
+            var actual = _target.Build(type, 0, 5, 0);
+
+            actual.Should().BeEquivalentTo(expected.AsEnumerable());
+        }
+
+        [Fact]
+        public void Build_With_3_Gaps_3_Args()
         {
             var type = _fixture.Create<MethodType>();
 
@@ -54,7 +70,7 @@ namespace SCurry.Builders.Tests
         }
 
         [Fact]
-        public void Build_With_3_Gaps_4_Agrs()
+        public void Build_With_3_Gaps_4_Args()
         {
             var type = _fixture.Create<MethodType>();
 
@@ -78,7 +94,7 @@ namespace SCurry.Builders.Tests
         }
 
         [Fact]
-        public void Build_With_3_Gaps_5_Agrs()
+        public void Build_With_3_Gaps_5_Args()
         {
             var type = _fixture.Create<MethodType>();
 
@@ -103,7 +119,7 @@ namespace SCurry.Builders.Tests
         }
 
         [Fact]
-        public void Build_With_3_Gaps_5_Agrs_Limit_4()
+        public void Build_With_3_Gaps_5_Args_Limit_4()
         {
             var type = _fixture.Create<MethodType>();
 
@@ -126,7 +142,7 @@ namespace SCurry.Builders.Tests
         }
 
         [Fact]
-        public void Build_With_4_Gaps_3_Agrs()
+        public void Build_With_4_Gaps_3_Args()
         {
             var type = _fixture.Create<MethodType>();
 

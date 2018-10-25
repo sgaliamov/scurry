@@ -23,7 +23,7 @@ namespace SCurry
 <#
     var builder = new CurryBuilder();
 
-    foreach(var extention in builder.GenerateActionExtentions(
+    foreach(var extention in builder.GenerateActionExtensions(
         Constants.DefaultGapsCount,
         Constants.MaxInputArgumentsCount,
         Constants.LimitPartial))
