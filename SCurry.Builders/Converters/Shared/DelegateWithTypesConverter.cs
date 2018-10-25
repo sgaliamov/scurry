@@ -10,8 +10,7 @@ namespace SCurry.Builders.Converters.Shared
         public DelegateWithTypesConverter(TypeParametersConverter typesConverter) => _typesConverter = typesConverter;
 
         public string Convert(MethodDefinition definition) =>
-            _typesConverter
-                .Convert(definition)
-                .Map(types => $"{definition.Delegate}{types}");
+            _typesConverter.Convert(definition)
+                           .Map(types => $"{definition.Delegate}{types}");
     }
 }
