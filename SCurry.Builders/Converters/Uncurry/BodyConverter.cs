@@ -8,7 +8,7 @@ namespace SCurry.Builders.Converters.Uncurry
     {
         public string Convert(MethodDefinition definition)
         {
-            if (definition.GappedParameters.Length == 0)
+            if (definition.GappedParameters.Length <= 1)
             {
                 return "curry";
             }
