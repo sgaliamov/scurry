@@ -6,13 +6,13 @@ namespace SCurry.Builders.Converters.Shared
 {
     internal sealed class ArgumentsConverter : IConverter
     {
-        private readonly TypeParametersConverter _typeParameters;
+        private readonly DelegateWithTypesConverter _delegateWithTypes;
 
-        public ArgumentsConverter(TypeParametersConverter typeParameters) => _typeParameters = typeParameters;
+        public ArgumentsConverter(DelegateWithTypesConverter delegateWithTypesConverter) => _delegateWithTypes = delegateWithTypesConverter;
 
         public string Convert(MethodDefinition definition)
         {
-            var types = _typeParameters.Convert(definition);
+            var type = _delegateWithTypes.Convert(definition);
 
             var args = definition
                        .TrimmedParameters
@@ -20,7 +20,7 @@ namespace SCurry.Builders.Converters.Shared
                        .Join(", ")
                        .MapIfExists(x => ", " + x);
 
-            return $"this {definition.Delegate}{types} {definition.Target}{args}";
+            return $"this {type} {definition.Target}{args}";
         }
     }
 }
