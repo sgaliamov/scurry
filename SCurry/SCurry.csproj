@@ -21,6 +21,10 @@
     <Import Project="../.build/t4-transform.csproj" />
 
     <ItemGroup>
+        <None Update="UncurryActions.tt">
+          <LastGenOutput>UncurryActions.generated.cs</LastGenOutput>
+          <Generator>TextTemplatingFileGenerator</Generator>
+        </None>
         <None Update="CurryActions.tt">
             <Generator>TextTemplatingFileGenerator</Generator>
             <LastGenOutput>CurryActions.generated.cs</LastGenOutput>
@@ -40,6 +44,11 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Compile Update="UncurryActions.generated.cs">
+          <DependentUpon>UncurryActions.tt</DependentUpon>
+          <DesignTime>True</DesignTime>
+          <AutoGen>True</AutoGen>
+        </Compile>
         <Compile Update="CurryActions.generated.cs">
           <DesignTime>True</DesignTime>
           <AutoGen>True</AutoGen>
