@@ -32,7 +32,7 @@ namespace SCurry.Builders.Converters
             DelegateWithTypesConverter,
             new NameConverter("Uncurry", TypeParametersConverterInstance),
             new ArgumentsConverter(CurryReturnTypeConverter),
-            new Uncurry.BodyConverter(BodyCallConverterInstance));
+            new Uncurry.BodyConverter());
 
         private static readonly TypeParametersConverter TypeParametersConverterInstance;
         private static readonly BodyCallConverter BodyCallConverterInstance;

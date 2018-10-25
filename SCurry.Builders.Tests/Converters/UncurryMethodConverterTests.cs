@@ -10,6 +10,17 @@ namespace SCurry.Builders.Tests.Converters
     public class UncurryMethodConverterTests
     {
         [Fact]
+        public void Uncurry_Action_0_Args()
+        {
+            const string expected =
+                "public static Action Uncurry(this Action curry) => curry;";
+
+            var actual = Convert(MethodType.Action, 0);
+
+            actual.Should().BeEquivalentTo(expected);
+        }
+
+        [Fact]
         public void Uncurry_Action_3_Args()
         {
             const string expected =

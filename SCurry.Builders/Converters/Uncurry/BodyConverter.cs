@@ -1,14 +1,27 @@
-﻿using SCurry.Builders.Converters.Shared;
+﻿using System.Linq;
 using SCurry.Builders.Models;
+using SCurry.Builders.Shared;
 
 namespace SCurry.Builders.Converters.Uncurry
 {
     internal sealed class BodyConverter : IConverter
     {
-        private readonly BodyCallConverter _callConverter;
+        public string Convert(MethodDefinition definition)
+        {
+            if (definition.GappedParameters.Length == 0)
+            {
+                return "curry";
+            }
 
-        public BodyConverter(BodyCallConverter callConverter) => _callConverter = callConverter;
+            var chain = definition.GappedParameters
+                                  .Select(x => $"{x.TypeName} {x.ArgumentName}")
+                                  .Join(", ");
 
-        public string Convert(MethodDefinition definition) => null;
+            var calls = definition.GappedParameters
+                                  .Select(x => $"({x.ArgumentName})")
+                                  .Join();
+
+            return $"({chain}) => curry{calls}";
+        }
     }
 }
