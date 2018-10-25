@@ -1,10 +1,19 @@
 ﻿using SCurry.Builders.Converters.Curry;
 using SCurry.Builders.Converters.Shared;
+using ArgumentsConverter = SCurry.Builders.Converters.Uncurry.ArgumentsConverter;
 
 namespace SCurry.Builders.Converters
 {
     public static class MethodConverterFactory
     {
+        static MethodConverterFactory()
+        {
+            TypeParametersConverterInstance = new TypeParametersConverter();
+            BodyCallConverterInstance = new BodyCallConverter();
+            DelegateWithTypesConverter = new DelegateWithTypesConverter(TypeParametersConverterInstance);
+            ArgumentsConverter = new Shared.ArgumentsConverter(DelegateWithTypesConverter);
+        }
+
         public static MethodConverter CurryMethodConverter => new MethodConverter(
             new ReturnTypeConverter(),
             new NameConverter("Curry", TypeParametersConverterInstance),
@@ -17,13 +26,15 @@ namespace SCurry.Builders.Converters
             ArgumentsConverter,
             new PartialApplication.BodyConverter(BodyCallConverterInstance));
 
-        private static readonly TypeParametersConverter TypeParametersConverterInstance
-            = new TypeParametersConverter();
+        public static MethodConverter UncurryMethodConverter => new MethodConverter(
+            DelegateWithTypesConverter,
+            new NameConverter("Uncurry", TypeParametersConverterInstance),
+            new ArgumentsConverter(TypeParametersConverterInstance),
+            new Uncurry.BodyConverter(BodyCallConverterInstance));
 
-        private static readonly BodyCallConverter BodyCallConverterInstance
-            = new BodyCallConverter();
-
-        private static readonly ArgumentsConverter ArgumentsConverter
-            = new ArgumentsConverter(TypeParametersConverterInstance);
+        private static readonly TypeParametersConverter TypeParametersConverterInstance;
+        private static readonly BodyCallConverter BodyCallConverterInstance;
+        private static readonly Shared.ArgumentsConverter ArgumentsConverter;
+        private static readonly DelegateWithTypesConverter DelegateWithTypesConverter;
     }
 }
