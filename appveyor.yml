@@ -33,7 +33,7 @@ configuration: Release
 build_script:
 - pwsh: |
     if ($env:APPVEYOR_REPO_BRANCH -ne "master") {
-        $env:CONFIGURATION = debug
+        $env:CONFIGURATION = "debug"
     }
     .\build.ps1 $env:CONFIGURATION
 
