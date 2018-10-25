@@ -35,7 +35,7 @@ build_script:
     if ($env:APPVEYOR_REPO_BRANCH -ne "master") {
         $env:CONFIGURATION = "debug"
     }
-    .\build.ps1 $env:CONFIGURATION
+    .\build.ps1 -c $env:CONFIGURATION
 
 before_test:
 - pwsh: |
