@@ -2,7 +2,7 @@
 
 namespace SCurry.Builders.Shared
 {
-    public static class StringExtentions
+    public static class StringExtensions
     {
         public static bool IsEmpty(this string str) => string.IsNullOrWhiteSpace(str);
 
