@@ -14,7 +14,7 @@ namespace SCurry.Tests
         {
             var piped = Compose(
                 CurryedAdd2WithGap,
-                PartialMultiplyBy3,
+                CurryedPartialMultiplyBy3(1),
                 CurryedAdd3(3)(1)
             );
 
@@ -28,7 +28,7 @@ namespace SCurry.Tests
         {
             var piped = Pipe(
                 CurryedAdd2WithGap,
-                PartialMultiplyBy3,
+                CurryedPartialMultiplyBy3(1),
                 CurryedAdd3(3)(1)
             );
 
@@ -37,9 +37,9 @@ namespace SCurry.Tests
             Assert.Equal(10, actual);
         }
 
-        private static readonly Func<int, int, int> Multiply = (a, b) => a * b;
+        private static readonly Func<int, int, int, int> Multiply = (a, b, c) => a * b * c;
         private static readonly Func<int, int> CurryedAdd2WithGap = TestFunctions.Add2.Curry(_, 2);
-        private static readonly Func<int, int> PartialMultiplyBy3 = Multiply.Partial(3);
+        private static readonly Func<int, Func<int, int>> CurryedPartialMultiplyBy3 = Multiply.Partial(_, _, 3).Curry();
         private static readonly Func<int, Func<int, Func<int, int>>> CurryedAdd3 = TestFunctions.Add3.Curry();
     }
 }

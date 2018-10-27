@@ -1,9 +1,9 @@
 # To do
 
-- [ ] increase code coverage
-- [ ] pipe function
 - [ ] add examples to use
 - [ ] add description for the package
+- [x] increase code coverage
+- [x] pipe function
 - [x] implement uncurry
 - [x] limit partial for curry
 - [x] simple partial application without gaps for all delegates
