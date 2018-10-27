@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoFixture;
 using FluentAssertions;
 using SCurry.Builders.Models;
+using SCurry.Builders.Shared;
 using Xunit;
 
 namespace SCurry.Builders.Tests
@@ -162,6 +164,23 @@ namespace SCurry.Builders.Tests
             var actual = _target.Build(type, 4, 3, 3);
 
             actual.Should().BeEquivalentTo(expected.AsEnumerable());
+        }
+
+        [Fact]
+        public void Invalid_Args_Count()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                _target.Build(_fixture.Create<MethodType>(), 0, -1, 0));
+
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                _target.Build(_fixture.Create<MethodType>(), 0, Constants.MaxInputArgumentsCount + 1, 0));
+        }
+
+        [Fact]
+        public void Invalid_Gaps_Count()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() =>
+                _target.Build(_fixture.Create<MethodType>(), -1, Constants.MaxInputArgumentsCount, 0));
         }
 
         private readonly MethodDefinitionsBuilder _target = new MethodDefinitionsBuilder();
