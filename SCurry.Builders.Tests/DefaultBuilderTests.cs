@@ -16,21 +16,6 @@ namespace SCurry.Builders.Tests
             _target = new DefaultBuilder(_methodConverter.Object, _definitionsBuilder.Object);
 
         [Fact]
-        public void Generate_3_Func_Extensions()
-        {
-            const int maxArgsCount = 3;
-            var gapsCount = _fixture.Create<int>();
-            var limitPartial = _fixture.Create<int>();
-
-            var items = SetupDefinitionsBuilder(MethodType.Function, gapsCount, limitPartial, maxArgsCount);
-            var extensions = SetupMethodConverter(items);
-
-            var actual = _target.GenerateFuncExtensions(gapsCount, maxArgsCount, limitPartial).ToArray();
-
-            actual.Should().BeEquivalentTo(extensions, options => options.WithStrictOrdering());
-        }
-
-        [Fact]
         public void Generate_3_Action_Extensions()
         {
             const int maxArgsCount = 3;
@@ -41,6 +26,21 @@ namespace SCurry.Builders.Tests
             var extensions = SetupMethodConverter(items);
 
             var actual = _target.GenerateActionExtensions(gapsCount, maxArgsCount, limitPartial).ToArray();
+
+            actual.Should().BeEquivalentTo(extensions, options => options.WithStrictOrdering());
+        }
+
+        [Fact]
+        public void Generate_3_Func_Extensions()
+        {
+            const int maxArgsCount = 3;
+            var gapsCount = _fixture.Create<int>();
+            var limitPartial = _fixture.Create<int>();
+
+            var items = SetupDefinitionsBuilder(MethodType.Function, gapsCount, limitPartial, maxArgsCount);
+            var extensions = SetupMethodConverter(items);
+
+            var actual = _target.GenerateFuncExtensions(gapsCount, maxArgsCount, limitPartial).ToArray();
 
             actual.Should().BeEquivalentTo(extensions, options => options.WithStrictOrdering());
         }

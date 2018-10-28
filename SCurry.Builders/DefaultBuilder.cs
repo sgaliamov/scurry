@@ -31,8 +31,8 @@ namespace SCurry.Builders
             for (var argsCount = 0; argsCount <= maxArgsCount; argsCount++)
             {
                 var extensions = _definitionsBuilder
-                                  .Build(methodType, gapsCount, argsCount, limitPartial)
-                                  .Select(_methodMethodConverter.Convert);
+                                 .Build(methodType, gapsCount, argsCount, limitPartial)
+                                 .Select(_methodMethodConverter.Convert);
 
                 foreach (var item in extensions)
                 {
