@@ -4,6 +4,8 @@
 <#@ assembly name="$(ProjectDir)..\SCurry.Builders\bin\$(Configuration)\netstandard2.0\SCurry.Builders.dll" #>
 <#@ import namespace="SCurry.Builders" #>
 <#@ import namespace="SCurry.Builders.Shared" #>
+<#@ import namespace="SCurry.Builders.Converters" #>
+<#@ import namespace="SCurry.Builders.Models" #>
 /*
    ___ ___ _  _ ___ ___    _ _____ ___ ___     ___ ___  ___  ___ 
   / __| __| \| | __| _ \  /_\_   _| __|   \   / __/ _ \|   \| __|
@@ -21,7 +23,9 @@ namespace SCurry
     public static class CurryActions
     {
 <#
-    var builder = new CurryBuilder();
+    var builder = new DefaultBuilder(
+        MethodConverterFactory.CurryMethodConverter,
+        new MethodDefinitionsBuilder());
 
     foreach(var extention in builder.GenerateActionExtensions(
         Constants.DefaultGapsCount,
