@@ -22,10 +22,25 @@ namespace SCurry.Builders.Tests
             var gapsCount = _fixture.Create<int>();
             var limitPartial = _fixture.Create<int>();
 
-            var items = SetupDefinitionsBuilder(gapsCount, limitPartial, maxArgsCount);
+            var items = SetupDefinitionsBuilder(MethodType.Function, gapsCount, limitPartial, maxArgsCount);
             var extensions = SetupMethodConverter(items);
 
             var actual = _target.GenerateFuncExtensions(gapsCount, maxArgsCount, limitPartial).ToArray();
+
+            actual.Should().BeEquivalentTo(extensions, options => options.WithStrictOrdering());
+        }
+
+        [Fact]
+        public void Generate_3_Action_Extensions()
+        {
+            const int maxArgsCount = 3;
+            var gapsCount = _fixture.Create<int>();
+            var limitPartial = _fixture.Create<int>();
+
+            var items = SetupDefinitionsBuilder(MethodType.Action, gapsCount, limitPartial, maxArgsCount);
+            var extensions = SetupMethodConverter(items);
+
+            var actual = _target.GenerateActionExtensions(gapsCount, maxArgsCount, limitPartial).ToArray();
 
             actual.Should().BeEquivalentTo(extensions, options => options.WithStrictOrdering());
         }
@@ -47,9 +62,9 @@ namespace SCurry.Builders.Tests
             return extensions.Select(x => x.Extension).ToArray();
         }
 
-        private MethodDefinition[] SetupDefinitionsBuilder(int gapsCount, int limitPartial, int count)
+        private MethodDefinition[] SetupDefinitionsBuilder(MethodType methodType, int gapsCount, int limitPartial, int maxArgsCount)
         {
-            var items = Enumerable.Range(0, count + 1)
+            var items = Enumerable.Range(0, maxArgsCount + 1)
                                   .Select(i => new
                                   {
                                       ArgsCount = i,
@@ -60,7 +75,7 @@ namespace SCurry.Builders.Tests
             foreach (var item in items)
             {
                 _definitionsBuilder.Setup(x => x.Build(
-                                       MethodType.Function,
+                                       methodType,
                                        gapsCount,
                                        item.ArgsCount,
                                        limitPartial))
