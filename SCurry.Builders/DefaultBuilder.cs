@@ -5,14 +5,14 @@ using SCurry.Builders.Models;
 
 namespace SCurry.Builders
 {
-    public class DefaultBuilder
+    public sealed class DefaultBuilder
     {
         private readonly IMethodDefinitionsBuilder _definitionsBuilder;
-        private readonly IConverter _methodConverter;
+        private readonly IConverter _methodMethodConverter;
 
-        public DefaultBuilder(IConverter converter, IMethodDefinitionsBuilder definitionsBuilder)
+        public DefaultBuilder(IConverter methodConverter, IMethodDefinitionsBuilder definitionsBuilder)
         {
-            _methodConverter = converter;
+            _methodMethodConverter = methodConverter;
             _definitionsBuilder = definitionsBuilder;
         }
 
@@ -30,13 +30,13 @@ namespace SCurry.Builders
         {
             for (var argsCount = 0; argsCount <= maxArgsCount; argsCount++)
             {
-                var definitions = _definitionsBuilder
-                                  .Build(methodType, gapsCount, argsCount, limitPartial)
-                                  .Select(_methodConverter.Convert);
+                var extensions = _definitionsBuilder
+                                 .Build(methodType, gapsCount, argsCount, limitPartial)
+                                 .Select(_methodMethodConverter.Convert);
 
-                foreach (var definition in definitions)
+                foreach (var item in extensions)
                 {
-                    yield return definition;
+                    yield return item;
                 }
             }
         }
