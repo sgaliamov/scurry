@@ -13,19 +13,19 @@ namespace SCurry.Builders.Tests
     public class MethodDefinitionsBuilderTests
     {
         [Fact]
-        public void Build_With_0_Gaps_4_Args()
+        public void Build_With_0_Gaps_4_Args_4_PartialLimit()
         {
             var type = _fixture.Create<MethodType>();
-
-            var markers = new[]
-            {
-                new[] { 0, 0, 0, 0 },
-                new[] { 1, 0, 0, 0 },
-                new[] { 1, 1, 0, 0 },
-                new[] { 1, 1, 1, 0 },
-                new[] { 1, 1, 1, 1 }
-            };
-            var expected = Convert(markers, type);
+            var expected = Convert(
+                new[]
+                {
+                    new[] { 0, 0, 0, 0 },
+                    new[] { 1, 0, 0, 0 },
+                    new[] { 1, 1, 0, 0 },
+                    new[] { 1, 1, 1, 0 },
+                    new[] { 1, 1, 1, 1 }
+                },
+                type);
 
             var actual = _target.Build(type, 0, 4, 4);
 
@@ -33,15 +33,10 @@ namespace SCurry.Builders.Tests
         }
 
         [Fact]
-        public void Build_With_0_Gaps_5_Args_Limit_0()
+        public void Build_With_0_Gaps_5_Args_0_PartialLimit()
         {
             var type = _fixture.Create<MethodType>();
-
-            var expected = Convert(new[]
-                {
-                    new[] { 0, 0, 0, 0, 0 }
-                },
-                type);
+            var expected = Convert(new[] { new[] { 0, 0, 0, 0, 0 } }, type);
 
             var actual = _target.Build(type, 0, 5, 0);
 
@@ -49,22 +44,55 @@ namespace SCurry.Builders.Tests
         }
 
         [Fact]
-        public void Build_With_3_Gaps_3_Args()
+        public void Build_With_2_Gaps_0_Args_3_PartialLimit()
         {
             var type = _fixture.Create<MethodType>();
+            var expected = Convert(
+                new[]
+                {
+                    new int[0]
+                },
+                type);
 
-            var markers = new[]
-            {
-                new[] { 0, 0, 0 },
-                new[] { 1, 0, 0 },
-                new[] { 0, 1, 0 },
-                new[] { 1, 1, 0 },
-                new[] { 0, 0, 1 },
-                new[] { 1, 0, 1 },
-                new[] { 0, 1, 1 },
-                new[] { 1, 1, 1 }
-            };
-            var expected = Convert(markers, type);
+            var actual = _target.Build(type, 2, 0, 3);
+
+            actual.Should().BeEquivalentTo(expected.AsEnumerable());
+        }
+
+        [Fact]
+        public void Build_With_2_Gaps_1_Args_3_PartialLimit()
+        {
+            var type = _fixture.Create<MethodType>();
+            var expected = Convert(
+                new[]
+                {
+                    new[] { 0 },
+                    new[] { 1 }
+                },
+                type);
+
+            var actual = _target.Build(type, 2, 1, 3);
+
+            actual.Should().BeEquivalentTo(expected.AsEnumerable());
+        }
+
+        [Fact]
+        public void Build_With_3_Gaps_3_Args_4_PartialLimit()
+        {
+            var type = _fixture.Create<MethodType>();
+            var expected = Convert(
+                new[]
+                {
+                    new[] { 0, 0, 0 },
+                    new[] { 1, 0, 0 },
+                    new[] { 0, 1, 0 },
+                    new[] { 1, 1, 0 },
+                    new[] { 0, 0, 1 },
+                    new[] { 1, 0, 1 },
+                    new[] { 0, 1, 1 },
+                    new[] { 1, 1, 1 }
+                },
+                type);
 
             var actual = _target.Build(type, 3, 3, 4);
 
@@ -72,23 +100,19 @@ namespace SCurry.Builders.Tests
         }
 
         [Fact]
-        public void Build_With_3_Gaps_4_Args()
+        public void Build_With_3_Gaps_4_Args_4_PartialLimit()
         {
             var type = _fixture.Create<MethodType>();
-
-            var markers = new[]
-            {
-                new[] { 0, 0, 0, 0 },
-                new[] { 1, 0, 0, 0 },
-                new[] { 0, 1, 0, 0 },
-                new[] { 1, 1, 0, 0 },
-                new[] { 0, 0, 1, 0 },
-                new[] { 1, 0, 1, 0 },
-                new[] { 0, 1, 1, 0 },
-                new[] { 1, 1, 1, 0 },
-                new[] { 1, 1, 1, 1 }
-            };
-            var expected = Convert(markers, type);
+            var expected = Convert(
+                new[]
+                {
+                    new[] { 0, 0, 0, 0 },
+                    new[] { 1, 0, 0, 0 },
+                    new[] { 1, 1, 0, 0 },
+                    new[] { 1, 1, 1, 0 },
+                    new[] { 1, 1, 1, 1 }
+                },
+                type);
 
             var actual = _target.Build(type, 3, 4, 4);
 
@@ -96,47 +120,10 @@ namespace SCurry.Builders.Tests
         }
 
         [Fact]
-        public void Build_With_3_Gaps_5_Args()
+        public void Build_With_3_Gaps_5_Args_4_PartialLimit()
         {
             var type = _fixture.Create<MethodType>();
-
-            var markers = new[]
-            {
-                new[] { 0, 0, 0, 0, 0 },
-                new[] { 1, 0, 0, 0, 0 },
-                new[] { 0, 1, 0, 0, 0 },
-                new[] { 1, 1, 0, 0, 0 },
-                new[] { 0, 0, 1, 0, 0 },
-                new[] { 1, 0, 1, 0, 0 },
-                new[] { 0, 1, 1, 0, 0 },
-                new[] { 1, 1, 1, 0, 0 },
-                new[] { 1, 1, 1, 1, 0 },
-                new[] { 1, 1, 1, 1, 1 }
-            };
-            var expected = Convert(markers, type);
-
-            var actual = _target.Build(type, 3, 5, 10);
-
-            actual.Should().BeEquivalentTo(expected.AsEnumerable());
-        }
-
-        [Fact]
-        public void Build_With_3_Gaps_5_Args_Limit_4()
-        {
-            var type = _fixture.Create<MethodType>();
-
-            var markers = new[]
-            {
-                new[] { 0, 0, 0, 0, 0 },
-                new[] { 1, 0, 0, 0, 0 },
-                new[] { 0, 1, 0, 0, 0 },
-                new[] { 1, 1, 0, 0, 0 },
-                new[] { 0, 0, 1, 0, 0 },
-                new[] { 1, 0, 1, 0, 0 },
-                new[] { 0, 1, 1, 0, 0 },
-                new[] { 1, 1, 1, 0, 0 }
-            };
-            var expected = Convert(markers, type);
+            var expected = Convert(new[] { new[] { 0, 0, 0, 0, 0 } }, type);
 
             var actual = _target.Build(type, 3, 5, 4);
 
@@ -144,22 +131,22 @@ namespace SCurry.Builders.Tests
         }
 
         [Fact]
-        public void Build_With_4_Gaps_3_Args()
+        public void Build_With_4_Gaps_3_Args_3_PartialLimit()
         {
             var type = _fixture.Create<MethodType>();
-
-            var markers = new[]
-            {
-                new[] { 0, 0, 0 },
-                new[] { 1, 0, 0 },
-                new[] { 0, 1, 0 },
-                new[] { 1, 1, 0 },
-                new[] { 0, 0, 1 },
-                new[] { 1, 0, 1 },
-                new[] { 0, 1, 1 },
-                new[] { 1, 1, 1 }
-            };
-            var expected = Convert(markers, type);
+            var expected = Convert(
+                new[]
+                {
+                    new[] { 0, 0, 0 },
+                    new[] { 1, 0, 0 },
+                    new[] { 0, 1, 0 },
+                    new[] { 1, 1, 0 },
+                    new[] { 0, 0, 1 },
+                    new[] { 1, 0, 1 },
+                    new[] { 0, 1, 1 },
+                    new[] { 1, 1, 1 }
+                },
+                type);
 
             var actual = _target.Build(type, 4, 3, 3);
 
@@ -184,7 +171,6 @@ namespace SCurry.Builders.Tests
         }
 
         private readonly MethodDefinitionsBuilder _target = new MethodDefinitionsBuilder();
-
         private readonly Fixture _fixture = new Fixture();
 
         private static MethodDefinition[] Convert(IEnumerable<int[]> markers, MethodType type)
