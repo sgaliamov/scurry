@@ -32,8 +32,8 @@ namespace SCurry.Tests
             };
 
             // act
-            var curryed = action.Curry();
-            curryed();
+            var curried = action.Curry();
+            curried();
 
             // assert
             Assert.Equal(0, actual);
@@ -52,8 +52,8 @@ namespace SCurry.Tests
             };
 
             // act
-            var curryed = action.Curry();
-            curryed<#= Calls(count) #>;
+            var curried = action.Curry();
+            curried<#= Calls(count) #>;
 
             // assert
             Assert.Equal(<#= count * (count + 1) / 2.0 #>, actual);
