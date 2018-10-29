@@ -25,8 +25,8 @@ namespace SCurry.Tests
             };
 
             // act
-            var curryed = action.Curry();
-            curryed();
+            var curried = action.Curry();
+            curried();
 
             // assert
             Assert.Equal(0, actual);
@@ -43,8 +43,8 @@ namespace SCurry.Tests
             };
 
             // act
-            var curryed = action.Curry();
-            curryed(1);
+            var curried = action.Curry();
+            curried(1);
 
             // assert
             Assert.Equal(1, actual);
@@ -61,8 +61,8 @@ namespace SCurry.Tests
             };
 
             // act
-            var curryed = action.Curry();
-            curryed(1)(2);
+            var curried = action.Curry();
+            curried(1)(2);
 
             // assert
             Assert.Equal(3, actual);
@@ -79,8 +79,8 @@ namespace SCurry.Tests
             };
 
             // act
-            var curryed = action.Curry();
-            curryed(1)(2)(3);
+            var curried = action.Curry();
+            curried(1)(2)(3);
 
             // assert
             Assert.Equal(6, actual);
@@ -97,8 +97,8 @@ namespace SCurry.Tests
             };
 
             // act
-            var curryed = action.Curry();
-            curryed(1)(2)(3)(4);
+            var curried = action.Curry();
+            curried(1)(2)(3)(4);
 
             // assert
             Assert.Equal(10, actual);
@@ -115,8 +115,8 @@ namespace SCurry.Tests
             };
 
             // act
-            var curryed = action.Curry();
-            curryed(1)(2)(3)(4)(5);
+            var curried = action.Curry();
+            curried(1)(2)(3)(4)(5);
 
             // assert
             Assert.Equal(15, actual);
@@ -133,8 +133,8 @@ namespace SCurry.Tests
             };
 
             // act
-            var curryed = action.Curry();
-            curryed(1)(2)(3)(4)(5)(6);
+            var curried = action.Curry();
+            curried(1)(2)(3)(4)(5)(6);
 
             // assert
             Assert.Equal(21, actual);
@@ -151,8 +151,8 @@ namespace SCurry.Tests
             };
 
             // act
-            var curryed = action.Curry();
-            curryed(1)(2)(3)(4)(5)(6)(7);
+            var curried = action.Curry();
+            curried(1)(2)(3)(4)(5)(6)(7);
 
             // assert
             Assert.Equal(28, actual);
@@ -169,8 +169,8 @@ namespace SCurry.Tests
             };
 
             // act
-            var curryed = action.Curry();
-            curryed(1)(2)(3)(4)(5)(6)(7)(8);
+            var curried = action.Curry();
+            curried(1)(2)(3)(4)(5)(6)(7)(8);
 
             // assert
             Assert.Equal(36, actual);
@@ -187,8 +187,8 @@ namespace SCurry.Tests
             };
 
             // act
-            var curryed = action.Curry();
-            curryed(1)(2)(3)(4)(5)(6)(7)(8)(9);
+            var curried = action.Curry();
+            curried(1)(2)(3)(4)(5)(6)(7)(8)(9);
 
             // assert
             Assert.Equal(45, actual);
@@ -205,8 +205,8 @@ namespace SCurry.Tests
             };
 
             // act
-            var curryed = action.Curry();
-            curryed(1)(2)(3)(4)(5)(6)(7)(8)(9)(10);
+            var curried = action.Curry();
+            curried(1)(2)(3)(4)(5)(6)(7)(8)(9)(10);
 
             // assert
             Assert.Equal(55, actual);
@@ -223,8 +223,8 @@ namespace SCurry.Tests
             };
 
             // act
-            var curryed = action.Curry();
-            curryed(1)(2)(3)(4)(5)(6)(7)(8)(9)(10)(11);
+            var curried = action.Curry();
+            curried(1)(2)(3)(4)(5)(6)(7)(8)(9)(10)(11);
 
             // assert
             Assert.Equal(66, actual);
@@ -241,8 +241,8 @@ namespace SCurry.Tests
             };
 
             // act
-            var curryed = action.Curry();
-            curryed(1)(2)(3)(4)(5)(6)(7)(8)(9)(10)(11)(12);
+            var curried = action.Curry();
+            curried(1)(2)(3)(4)(5)(6)(7)(8)(9)(10)(11)(12);
 
             // assert
             Assert.Equal(78, actual);
@@ -259,8 +259,8 @@ namespace SCurry.Tests
             };
 
             // act
-            var curryed = action.Curry();
-            curryed(1)(2)(3)(4)(5)(6)(7)(8)(9)(10)(11)(12)(13);
+            var curried = action.Curry();
+            curried(1)(2)(3)(4)(5)(6)(7)(8)(9)(10)(11)(12)(13);
 
             // assert
             Assert.Equal(91, actual);
@@ -277,8 +277,8 @@ namespace SCurry.Tests
             };
 
             // act
-            var curryed = action.Curry();
-            curryed(1)(2)(3)(4)(5)(6)(7)(8)(9)(10)(11)(12)(13)(14);
+            var curried = action.Curry();
+            curried(1)(2)(3)(4)(5)(6)(7)(8)(9)(10)(11)(12)(13)(14);
 
             // assert
             Assert.Equal(105, actual);
@@ -295,8 +295,8 @@ namespace SCurry.Tests
             };
 
             // act
-            var curryed = action.Curry();
-            curryed(1)(2)(3)(4)(5)(6)(7)(8)(9)(10)(11)(12)(13)(14)(15);
+            var curried = action.Curry();
+            curried(1)(2)(3)(4)(5)(6)(7)(8)(9)(10)(11)(12)(13)(14)(15);
 
             // assert
             Assert.Equal(120, actual);
@@ -313,8 +313,8 @@ namespace SCurry.Tests
             };
 
             // act
-            var curryed = action.Curry();
-            curryed(1)(2)(3)(4)(5)(6)(7)(8)(9)(10)(11)(12)(13)(14)(15)(16);
+            var curried = action.Curry();
+            curried(1)(2)(3)(4)(5)(6)(7)(8)(9)(10)(11)(12)(13)(14)(15)(16);
 
             // assert
             Assert.Equal(136, actual);

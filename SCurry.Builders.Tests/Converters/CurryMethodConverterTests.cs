@@ -11,7 +11,7 @@ namespace SCurry.Builders.Tests.Converters
     public class CurryMethodConverterTests
     {
         [Fact]
-        public void Generate_Action_Extentions_For_0_Arguments_With_2_Gaps()
+        public void Generate_Action_Extensions_For_0_Arguments_With_2_Gaps()
         {
             var expected = new[]
             {
@@ -26,7 +26,7 @@ namespace SCurry.Builders.Tests.Converters
         [Theory]
         [InlineData(0)]
         [InlineData(1)]
-        public void Generate_Action_Extentions_For_1_Arguments_With_0_Or_1_Gap(int gaps)
+        public void Generate_Action_Extensions_For_1_Arguments_With_0_Or_1_Gap(int gaps)
         {
             var expected = new[]
             {
@@ -40,7 +40,7 @@ namespace SCurry.Builders.Tests.Converters
         }
 
         [Fact]
-        public void Generate_Action_Extentions_For_3_Arguments_With_0_Gaps()
+        public void Generate_Action_Extensions_For_3_Arguments_With_0_Gaps()
         {
             var expected = new[]
             {
@@ -56,13 +56,12 @@ namespace SCurry.Builders.Tests.Converters
         }
 
         [Fact]
-        public void Generate_Action_Extentions_For_3_Arguments_With_2_Gaps()
+        public void Generate_Action_Extensions_For_3_Arguments_With_2_Gaps()
         {
             var expected = new[]
             {
                 "public static Func<T1, Func<T2, Action<T3>>> Curry<T1, T2, T3>(this Action<T1, T2, T3> action) => arg1 => arg2 => arg3 => action(arg1, arg2, arg3);",
                 "public static Func<T2, Action<T3>> Curry<T1, T2, T3>(this Action<T1, T2, T3> action, T1 arg1) => arg2 => arg3 => action(arg1, arg2, arg3);",
-                "public static Func<T1, Action<T3>> Curry<T1, T2, T3>(this Action<T1, T2, T3> action, _ gap1, T2 arg2) => arg1 => arg3 => action(arg1, arg2, arg3);",
                 "public static Action<T3> Curry<T1, T2, T3>(this Action<T1, T2, T3> action, T1 arg1, T2 arg2) => arg3 => action(arg1, arg2, arg3);",
                 "public static Action Curry<T1, T2, T3>(this Action<T1, T2, T3> action, T1 arg1, T2 arg2, T3 arg3) => () => action(arg1, arg2, arg3);"
             };
@@ -73,7 +72,7 @@ namespace SCurry.Builders.Tests.Converters
         }
 
         [Fact]
-        public void Generate_Func_Extentions_For_0_Arguments_With_2_Gaps()
+        public void Generate_Func_Extensions_For_0_Arguments_With_2_Gaps()
         {
             var expected = new[]
             {
@@ -88,7 +87,7 @@ namespace SCurry.Builders.Tests.Converters
         [Theory]
         [InlineData(0)]
         [InlineData(1)]
-        public void Generate_Func_Extentions_For_1_Arguments_With_0_Or_1_Gap(int gaps)
+        public void Generate_Func_Extensions_For_1_Arguments_With_0_Or_1_Gap(int gaps)
         {
             var expected = new[]
             {
@@ -102,7 +101,7 @@ namespace SCurry.Builders.Tests.Converters
         }
 
         [Fact]
-        public void Generate_Func_Extentions_For_3_Arguments_With_0_Gaps()
+        public void Generate_Func_Extensions_For_3_Arguments_With_0_Gaps()
         {
             var expected = new[]
             {
@@ -118,7 +117,7 @@ namespace SCurry.Builders.Tests.Converters
         }
 
         [Fact]
-        public void Generate_Func_Extentions_For_3_Arguments_With_2_Gaps()
+        public void Generate_Func_Extensions_For_3_Arguments_With_3_Gaps()
         {
             var expected = new[]
             {
@@ -126,10 +125,13 @@ namespace SCurry.Builders.Tests.Converters
                 "public static Func<T2, Func<T3, TResult>> Curry<T1, T2, T3, TResult>(this Func<T1, T2, T3, TResult> func, T1 arg1) => arg2 => arg3 => func(arg1, arg2, arg3);",
                 "public static Func<T1, Func<T3, TResult>> Curry<T1, T2, T3, TResult>(this Func<T1, T2, T3, TResult> func, _ gap1, T2 arg2) => arg1 => arg3 => func(arg1, arg2, arg3);",
                 "public static Func<T3, TResult> Curry<T1, T2, T3, TResult>(this Func<T1, T2, T3, TResult> func, T1 arg1, T2 arg2) => arg3 => func(arg1, arg2, arg3);",
-                "public static Func<TResult> Curry<T1, T2, T3, TResult>(this Func<T1, T2, T3, TResult> func, T1 arg1, T2 arg2, T3 arg3) => () => func(arg1, arg2, arg3);"
+                "public static Func<T1, Func<T2, TResult>> Curry<T1, T2, T3, TResult>(this Func<T1, T2, T3, TResult> func, _ gap1, _ gap2, T3 arg3) => arg1 => arg2 => func(arg1, arg2, arg3);",
+                "public static Func<T2, TResult> Curry<T1, T2, T3, TResult>(this Func<T1, T2, T3, TResult> func, T1 arg1, _ gap2, T3 arg3) => arg2 => func(arg1, arg2, arg3);",
+                "public static Func<T1, TResult> Curry<T1, T2, T3, TResult>(this Func<T1, T2, T3, TResult> func, _ gap1, T2 arg2, T3 arg3) => arg1 => func(arg1, arg2, arg3);",
+                "public static Func<TResult> Curry<T1, T2, T3, TResult>(this Func<T1, T2, T3, TResult> func, T1 arg1, T2 arg2, T3 arg3) => () => func(arg1, arg2, arg3);",
             };
 
-            var actual = Convert(MethodType.Function, 2, 3);
+            var actual = Convert(MethodType.Function, 3, 3);
 
             actual.Should().BeEquivalentTo(expected);
         }

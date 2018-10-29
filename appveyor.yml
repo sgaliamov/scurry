@@ -1,4 +1,4 @@
-version: 0.4.{build}
+version: 1.0.{build}
 
 branches:
   only:
@@ -33,9 +33,9 @@ configuration: Release
 build_script:
 - pwsh: |
     if ($env:APPVEYOR_REPO_BRANCH -ne "master") {
-        $env:CONFIGURATION = debug
+        $env:CONFIGURATION = "debug"
     }
-    .\build.ps1 $env:CONFIGURATION
+    .\build.ps1 -c $env:CONFIGURATION
 
 before_test:
 - pwsh: |
@@ -52,5 +52,9 @@ before_deploy:
 deploy:
 - provider: Environment
   name: appveyor-nuget
+  on:
+    branch: master
+- provider: Environment
+  name: nuget-org
   on:
     branch: master

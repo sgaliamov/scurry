@@ -18,19 +18,14 @@ using System;
 
 namespace SCurry
 {
-    using _ = Spacer.SpacerInstance;
-
-    public static class CurryActions
+    public static class UncurryActions
     {
 <#
-    var builder = new DefaultBuilder(
-        MethodConverterFactory.CurryMethodConverter,
+    var builder = new UncurryBuilder(
+        MethodConverterFactory.UncurryMethodConverter,
         new MethodDefinitionsBuilder());
 
-    foreach(var extention in builder.GenerateActionExtensions(
-        Constants.DefaultGapsCount,
-        Constants.MaxInputArgumentsCount,
-        Constants.LimitPartial))
+    foreach(var extention in builder.GenerateActionExtensions(Constants.MaxInputArgumentsCount))
     {
 #>
         <#= extention #>

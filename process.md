@@ -14,7 +14,7 @@ Description of development and deployment processes.
    git push -f
    ```
 
-1. Create PR from the feature branch to *develop*. All checks should pass. *Note*: despite *skip_branch_with_pr: true* PR will trigger two builds.
+1. Create PR from the feature branch to *develop*. All checks should pass.
 1. Squash and merge RP.
 1. Remove feature branch from local and remote.
 
@@ -28,12 +28,5 @@ Description of development and deployment processes.
 1. Squash and merge RP. [AppVeyor](https://ci.appveyor.com/project/sgaliamov/scurry/deployments) will publish nuget package.
 1. After deploy remove the release branch and clean redundant builds from [AppVeyor](https://ci.appveyor.com/project/sgaliamov/scurry/history).
 1. Set version tag for the merge commit and push it to *origin/master*. *Note*: it will not trigger CI/CD because of *skip_tags: true* setting.
-1. Add release notes at <https://github.com/sgaliamov/scurry/tags> and publish the release.
-1. Rebase *develop* on *master*:
-
-   ``` bash
-   git checkout develop
-   git fetch origin master:master
-   git rebase master
-   git push -f
-   ```
+1. Add [release notes](https://github.com/sgaliamov/scurry/tags) and publish the release.
+1. Create pull request from *master* to *develop* and complete it.

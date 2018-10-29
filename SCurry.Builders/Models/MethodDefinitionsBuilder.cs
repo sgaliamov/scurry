@@ -20,43 +20,63 @@ namespace SCurry.Builders.Models
                 throw new ArgumentOutOfRangeException(nameof(gapsCount));
             }
 
+            return Generate(type, gapsCount, argsCount, limitPartial).ToArray();
+        }
+
+        private static IEnumerable<MethodDefinition> Generate(MethodType type, int gapsCount, int argsCount, int limitPartial)
+        {
+            yield return new MethodDefinition(type, ValueToParameters(0, argsCount));
+
+            if (argsCount == 0)
+            {
+                yield break;
+            }
+
             if (gapsCount > argsCount)
             {
                 gapsCount = argsCount;
             }
 
-            var gapped = GenerateWithAllGaps(type, gapsCount, argsCount);
+            foreach (var item in GenerateGaps(type, gapsCount, argsCount))
+            {
+                yield return item;
+            }
 
-            var rest = GenerateWithTrailingGaps(type, gapsCount + 1, argsCount, limitPartial);
-
-            return gapped.Concat(rest).ToArray();
+            foreach (var item in GeneratePartials(type, gapsCount, argsCount, limitPartial))
+            {
+                yield return item;
+            }
         }
 
-        private static IEnumerable<MethodDefinition> GenerateWithAllGaps(
+        private static IEnumerable<MethodDefinition> GenerateGaps(
             MethodType type,
             int gapsCount,
             int argsCount)
         {
-            var max = 1 << gapsCount;
+            if (gapsCount < argsCount)
+            {
+                return Enumerable.Empty<MethodDefinition>();
+            }
 
-            return Enumerable.Range(0, max)
+            var max = (1 << gapsCount) - 2;
+
+            return Enumerable.Range(1, max)
                              .Select(index => new MethodDefinition(type, ValueToParameters(index, argsCount)));
         }
 
-        private static IEnumerable<MethodDefinition> GenerateWithTrailingGaps(MethodType type,
-            int startCount,
+        private static IEnumerable<MethodDefinition> GeneratePartials(MethodType type,
+            int gapsCount,
             int argsCount,
             int limitPartial)
         {
-            if (startCount > argsCount)
+            if (limitPartial < argsCount)
             {
                 yield break;
             }
 
-            if (argsCount > limitPartial)
-            {
-                yield break;
-            }
+            var startCount = gapsCount < argsCount
+                ? 1
+                : gapsCount + 1;
 
             do
             {
