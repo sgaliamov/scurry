@@ -1,7 +1,5 @@
 # Currying C# functions and actions
 
-## About
-
 If you are here, you probably know what [Curry](https://en.wikipedia.org/wiki/Currying) and [Partial Application](https://en.wikipedia.org/wiki/Partial_application) are. This library contains extensions for all standard *Func<>* and *Action<>* delegates.
 
 [![Build status](https://ci.appveyor.com/api/projects/status/2ppb58d9a8gmvdfw/branch/master?svg=true)](https://ci.appveyor.com/project/sgaliamov/scurry/branch/master)
