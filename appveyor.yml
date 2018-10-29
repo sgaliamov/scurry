@@ -54,3 +54,7 @@ deploy:
   name: appveyor-nuget
   on:
     branch: master
+- provider: Environment
+  name: nuget-org
+  on:
+    branch: master
