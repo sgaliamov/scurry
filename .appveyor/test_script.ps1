@@ -1,3 +1,5 @@
+# Tests and publishes code coverage to codecov.io
+
 if ($env:APPVEYOR_REPO_BRANCH -eq "develop") {
     Get-ChildItem .\**\*.Tests.csproj -Recurse | ForEach-Object {
         .\OpenCover.4.6.519\tools\OpenCover.Console.exe `
