@@ -32,7 +32,7 @@ Now you can curry it:
 
 ``` c#
 Func<int, Func<int, Func<int, int>>> multiplyCurried = Multiply.Curry();
-int multiplyCurried = multiply(2)(3)(4); // 24
+int result = multiplyCurried(2)(3)(4); // 24
 ```
 
 In case if you know the values for some arguments in advance you can use the spacer:
@@ -41,7 +41,7 @@ In case if you know the values for some arguments in advance you can use the spa
 using static SCurry.Spacer;
 ...
 Func<int, int> multiply6 = Multiply.Curry(3, _, 2); // or Multiply.Curry(_, _, 6) or or Multiply.Curry(_, 6)
-int result = multiply(5); // 30
+int result = multiply6(5); // 30
 ```
 
 At the moment you can use the spacer for delegates with up to 6 parameters. Also, as crazy as it sounds, the library supports "partial application" for curry. You can define first arguments for delegates with up to 8 parameters:
