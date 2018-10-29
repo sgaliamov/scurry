@@ -12,6 +12,7 @@
         <Version></Version>
         <AssemblyVersion></AssemblyVersion>
         <FileVersion></FileVersion>
+        <Description>Currying and Partial application for C# functions and actions.</Description>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)'=='Debug'">
