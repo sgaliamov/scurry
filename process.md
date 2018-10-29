@@ -11,6 +11,7 @@ Description of development and deployment processes.
    ``` bash
    git fetch origin develop:develop
    git rebase develop
+   # solve conflicts if any
    git push -f
    ```
 
