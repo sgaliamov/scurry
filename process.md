@@ -30,3 +30,4 @@ Description of development and deployment processes.
 1. Set version tag for the merge commit and push it to *origin/master*. *Note*: it will not trigger CI/CD because of *skip_tags: true* setting.
 1. Add [release notes](https://github.com/sgaliamov/scurry/tags) and publish the release.
 1. Create pull request from *master* to *develop* and complete it.
+1. [Deploy](https://ci.appveyor.com/environment/40781/deployments/new) to [nuget.org](https://nuget.org) if need be.
