@@ -9,8 +9,8 @@ If you are here, you probably know what [Curry](https://en.wikipedia.org/wiki/Cu
 ## Features
 
 1. Supports all standard Func<> and Action<> delegates.
-1. Curry and Partial Application with special spacer.
-1. Uncurrying.
+1. Currying and uncurrying.
+1. Partial Application with special spacer.
 1. *Pipe* and *Compose* helper functions.
 1. All code is auto generated and covered by unit tests.
 1. Based on .NET Standard 2.0
@@ -36,6 +36,8 @@ int result = multiply2Partial(4); // 24
 In case if you know the values for some arguments in advance you can use the spacer:
 
 ``` c#
+using static SCurry.Spacer;
+...
 Func<int, int, int> multiply2Partial = Multiply.Partial(_, _, 2); // or Multiply.Partial(1, _, 2) or or Multiply.Partial(_, 2)
 int result = multiply2Partial(3, 4); // 24
 ```
@@ -44,20 +46,20 @@ At the moment you can use the spacer for delegates with up to 7 parameters. Maki
 
 ### Curry
 
-To curry use *Curry()* extension:
+To curry use *Curry* extension:
 
 ``` c#
 Func<int, Func<int, Func<int, int>>> multiplyCurried = Multiply.Curry();
 int result = multiplyCurried(2)(3)(4); // 24
 ```
 
-In case if you know the values for some arguments in advance you can combine it with gapped version of *Partial()* extension:
+In case if you know the values for some arguments in advance you can combine it with gapped version of *Partial* extension:
 
 ``` c#
 using static SCurry.Spacer;
 ...
-Func<int, int> multiply6 = Multiply.Partial(3, _, 2).Curry();
-int result = multiply6(5); // 30
+Func<int, int> multiply2 = Multiply.Partial(_, _, 2).Curry();
+int result = multiply6(5)(6); // 30
 ```
 
 ### Uncurry
@@ -65,20 +67,20 @@ int result = multiply6(5); // 30
 After curry you may want to get normal function back:
 
 ``` c#
-Func<int, Func<int, int>> multiply2curryed = Multiply.Curry(_, 2);
+Func<int, int> multiply2curryed = Multiply.Partial(_, _, 2).Curry();
 Func<int, int, int> multiply2 = multiply2curryed.Uncurry();
 int result = multiply2(3, 4); // 24
 ```
 
 ### Pipe and Compose
 
-You can chain functions with Pipe:
+You can chain functions with *Pipe* helper:
 
 ``` c#
 using static SCurry.Piper;
 ...
 Func<int, int, int, int> Multiply = (a, b, c) => a * b * c;
-Func<int, int> CurryedAdd2WithGap = TestFunctions.Add2.Curry(_, 2);
+Func<int, int> CurryedAdd2WithGap = TestFunctions.Add2.Partial(_, 2).Curry();
 Func<int, Func<int, int>> CurryedPartialMultiplyBy3 = Multiply.Partial(_, _, 3).Curry();
 Func<int, Func<int, Func<int, int>>> CurryedAdd3 = TestFunctions.Add3.Curry();
 
@@ -104,6 +106,8 @@ var piped = Compose(
 
 var result = piped(0); // 14
 ```
+
+*Compose* helper evaluate functions in reverse order.
 
 ## Installation
 
