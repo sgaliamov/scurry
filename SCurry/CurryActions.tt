@@ -18,8 +18,6 @@ using System;
 
 namespace SCurry
 {
-    using _ = Spacer.SpacerInstance;
-
     public static class CurryActions
     {
 <#
@@ -28,7 +26,7 @@ namespace SCurry
         new MethodDefinitionsBuilder());
 
     foreach(var extention in builder.GenerateActionExtensions(
-        Constants.DefaultGapsCount,
+        0,
         Constants.MaxInputArgumentsCount,
         0))
     {
