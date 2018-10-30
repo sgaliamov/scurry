@@ -53,7 +53,7 @@ Func<int, Func<int, Func<int, int>>> multiplyCurried = Multiply.Curry();
 int result = multiplyCurried(2)(3)(4); // 24
 ```
 
-In case if you know the values for some arguments in advance you can combine it with gapped version of *Partial* extension:
+You can combine it with gapped version of *Partial* extension to get more flexibility:
 
 ``` c#
 using static SCurry.Spacer;
