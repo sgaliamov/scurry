@@ -26,7 +26,7 @@ Func<int, int, int, int> Multiply = (a, b, c) => a * b * c;
 
 ### Partial Application
 
-The library has [Partial Application](https://en.wikipedia.org/wiki/Partial_application) extensions for all standard delegates:
+The library contains [Partial Application](https://en.wikipedia.org/wiki/Partial_application) extensions for all standard delegates:
 
 ``` c#
 Func<int, int, int> multiply2Partial = Multiply.Partial(2, 3);
@@ -38,7 +38,7 @@ In case if you know the values for some arguments in advance you can use the spa
 ``` c#
 using static SCurry.Spacer;
 ...
-Func<int, int, int> multiply2Partial = Multiply.Partial(_, _, 2); // or Multiply.Partial(1, _, 2) or or Multiply.Partial(_, 2)
+Func<int, int, int> multiply2Partial = Multiply.Partial(_, _, 2); // or Multiply.Partial(1, _, 2) or Multiply.Partial(_, 2)
 int result = multiply2Partial(3, 4); // 24
 ```
 
@@ -93,7 +93,7 @@ var piped = Pipe(
 var result = piped(0); // 10
 ```
 
-Or [Compose](https://en.wikipedia.org/wiki/Function_composition) them:
+Or [Compose](https://en.wikipedia.org/wiki/Function_composition) them to evaluate functions in reverse order:
 
 ``` c#
 using static SCurry.Composer;
@@ -106,8 +106,6 @@ var piped = Compose(
 
 var result = piped(0); // 14
 ```
-
-*Compose* helper evaluate functions in reverse order.
 
 ## Installation
 
