@@ -16,4 +16,8 @@ if ($env:APPVEYOR_REPO_BRANCH -eq "develop") {
 
         bash .appveyor\codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
     }
+} else {
+    Get-ChildItem .\**\*.Tests.csproj -Recurse | ForEach-Object {
+        dotnet test $_ --no-build -c release
+    }
 }
