@@ -27,9 +27,9 @@ namespace SCurry.Tests
         [Fact]
         public void Func_Tests()
         {
-            var f1 = Func((int a, int b) => a + b).Curry();
+            var f1 = Func<int, int, int>((a, b) => a + b).Curry();
 
-            var f2 = Func<int, int, int>(Test).Partial(_, 1);
+            var f2 = Func((int a, int b) => Test(a, b)).Partial(_, 1);
         }
 
         [Fact]
