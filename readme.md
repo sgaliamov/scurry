@@ -13,7 +13,7 @@ If you are here, you probably know what [Curry](https://en.wikipedia.org/wiki/Cu
 1. Partial Application with special spacer.
 1. *Pipe* and *Compose* helper functions.
 1. All code is auto generated and covered by unit tests.
-1. Based on .NET Standard 2.0
+1. .NET Standard 1.0+
 1. No external dependencies.
 
 ## Examples
@@ -116,7 +116,3 @@ PM> Install-Package SCurry
 ``` cmd
 dotnet add package SCurry
 ```
-
-## Links
-
-* [Development process](./process.md).
