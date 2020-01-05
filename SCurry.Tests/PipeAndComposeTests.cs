@@ -3,6 +3,7 @@ using Xunit;
 using static SCurry.Spacer;
 using static SCurry.Piper;
 using static SCurry.Composer;
+using static SCurry.Helpers;
 
 namespace SCurry.Tests
 {
@@ -24,6 +25,14 @@ namespace SCurry.Tests
         }
 
         [Fact]
+        public void Func_Tests()
+        {
+            var f1 = Func((int a, int b) => a + b).Curry();
+
+            var f2 = Func<int, int, int>(Test).Partial(_, 1);
+        }
+
+        [Fact]
         public void Pipe_Three_Functions()
         {
             var piped = Pipe(
@@ -36,6 +45,8 @@ namespace SCurry.Tests
 
             Assert.Equal(10, actual);
         }
+
+        public static int Test(int i, int y) => i + y;
 
         private static readonly Func<int, int, int, int> Multiply = (a, b, c) => a * b * c;
         private static readonly Func<int, int> CurryedAdd2WithGap = TestFunctions.Add2.Partial(_, 2).Curry();
