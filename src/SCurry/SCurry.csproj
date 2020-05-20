@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard1.0</TargetFramework>
+        <TargetFrameworks>netstandard1.0</TargetFrameworks>
         <LangVersion>latest</LangVersion>
         <Authors>S. Galiamov</Authors>
         <RepositoryType>git</RepositoryType>
@@ -19,7 +19,7 @@
         <DebugType>full</DebugType>
     </PropertyGroup>
 
-    <Import Project="../.build/t4-transform.csproj" />
+    <Import Project="../../scripts/build/t4-transform.csproj" />
 
     <ItemGroup>
         <None Update="UncurryFunctions.tt">

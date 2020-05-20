@@ -1,39 +1,43 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2035
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCurry", "scurry\SCurry.csproj", "{912A8288-7C82-4B04-9CB8-655AB9A92F19}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4D128822-7A17-4D9C-B4C9-948B6F0F7AC6}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
-		process.md = process.md
 		readme.md = readme.md
-		todo.md = todo.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCurry.Tests", "SCurry.Tests\SCurry.Tests.csproj", "{C5680E07-C83D-4A5B-8857-C5D877BA306A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCurry.Builders", "SCurry.Builders\SCurry.Builders.csproj", "{D69618CE-B1BC-4B4A-97AE-592F3DC60786}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCurry.Builders.Tests", "SCurry.Builders.Tests\SCurry.Builders.Tests.csproj", "{2766DE8C-B534-46DE-8BB1-885BF62D4438}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build scripts", "Build scripts", "{176209C7-76F6-4605-AB95-2B0677D10EC0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{176209C7-76F6-4605-AB95-2B0677D10EC0}"
 	ProjectSection(SolutionItems) = preProject
-		build.ps1 = build.ps1
-		clean.ps1 = clean.ps1
-		.build\SCurry.T4.sln = .build\SCurry.T4.sln
-		.build\t4-transform.csproj = .build\t4-transform.csproj
+		scripts\build.ps1 = scripts\build.ps1
+		scripts\clean.ps1 = scripts\clean.ps1
+		scripts\build\SCurry.T4.sln = scripts\build\SCurry.T4.sln
+		scripts\build\t4-transform.csproj = scripts\build\t4-transform.csproj
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppVeyor files", "AppVeyor files", "{35841C7B-B921-4DA4-B7FB-3166CD8CC975}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "app-veyor", "app-veyor", "{35841C7B-B921-4DA4-B7FB-3166CD8CC975}"
 	ProjectSection(SolutionItems) = preProject
 		.codecov.yml = .codecov.yml
 		appveyor.yml = appveyor.yml
-		.appveyor\before_deploy.ps1 = .appveyor\before_deploy.ps1
-		.appveyor\codecov.sh = .appveyor\codecov.sh
-		.appveyor\test_script.ps1 = .appveyor\test_script.ps1
+		scripts\appveyor\before_deploy.ps1 = scripts\appveyor\before_deploy.ps1
+		scripts\appveyor\codecov.sh = scripts\appveyor\codecov.sh
+		scripts\appveyor\test_script.ps1 = scripts\appveyor\test_script.ps1
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCurry", "src\SCurry\SCurry.csproj", "{44C1718C-871C-4854-8080-1BF5E5D78C64}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCurry.Builders", "src\SCurry.Builders\SCurry.Builders.csproj", "{0EEE2562-F931-4785-9AD5-3C3A93BB4875}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCurry.Builders.Tests", "src\SCurry.Builders.Tests\SCurry.Builders.Tests.csproj", "{36E1BB76-B8D0-470A-AC5A-ACC2547EDF19}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCurry.Tests", "src\SCurry.Tests\SCurry.Tests.csproj", "{A5FFC274-9E21-4D68-8C94-BAEDBF2232AE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{5FF0EEA9-6B28-41D7-AEEF-938D41D800AA}"
+	ProjectSection(SolutionItems) = preProject
+		docs\process.md = docs\process.md
+		docs\todo.md = docs\todo.md
 	EndProjectSection
 EndProject
 Global
@@ -42,22 +46,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{912A8288-7C82-4B04-9CB8-655AB9A92F19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{912A8288-7C82-4B04-9CB8-655AB9A92F19}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{912A8288-7C82-4B04-9CB8-655AB9A92F19}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{912A8288-7C82-4B04-9CB8-655AB9A92F19}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C5680E07-C83D-4A5B-8857-C5D877BA306A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C5680E07-C83D-4A5B-8857-C5D877BA306A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C5680E07-C83D-4A5B-8857-C5D877BA306A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C5680E07-C83D-4A5B-8857-C5D877BA306A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D69618CE-B1BC-4B4A-97AE-592F3DC60786}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D69618CE-B1BC-4B4A-97AE-592F3DC60786}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D69618CE-B1BC-4B4A-97AE-592F3DC60786}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D69618CE-B1BC-4B4A-97AE-592F3DC60786}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2766DE8C-B534-46DE-8BB1-885BF62D4438}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2766DE8C-B534-46DE-8BB1-885BF62D4438}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2766DE8C-B534-46DE-8BB1-885BF62D4438}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2766DE8C-B534-46DE-8BB1-885BF62D4438}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44C1718C-871C-4854-8080-1BF5E5D78C64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44C1718C-871C-4854-8080-1BF5E5D78C64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44C1718C-871C-4854-8080-1BF5E5D78C64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44C1718C-871C-4854-8080-1BF5E5D78C64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EEE2562-F931-4785-9AD5-3C3A93BB4875}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EEE2562-F931-4785-9AD5-3C3A93BB4875}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EEE2562-F931-4785-9AD5-3C3A93BB4875}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EEE2562-F931-4785-9AD5-3C3A93BB4875}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36E1BB76-B8D0-470A-AC5A-ACC2547EDF19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36E1BB76-B8D0-470A-AC5A-ACC2547EDF19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36E1BB76-B8D0-470A-AC5A-ACC2547EDF19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36E1BB76-B8D0-470A-AC5A-ACC2547EDF19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5FFC274-9E21-4D68-8C94-BAEDBF2232AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5FFC274-9E21-4D68-8C94-BAEDBF2232AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5FFC274-9E21-4D68-8C94-BAEDBF2232AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5FFC274-9E21-4D68-8C94-BAEDBF2232AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,6 +69,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{176209C7-76F6-4605-AB95-2B0677D10EC0} = {4D128822-7A17-4D9C-B4C9-948B6F0F7AC6}
 		{35841C7B-B921-4DA4-B7FB-3166CD8CC975} = {4D128822-7A17-4D9C-B4C9-948B6F0F7AC6}
+		{5FF0EEA9-6B28-41D7-AEEF-938D41D800AA} = {4D128822-7A17-4D9C-B4C9-948B6F0F7AC6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {43831CD2-E827-451C-98E6-E576D2E73033}

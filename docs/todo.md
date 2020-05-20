@@ -1,8 +1,10 @@
 # To do
 
-1. Reorder arguments in builders.
-1. Simplify gaps for partial.
-1. Builder:
+- [ ] netstandard2.0
+- [ ] GitHubFlow
+- [ ] Reorder arguments in builders.
+- [ ] Simplify gaps for partial.
+- [ ] Builder:
 
    ``` c#
    foo = a -> b -> c -> d -> e -> f -> g;
@@ -13,4 +15,4 @@
    g(b, d, e);
    ```
 
-1. Builder based on expression tree.
+- [ ] Builder based on expression tree.

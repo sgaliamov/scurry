@@ -9,7 +9,7 @@
     <DebugType>full</DebugType>
   </PropertyGroup>
 
-  <Import Project="../.build/t4-transform.csproj" />
+  <Import Project="../../scripts/build/t4-transform.csproj" />
 
   <ItemGroup>
     <PackageReference Include="xunit" Version="2.4.1" />
@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\scurry\SCurry.csproj" />
+    <ProjectReference Include="..\SCurry\SCurry.csproj" />
   </ItemGroup>
 
   <ItemGroup>

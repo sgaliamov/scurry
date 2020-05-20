@@ -3,7 +3,6 @@ using Xunit;
 using static SCurry.Spacer;
 using static SCurry.Piper;
 using static SCurry.Composer;
-using static SCurry.Helpers;
 
 namespace SCurry.Tests
 {
@@ -22,16 +21,6 @@ namespace SCurry.Tests
             var actual = piped(0);
 
             Assert.Equal(14, actual);
-        }
-
-        [Fact]
-        public void Func_Tests()
-        {
-            var f1 = Func<int, int, int>((a, b) => a + b).Curry();
-
-            var f2 = Func((int a, int b) => Test(a, b)).Part(_, 1);
-            
-            var f3 = Func((int a, int b) => Test(a, b)).Partial(_, 1);
         }
 
         [Fact]
