@@ -62,5 +62,6 @@ deploy:
 #     branch: master
 - provider: Environment
   name: appveyor-nuget
+  artifact: /.nupkg/
   on:
     APPVEYOR_REPO_TAG: true
