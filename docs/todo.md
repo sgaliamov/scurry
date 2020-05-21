@@ -2,8 +2,8 @@
 
 - [ ] GitHubFlow
 - [ ] netstandard2.0
-- [ ] Light version
 - [ ] F
+- [ ] Light version
 - [ ] Reorder arguments in builders.
 - [ ] Simplify gaps for partial.
 - [ ] Builder:

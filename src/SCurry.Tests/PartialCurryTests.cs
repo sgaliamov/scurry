@@ -11,6 +11,9 @@ namespace SCurry.Tests
         [Fact]
         public void Partial_WithGaps_Then_Curry()
         {
+            var f = F(Foo);
+
+            f.Partial(_, _, 2).Partial(_, 3);
 
             var partial = F(Foo).Partial(_, _, 2, _, 3);
             var curried = partial.Curry();
