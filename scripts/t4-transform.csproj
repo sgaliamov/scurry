@@ -26,10 +26,6 @@
             <Visible>False</Visible>
         </T4ParameterValues>
 
-        <T4ParameterValues Include="TargetDir">
-            <Value>$(TargetDir)</Value>
-        </T4ParameterValues>
-
         <T4ParameterValues Include="Configuration">
             <Value>$(Configuration)</Value>
             <Visible>False</Visible>
