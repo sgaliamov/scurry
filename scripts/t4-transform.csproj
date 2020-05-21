@@ -21,14 +21,12 @@
     <Import Project="$(TextTemplatingTargets)" Condition="$(EnableTextTemplating)" />
 
     <ItemGroup Condition="$(EnableTextTemplating)">
-        <T4ParameterValues Include="ProjectDir">
+        <T4ParameterValues Condition="'$(ProjectDir)' != ''" Include="ProjectDir">
             <Value>$(ProjectDir)</Value>
-            <Visible>False</Visible>
         </T4ParameterValues>
 
         <T4ParameterValues Include="Configuration">
             <Value>$(Configuration)</Value>
-            <Visible>False</Visible>
         </T4ParameterValues>
     </ItemGroup>
 

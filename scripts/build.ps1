@@ -17,8 +17,7 @@ Write-Host "Building..." -ForegroundColor Green
 msbuild .\SCurry.sln /v:m /m /t:"Build" /p:Configuration=$configuration
 
 if ($runTest) {
-    Write-Host
-    Write-Host "Testing..." -ForegroundColor Green
+    Write-Host "`nTesting..." -ForegroundColor Green
     Get-ChildItem .\**\*.Tests.csproj -Recurse | ForEach-Object {
         dotnet test $_ -c $configuration --no-build
     }
