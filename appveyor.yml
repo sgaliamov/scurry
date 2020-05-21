@@ -18,7 +18,7 @@ init:
 - pwsh: $env:PATH = "C:\msys64\usr\bin;" + $env:PATH
 
 before_build:
-- pwsh: gitversion /l console /output buildserver /verbosity warn
+- pwsh: gitversion /l console /output buildserver
 
 dotnet_csproj:
   patch: true
@@ -30,30 +30,44 @@ dotnet_csproj:
 
 build_script:
 - pwsh: |
-    if ($env:APPVEYOR_REPO_BRANCH -ne "master") {
+    if ($env:APPVEYOR_REPO_TAG) {
         $env:CONFIGURATION = "debug"
     }
     .\scripts\build.ps1 -c $env:CONFIGURATION
 
-before_test:
-- pwsh: |
-    if ($env:APPVEYOR_REPO_BRANCH -eq "develop") {
-        nuget install OpenCover -Verbosity quiet -Version 4.6.519
-    }
-
 test_script:
-- pwsh: .\scripts\test_script.ps1
+- pwsh: |
+    if ($env:APPVEYOR_REPO_TAG) {
+        nuget install OpenCover -Verbosity quiet -Version 4.7.922
+        Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
+
+        Get-ChildItem .\**\*.Tests.csproj -Recurse | ForEach-Object {
+            .\OpenCover.4.7.922\tools\OpenCover.Console.exe `
+                -register:user `
+                -target:"C:\Program Files\dotnet\dotnet.exe" `
+                -targetargs:"test $_ --no-build -c debug" `
+                -output:"coverage.xml" `
+                -oldstyle `
+                -returntargetcode
+
+            if (!$?) {
+                throw "`nTests for $_ failed."
+            }
+
+            bash codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
+        }
+    } else {
+        Get-ChildItem .\**\*.Tests.csproj -Recurse | ForEach-Object {
+            dotnet test $_ --no-build -c release
+        }
+    }
 
 before_deploy:
-- pwsh: |
-    if ($env:APPVEYOR_REPO_BRANCH -eq "master") {
-      dotnet pack --include-source --include-symbols --no-build --no-dependencies -o .\publish
-    }
+- pwsh: dotnet pack --include-source --include-symbols --no-build --no-dependencies -o .\publish
 
 deploy:
 - provider: Environment
   name: appveyor-nuget
-  artifact: .\publish
   on:
     branch: master
 - provider: Environment

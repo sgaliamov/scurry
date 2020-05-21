@@ -19,7 +19,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{176209C7
 		scripts\codecov.sh = scripts\codecov.sh
 		scripts\SCurry.T4.sln = scripts\SCurry.T4.sln
 		scripts\t4-transform.csproj = scripts\t4-transform.csproj
-		scripts\test_script.ps1 = scripts\test_script.ps1
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCurry", "src\SCurry\SCurry.csproj", "{44C1718C-871C-4854-8080-1BF5E5D78C64}"
