@@ -4,6 +4,8 @@ param(
     [switch][Alias("test")]$runTest = $false
 )
 
+$ErrorActionPreference = "Stop"
+
 msbuild .\SCurry.sln /v:m /m /t:"Restore" /p:Configuration=$configuration
 
 if ($transform) {

@@ -1,6 +1,8 @@
 param(
     [switch][Alias("c")]$cleanCode
 )
+
+$ErrorActionPreference = "Stop"
   
 Get-ChildItem -Include bin, obj -Recurse | Remove-Item -Force -Recurse
 
