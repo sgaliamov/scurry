@@ -2,8 +2,7 @@ param(
     [switch][Alias("c")]$cleanCode
 )
 
-Remove-Item ".\*\obj\*" -Force -Recurse
-Remove-Item ".\*\bin\*" -Force -Recurse
+Remove-Item \obj, \bin -Force -Recurse
 
 if ($cleanCode) {
     Get-ChildItem ".\*\*.tt" -Recurse | ForEach-Object {

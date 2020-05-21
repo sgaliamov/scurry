@@ -19,7 +19,7 @@
         <DebugType>full</DebugType>
     </PropertyGroup>
 
-    <Import Project="../../scripts/build/t4-transform.csproj" />
+    <Import Project="../../scripts/t4-transform.csproj" />
 
     <ItemGroup>
         <None Update="UncurryFunctions.tt">

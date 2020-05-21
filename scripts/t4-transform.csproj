@@ -1,7 +1,7 @@
 <Project InitialTargets="InfoEnableTextTemplating">
 
     <PropertyGroup>
-        <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">15.0</VisualStudioVersion>
+        <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">16.0</VisualStudioVersion>
         <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
         <TextTemplatingTargets>$(VSToolsPath)\TextTemplating\Microsoft.TextTemplating.targets</TextTemplatingTargets>
         <EnableTextTemplating Condition="Exists($(TextTemplatingTargets))">true</EnableTextTemplating>
