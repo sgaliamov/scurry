@@ -18,7 +18,7 @@ init:
 - pwsh: $env:PATH = "C:\msys64\usr\bin;" + $env:PATH
 
 before_build:
-- pwsh: gitversion /l console /output buildserver
+- pwsh: gitversion /l console /output buildserver /verbosity minimal
 
 dotnet_csproj:
   patch: true
@@ -37,7 +37,7 @@ build_script:
 
 test_script:
 - pwsh: |
-    if ($env:APPVEYOR_REPO_TAG) {
+    if (!$env:APPVEYOR_REPO_TAG) {
         nuget install OpenCover -Verbosity quiet -Version 4.7.922
         Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
 
@@ -63,7 +63,15 @@ test_script:
     }
 
 before_deploy:
-- pwsh: dotnet pack --include-source --include-symbols --no-build --no-dependencies -o .\publish
+- pwsh: |
+    if ($env:APPVEYOR_REPO_BRANCH -eq "master") {
+        dotnet pack --include-source --include-symbols --no-build --no-dependencies -o .\publish
+
+        # Get-ChildItem ".\**\*.nupkg" -Recurse | ForEach-Object {
+        #     Push-AppveyorArtifact $_.FullName -FileName $_.Name -DeploymentName "nuget-package"
+        # }
+    }
+    dotnet pack --include-source --include-symbols --no-build --no-dependencies -o .\publish
 
 deploy:
 - provider: Environment
@@ -75,8 +83,3 @@ deploy:
   artifact: .\publish
   on:
     APPVEYOR_REPO_TAG: true
-
-artifacts:
-- path: '.\publish\*.nupkg'
-  name: nuget-package
-  type: NuGetPackage
