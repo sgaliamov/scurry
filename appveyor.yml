@@ -1,4 +1,4 @@
-version: 1.1.{build}
+version: {build}
 
 branches:
   only:
@@ -7,8 +7,6 @@ branches:
 skip_branch_with_pr: true
 
 image: Visual Studio 2019
-
-clone_depth: 1
 
 environment:
   OpenCoverToken:
@@ -32,7 +30,7 @@ build_script:
     if ($env:APPVEYOR_REPO_BRANCH -ne "master") {
         $env:CONFIGURATION = "debug"
     }
-    .\build.ps1 -c $env:CONFIGURATION -t
+    .\scripts\build.ps1 -c $env:CONFIGURATION -t
 
 before_test:
 - pwsh: |
@@ -41,13 +39,17 @@ before_test:
     }
 
 test_script:
-- pwsh: .\.appveyor\test_script.ps1
+- pwsh: .\scripts\test_script.ps1
 
 before_deploy:
-- pwsh: .\.appveyor\before_deploy.ps1
+- pwsh: .\scripts\before_deploy.ps1
 
 deploy:
+# - provider: Environment
+#   name: appveyor-nuget
+#   on:
+#     branch: master
 - provider: Environment
   name: appveyor-nuget
   on:
-    branch: master
+    APPVEYOR_REPO_TAG: true
