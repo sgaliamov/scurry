@@ -1,4 +1,4 @@
-version: {build}
+version: build.{build}
 
 branches:
   only:
@@ -12,18 +12,21 @@ environment:
   OpenCoverToken:
     secure: rJrOmfdpmHx8EdfB7nBpijgy1H9vGRXi8jARISWwUrXeZGxTiEnHmr1c2e6BARni
 
+configuration: Release
+
 init:
 - pwsh: $env:PATH = "C:\msys64\usr\bin;" + $env:PATH
+
+before_build:
+- pwsh: gitversion /l console /output buildserver /verbosity warn
 
 dotnet_csproj:
   patch: true
   file: SCurry\SCurry.csproj
-  version: '{version}'
-  package_version: '{version}'
-  assembly_version: '{version}'
-  file_version: '{version}'
-
-configuration: Release
+  version: $(GitVersion_NuGetVersion)
+  assembly_version: $(GitVersion_MajorMinorPatch)
+  file_version: $(GitVersion_MajorMinorPatch)
+  informational_version: $(GitVersion_InformationalVersion)
 
 build_script:
 - pwsh: |
@@ -42,7 +45,15 @@ test_script:
 - pwsh: .\scripts\test_script.ps1
 
 before_deploy:
-- pwsh: .\scripts\before_deploy.ps1
+- pwsh: |
+    if ($env:APPVEYOR_REPO_BRANCH -eq "master") {
+      dotnet pack --include-source --include-symbols --no-build --no-dependencies
+    }
+
+artifacts:
+- path: '.\publish\*.nupkg'
+  name: nuget-package
+  type: NuGetPackage
 
 deploy:
 # - provider: Environment
