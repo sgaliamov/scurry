@@ -47,21 +47,22 @@ test_script:
 before_deploy:
 - pwsh: |
     if ($env:APPVEYOR_REPO_BRANCH -eq "master") {
-      dotnet pack --include-source --include-symbols --no-build --no-dependencies
+      dotnet pack --include-source --include-symbols --no-build --no-dependencies -o .\publish
     }
+
+deploy:
+- provider: Environment
+  name: appveyor-nuget
+  artifact: .\publish
+  on:
+    branch: master
+- provider: Environment
+  name: appveyor-nuget
+  artifact: .\publish
+  on:
+    APPVEYOR_REPO_TAG: true
 
 artifacts:
 - path: '.\publish\*.nupkg'
   name: nuget-package
   type: NuGetPackage
-
-deploy:
-# - provider: Environment
-#   name: appveyor-nuget
-#   on:
-#     branch: master
-- provider: Environment
-  name: appveyor-nuget
-  artifact: /.nupkg/
-  on:
-    APPVEYOR_REPO_TAG: true
