@@ -27,6 +27,7 @@ dotnet_csproj:
 
 build_script:
 - pwsh: |
+    Get-ChildItem Env: | Sort Name
     if ($env:APPVEYOR_REPO_TAG -eq $false) {
         $env:CONFIGURATION = "debug"
     }
@@ -42,13 +43,11 @@ test_script:
             -target:"C:\Program Files\dotnet\dotnet.exe" `
             -targetargs:"test $_ --no-restore -c debug" `
             -output:"coverage.xml" `
-            -oldstyle `
             -returntargetcode
-
         if (!$?) {
             throw "`nTests for $_ failed."
         }
-
+        cat coverage.xml
         bash codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
     }
 
