@@ -12,6 +12,8 @@ environment:
   OpenCoverToken:
     secure: rJrOmfdpmHx8EdfB7nBpijgy1H9vGRXi8jARISWwUrXeZGxTiEnHmr1c2e6BARni
 
+configuration: Release
+
 before_build:
 - pwsh: gitversion /l console /output buildserver /verbosity quiet
 
@@ -26,9 +28,7 @@ dotnet_csproj:
 build_script:
 - pwsh: |
     if ($env:APPVEYOR_REPO_TAG -eq $false) {
-        $env:CONFIGURATION = "debug"
-    } else {
-        $env:CONFIGURATION = "release"
+        Set-AppveyorBuildVariable -Name Configuration -Value debug
     }
     .\scripts\build.ps1 -c $env:CONFIGURATION
 
