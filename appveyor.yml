@@ -27,10 +27,10 @@ dotnet_csproj:
 
 build_script:
 - pwsh: |
-    Get-ChildItem Env: | Sort Name
     if ($env:APPVEYOR_REPO_TAG -eq $false) {
         $env:CONFIGURATION = "debug"
     }
+    Get-ChildItem Env: | Sort Name
     .\scripts\build.ps1 -c $env:CONFIGURATION
 
 test_script:
@@ -52,6 +52,7 @@ test_script:
             bash codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
         }
     } else {
+        Get-ChildItem Env: | Sort Name
         Get-ChildItem .\**\*.Tests.csproj -Recurse | ForEach-Object {
             dotnet test $_ --no-build -c $env:CONFIGURATION
         } 
