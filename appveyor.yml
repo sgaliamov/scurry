@@ -65,11 +65,11 @@ artifacts:
   type: NuGetPackage
 
 deploy:
+# - provider: Environment
+#   name: appveyor-nuget
+#   artifact: .\publish\*.nupkg
 - provider: Environment
-  name: appveyor-nuget
+  name: nuget-org
   artifact: .\publish\*.nupkg
-#- provider: Environment
-#  name: appveyor-nuget
-#  artifact: .\publish\*.nupkg
-#  on:
-#    APPVEYOR_REPO_TAG: true
+  on:
+    APPVEYOR_REPO_TAG: true
