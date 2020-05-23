@@ -13,7 +13,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{176209C7
 	ProjectSection(SolutionItems) = preProject
 		.codecov.yml = .codecov.yml
 		appveyor.yml = appveyor.yml
-		scripts\before_deploy.ps1 = scripts\before_deploy.ps1
 		scripts\build.ps1 = scripts\build.ps1
 		scripts\clean.ps1 = scripts\clean.ps1
 		scripts\codecov.sh = scripts\codecov.sh

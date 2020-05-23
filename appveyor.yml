@@ -18,7 +18,7 @@ init:
 - pwsh: $env:PATH = "C:\msys64\usr\bin;" + $env:PATH
 
 before_build:
-- pwsh: gitversion /l console /output buildserver /verbosity minimal
+- pwsh: gitversion /l console /output buildserver /verbosity quiet
 
 dotnet_csproj:
   patch: true
@@ -64,14 +64,10 @@ test_script:
 
 before_deploy:
 - pwsh: |
-    if ($env:APPVEYOR_REPO_BRANCH -eq "master") {
-        dotnet pack --include-source --include-symbols --no-build --no-dependencies -o .\publish
-
-        # Get-ChildItem ".\**\*.nupkg" -Recurse | ForEach-Object {
-        #     Push-AppveyorArtifact $_.FullName -FileName $_.Name -DeploymentName "nuget-package"
-        # }
-    }
     dotnet pack --include-source --include-symbols --no-build --no-dependencies -o .\publish
+    Get-ChildItem ".\**\*.nupkg" -Recurse | ForEach-Object {
+        Push-AppveyorArtifact $_.FullName -FileName $_.Name -DeploymentName $(GitVersion_NuGetVersion)
+    }
 
 deploy:
 - provider: Environment
