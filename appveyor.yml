@@ -31,7 +31,9 @@ dotnet_csproj:
   informational_version: $(GitVersion_InformationalVersion)
 
 build_script:
-- pwsh: .\scripts\build.ps1 -c $env:CONFIGURATION
+- pwsh: |
+    .\scripts\build.ps1 -c $env:CONFIGURATION
+    dotnet pack --include-source --include-symbols --no-build --no-dependencies -o .\publish
 
 test_script:
 - pwsh: |
@@ -57,12 +59,16 @@ test_script:
         } 
     }
 
-before_deploy:
-- pwsh: |
-    dotnet pack --include-source --include-symbols --no-build --no-dependencies -o .\publish
-    Get-ChildItem ".\**\*.nupkg" -Recurse | ForEach-Object {
-        Push-AppveyorArtifact $_.FullName -FileName $_.Name -DeploymentName $(GitVersion_NuGetVersion)
-    }
+artifacts:
+- path: .\publish\*.nupkg
+  name: $(GitVersion_NuGetVersion)
+  type: NuGetPackage 
+# before_deploy:
+# - pwsh: |
+#     
+#     Get-ChildItem ".\**\*.nupkg" -Recurse | ForEach-Object {
+#         Push-AppveyorArtifact $_.FullName -FileName $_.Name -DeploymentName $(GitVersion_NuGetVersion)
+#     }
 
 deploy:
 - provider: Environment
