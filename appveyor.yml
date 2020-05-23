@@ -61,13 +61,14 @@ test_script:
 
 artifacts:
 - path: .\publish\*.nupkg
-  name: $(GitVersion_NuGetVersion)
-  type: NuGetPackage 
+  name: $(GitVersion_FullSemVer)
+  type: NuGetPackage
 
 deploy:
 - provider: Environment
   name: appveyor-nuget
-- provider: Environment
-  name: appveyor-nuget
-  on:
-    APPVEYOR_REPO_TAG: true
+  artifact: .\publish\*.nupkg
+#- provider: Environment
+#  name: appveyor-nuget
+#  on:
+#    APPVEYOR_REPO_TAG: true
