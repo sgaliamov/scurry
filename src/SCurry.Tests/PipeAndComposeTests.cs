@@ -37,6 +37,8 @@ namespace SCurry.Tests
             Assert.Equal(10, actual);
         }
 
+        public static int Test(int i, int y) => i + y;
+
         private static readonly Func<int, int, int, int> Multiply = (a, b, c) => a * b * c;
         private static readonly Func<int, int> CurryedAdd2WithGap = TestFunctions.Add2.Partial(_, 2).Curry();
         private static readonly Func<int, Func<int, int>> CurryedPartialMultiplyBy3 = Multiply.Partial(_, _, 3).Curry();

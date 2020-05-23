@@ -1,56 +1,75 @@
-version: 1.1.{build}
+version: build.{build}
 
 branches:
   only:
     - master
-    - develop
-
-skip_tags: true
 
 skip_branch_with_pr: true
 
-image: Visual Studio 2017
-
-clone_depth: 1
+image: Visual Studio 2019
 
 environment:
   OpenCoverToken:
     secure: rJrOmfdpmHx8EdfB7nBpijgy1H9vGRXi8jARISWwUrXeZGxTiEnHmr1c2e6BARni
 
-init:
-- pwsh: $env:PATH = "C:\msys64\usr\bin;" + $env:PATH
+configuration: Release
+
+before_build:
+- pwsh: |
+    gitversion /l console /output buildserver /verbosity quiet
+    if ($env:APPVEYOR_REPO_TAG -eq $false) {
+        Set-AppveyorBuildVariable -Name Configuration -Value debug
+    }
+    Get-ChildItem Env: | Sort Name
 
 dotnet_csproj:
   patch: true
   file: SCurry\SCurry.csproj
-  version: '{version}'
-  package_version: '{version}'
-  assembly_version: '{version}'
-  file_version: '{version}'
-
-configuration: Release
+  version: $(GitVersion_NuGetVersion)
+  assembly_version: $(GitVersion_MajorMinorPatch)
+  file_version: $(GitVersion_MajorMinorPatch)
+  informational_version: $(GitVersion_InformationalVersion)
 
 build_script:
 - pwsh: |
-    if ($env:APPVEYOR_REPO_BRANCH -ne "master") {
-        $env:CONFIGURATION = "debug"
-    }
-    .\build.ps1 -c $env:CONFIGURATION
-
-before_test:
-- pwsh: |
-    if ($env:APPVEYOR_REPO_BRANCH -eq "develop") {
-        nuget install OpenCover -Verbosity quiet -Version 4.6.519
-    }
+    .\scripts\build.ps1 -c $env:CONFIGURATION
+    dotnet pack --include-source --include-symbols --no-build --no-dependencies -o .\publish
 
 test_script:
-- pwsh: .\.appveyor\test_script.ps1
+- pwsh: |
+    if ($env:APPVEYOR_REPO_TAG -eq $true) {
+        nuget install OpenCover -Verbosity quiet -Version 4.7.922
+        Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
+        Get-ChildItem .\**\*.Tests.csproj -Recurse | ForEach-Object {
+            .\OpenCover.4.7.922\tools\OpenCover.Console.exe `
+                -register:user `
+                -target:"C:\Program Files\dotnet\dotnet.exe" `
+                -targetargs:"test $_ --no-restore -c debug" `
+                -output:"coverage.xml" `
+                -returntargetcode
+            if (!$?) {
+                throw "`nTests for $_ failed."
+            }
+            cat coverage.xml
+            bash codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
+        }
+    } else {
+        Get-ChildItem .\**\*.Tests.csproj -Recurse | ForEach-Object {
+            dotnet test $_ --no-build -c $env:CONFIGURATION
+        } 
+    }
 
-before_deploy:
-- pwsh: .\.appveyor\before_deploy.ps1
+artifacts:
+- path: .\publish\*.nupkg
+  name: nuget-package
+  type: NuGetPackage
 
 deploy:
+# - provider: Environment
+#   name: appveyor-nuget
+#   artifact: .\publish\*.nupkg
 - provider: Environment
-  name: appveyor-nuget
+  name: nuget-org
+  artifact: .\publish\*.nupkg
   on:
-    branch: master
+    APPVEYOR_REPO_TAG: true
