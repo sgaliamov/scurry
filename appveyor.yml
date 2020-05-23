@@ -15,7 +15,12 @@ environment:
 configuration: Release
 
 before_build:
-- pwsh: gitversion /l console /output buildserver /verbosity quiet
+- pwsh: |
+    gitversion /l console /output buildserver /verbosity quiet
+    if ($env:APPVEYOR_REPO_TAG -eq $false) {
+        Set-AppveyorBuildVariable -Name Configuration -Value debug
+    }
+    Get-ChildItem Env: | Sort Name
 
 dotnet_csproj:
   patch: true
@@ -26,15 +31,10 @@ dotnet_csproj:
   informational_version: $(GitVersion_InformationalVersion)
 
 build_script:
-- pwsh: |
-    if ($env:APPVEYOR_REPO_TAG -eq $false) {
-        Set-AppveyorBuildVariable -Name Configuration -Value debug
-    }
-    .\scripts\build.ps1 -c $env:CONFIGURATION
+- pwsh: .\scripts\build.ps1 -c $env:CONFIGURATION
 
 test_script:
 - pwsh: |
-    Get-ChildItem Env: | Sort Name
     if ($env:APPVEYOR_REPO_TAG -eq $true) {
         nuget install OpenCover -Verbosity quiet -Version 4.7.922
         Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
