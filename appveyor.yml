@@ -61,7 +61,7 @@ test_script:
 
 artifacts:
 - path: .\publish\*.nupkg
-  name: $(GitVersion_FullSemVer)
+  name: nuget-package
   type: NuGetPackage
 
 deploy:
@@ -70,5 +70,6 @@ deploy:
   artifact: .\publish\*.nupkg
 #- provider: Environment
 #  name: appveyor-nuget
+#  artifact: .\publish\*.nupkg
 #  on:
 #    APPVEYOR_REPO_TAG: true
