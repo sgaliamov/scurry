@@ -36,7 +36,6 @@ test_script:
 - pwsh: |
     nuget install OpenCover -Verbosity quiet -Version 4.7.922
     Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
-
     Get-ChildItem .\**\*.Tests.csproj -Recurse | ForEach-Object {
         .\OpenCover.4.7.922\tools\OpenCover.Console.exe `
             -register:user `
@@ -51,6 +50,7 @@ test_script:
         }
 
         bash codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
+    }
 
 before_deploy:
 - pwsh: |
