@@ -28,14 +28,18 @@ dotnet_csproj:
 build_script:
 - pwsh: |
     Get-ChildItem Env: | Sort Name
-    if ($env:APPVEYOR_REPO_TAG) {
+    if ($env:APPVEYOR_REPO_TAG -eq $false) {
         $env:CONFIGURATION = "debug"
     }
     .\scripts\build.ps1 -c $env:CONFIGURATION
 
 test_script:
 - pwsh: |
-    if (!$env:APPVEYOR_REPO_TAG) {
+    if ($env:APPVEYOR_REPO_TAG -eq $true) {
+        Get-ChildItem .\**\*.Tests.csproj -Recurse | ForEach-Object {
+            dotnet test $_ --no-build -c release
+        } 
+    } else {
         nuget install OpenCover -Verbosity quiet -Version 4.7.922
         Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
 
@@ -53,10 +57,6 @@ test_script:
             }
 
             bash codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
-        }
-    } else {
-        Get-ChildItem .\**\*.Tests.csproj -Recurse | ForEach-Object {
-            dotnet test $_ --no-build -c release
         }
     }
 
