@@ -35,20 +35,26 @@ build_script:
 
 test_script:
 - pwsh: |
-    nuget install OpenCover -Verbosity quiet -Version 4.7.922
-    Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
-    Get-ChildItem .\**\*.Tests.csproj -Recurse | ForEach-Object {
-        .\OpenCover.4.7.922\tools\OpenCover.Console.exe `
-            -register:user `
-            -target:"C:\Program Files\dotnet\dotnet.exe" `
-            -targetargs:"test $_ --no-restore -c debug" `
-            -output:"coverage.xml" `
-            -returntargetcode
-        if (!$?) {
-            throw "`nTests for $_ failed."
+    if ($env:APPVEYOR_REPO_TAG -eq $true) {
+        nuget install OpenCover -Verbosity quiet -Version 4.7.922
+        Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
+        Get-ChildItem .\**\*.Tests.csproj -Recurse | ForEach-Object {
+            .\OpenCover.4.7.922\tools\OpenCover.Console.exe `
+                -register:user `
+                -target:"C:\Program Files\dotnet\dotnet.exe" `
+                -targetargs:"test $_ --no-restore -c debug" `
+                -output:"coverage.xml" `
+                -returntargetcode
+            if (!$?) {
+                throw "`nTests for $_ failed."
+            }
+            cat coverage.xml
+            bash codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
         }
-        cat coverage.xml
-        bash codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
+    } else {
+        Get-ChildItem .\**\*.Tests.csproj -Recurse | ForEach-Object {
+            dotnet test $_ --no-build -c $env:CONFIGURATION
+        } 
     }
 
 before_deploy:
