@@ -29,7 +29,7 @@ build_script:
         $env:CONFIGURATION = "debug"
     } else {
         $env:CONFIGURATION = "release"
-	}
+    }
     .\scripts\build.ps1 -c $env:CONFIGURATION
 
 test_script:
