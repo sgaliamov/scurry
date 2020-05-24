@@ -58,7 +58,8 @@ namespace SCurry.Builders.Models
                 .Select(index => new MethodDefinition(type, ValueToParameters(index, argsCount)));
         }
 
-        private static IEnumerable<MethodDefinition> GeneratePartials(MethodType type,
+        private static IEnumerable<MethodDefinition> GeneratePartials(
+            MethodType type,
             int gapsCount,
             int argsCount,
             int limitPartial)
