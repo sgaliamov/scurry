@@ -38,37 +38,31 @@ namespace SCurry.Tests
             // assert
             Assert.Equal(0, actual);
         }
-<#
-    for(int cnt = 1; cnt <= Constants.MaxInputArgumentsCount; cnt++) 
-    { 
-        int cnt1 = cnt;
-        int cnt2 = cnt;
-        int cnt3 = cnt;
-        int cnt4 = cnt;
-        int cnt5 = cnt;
-        int cnt6 = cnt;
-        int cnt7 = cnt;
-        int cnt8 = cnt;
-#>
+<# 
+for(int count = 1; count <= Constants.MaxInputArgumentsCount; count++)
+{
+ #>
 
         [Fact]
-        public void Curry_Action_<#=cnt1.ToString()#>()
+        public void Curry_Action_<#= count #>()
         {
             // arrange
             var actual = -1;
-            <#= ActionType(cnt2) #> action = (<#= ActionArgs(cnt3) #>) =>
+            <#= ActionType(count) #> action = (<#= ActionArgs(count) #>) =>
             {
-                actual = TestFunctions.Add<#=cnt4#>(<#= ActionArgs(cnt5) #>);
+                actual = TestFunctions.Add<#= count #>(<#= ActionArgs(count) #>);
             };
 
             // act
             var curried = action.Curry();
-            curried<#= Calls(cnt6) #>;
+            curried<#= Calls(count) #>;
 
             // assert
-            Assert.Equal(<#= cnt7 * (cnt8 + 1) / 2.0 #>, actual);
+            Assert.Equal(<#= count * (count + 1) / 2.0 #>, actual);
         }
-<# } #>
+<# 
+}
+#>
     }
 }
 <#+
