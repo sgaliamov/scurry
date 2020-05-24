@@ -26,7 +26,7 @@ namespace SCurry.Builders
         {
             for (var argsCount = 0; argsCount <= maxArgsCount; argsCount++) {
                 var definition = _definitionsBuilder
-                                 .Build(methodType, 0, argsCount, 0)
+                                 .Build(methodType, argsCount, 0, 0)
                                  .Select(_methodConverter.Convert)
                                  .Single();
 

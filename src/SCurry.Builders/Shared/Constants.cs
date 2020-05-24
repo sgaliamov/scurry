@@ -4,6 +4,6 @@
     {
         public const int MaxInputArgumentsCount = 16;
         public const int DefaultGapsCount = 7;
-        public const int LimitPartial = 8;
+        public const int LimitPartial = 16;
     }
 }

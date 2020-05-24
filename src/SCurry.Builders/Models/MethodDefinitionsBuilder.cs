@@ -8,7 +8,7 @@ namespace SCurry.Builders.Models
 {
     public sealed class MethodDefinitionsBuilder : IMethodDefinitionsBuilder
     {
-        public MethodDefinition[] Build(MethodType type, int gapsCount, int argsCount, int limitPartial)
+        public MethodDefinition[] Build(MethodType type, int argsCount, int gapsCount, int limitPartial)
         {
             if (argsCount < 0 || argsCount > Constants.MaxInputArgumentsCount) {
                 throw new ArgumentOutOfRangeException(nameof(argsCount));
@@ -18,10 +18,10 @@ namespace SCurry.Builders.Models
                 throw new ArgumentOutOfRangeException(nameof(gapsCount));
             }
 
-            return Generate(type, gapsCount, argsCount, limitPartial).ToArray();
+            return Generate(type, argsCount, gapsCount, limitPartial).ToArray();
         }
 
-        private static IEnumerable<MethodDefinition> Generate(MethodType type, int gapsCount, int argsCount, int limitPartial)
+        private static IEnumerable<MethodDefinition> Generate(MethodType type, int argsCount, int gapsCount, int limitPartial)
         {
             yield return new MethodDefinition(type, ValueToParameters(0, argsCount));
 
@@ -33,19 +33,19 @@ namespace SCurry.Builders.Models
                 gapsCount = argsCount;
             }
 
-            foreach (var item in GenerateGaps(type, gapsCount, argsCount)) {
+            foreach (var item in GenerateGaps(type, argsCount, gapsCount)) {
                 yield return item;
             }
 
-            foreach (var item in GeneratePartials(type, gapsCount, argsCount, limitPartial)) {
+            foreach (var item in GeneratePartials(type, argsCount, gapsCount, limitPartial)) {
                 yield return item;
             }
         }
 
         private static IEnumerable<MethodDefinition> GenerateGaps(
             MethodType type,
-            int gapsCount,
-            int argsCount)
+            int argsCount,
+            int gapsCount)
         {
             if (gapsCount < argsCount) {
                 return Enumerable.Empty<MethodDefinition>();
@@ -60,8 +60,8 @@ namespace SCurry.Builders.Models
 
         private static IEnumerable<MethodDefinition> GeneratePartials(
             MethodType type,
-            int gapsCount,
             int argsCount,
+            int gapsCount,
             int limitPartial)
         {
             if (limitPartial < argsCount) {

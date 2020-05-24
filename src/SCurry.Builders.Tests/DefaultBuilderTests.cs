@@ -22,7 +22,7 @@ namespace SCurry.Builders.Tests
             var items = SetupDefinitionsBuilder(MethodType.Action, gapsCount, limitPartial, maxArgsCount, 2);
             var extensions = SetupMethodConverter(items);
 
-            var actual = _target.GenerateActionExtensions(gapsCount, maxArgsCount, limitPartial).ToArray();
+            var actual = _target.GenerateActionExtensions(maxArgsCount, gapsCount, limitPartial).ToArray();
 
             actual.Should().BeEquivalentTo(extensions, options => options.WithStrictOrdering());
         }
@@ -37,7 +37,7 @@ namespace SCurry.Builders.Tests
             var items = SetupDefinitionsBuilder(MethodType.Function, gapsCount, limitPartial, maxArgsCount, 3);
             var extensions = SetupMethodConverter(items);
 
-            var actual = _target.GenerateFuncExtensions(gapsCount, maxArgsCount, limitPartial).ToArray();
+            var actual = _target.GenerateFuncExtensions(maxArgsCount, gapsCount, limitPartial).ToArray();
 
             actual.Should().BeEquivalentTo(extensions, options => options.WithStrictOrdering());
         }

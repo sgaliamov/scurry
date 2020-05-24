@@ -27,7 +27,7 @@ namespace SCurry.Builders.Tests
                 },
                 type);
 
-            var actual = _target.Build(type, 0, 4, 4);
+            var actual = _target.Build(type, 4, 0, 4);
 
             actual.Should().BeEquivalentTo(expected.AsEnumerable());
         }
@@ -38,7 +38,7 @@ namespace SCurry.Builders.Tests
             var type = _fixture.Create<MethodType>();
             var expected = Convert(new[] { new[] { 0, 0, 0, 0, 0 } }, type);
 
-            var actual = _target.Build(type, 0, 5, 0);
+            var actual = _target.Build(type, 5, 0, 0);
 
             actual.Should().BeEquivalentTo(expected.AsEnumerable());
         }
@@ -54,7 +54,7 @@ namespace SCurry.Builders.Tests
                 },
                 type);
 
-            var actual = _target.Build(type, 2, 0, 3);
+            var actual = _target.Build(type, 0, 2, 3);
 
             actual.Should().BeEquivalentTo(expected.AsEnumerable());
         }
@@ -71,7 +71,7 @@ namespace SCurry.Builders.Tests
                 },
                 type);
 
-            var actual = _target.Build(type, 2, 1, 3);
+            var actual = _target.Build(type, 1, 2, 3);
 
             actual.Should().BeEquivalentTo(expected.AsEnumerable());
         }
@@ -114,7 +114,7 @@ namespace SCurry.Builders.Tests
                 },
                 type);
 
-            var actual = _target.Build(type, 3, 4, 4);
+            var actual = _target.Build(type, 4, 3, 4);
 
             actual.Should().BeEquivalentTo(expected.AsEnumerable());
         }
@@ -125,7 +125,7 @@ namespace SCurry.Builders.Tests
             var type = _fixture.Create<MethodType>();
             var expected = Convert(new[] { new[] { 0, 0, 0, 0, 0 } }, type);
 
-            var actual = _target.Build(type, 3, 5, 4);
+            var actual = _target.Build(type, 5, 3, 4);
 
             actual.Should().BeEquivalentTo(expected.AsEnumerable());
         }
@@ -148,7 +148,7 @@ namespace SCurry.Builders.Tests
                 },
                 type);
 
-            var actual = _target.Build(type, 4, 3, 3);
+            var actual = _target.Build(type, 3, 4, 3);
 
             actual.Should().BeEquivalentTo(expected.AsEnumerable());
         }
@@ -157,17 +157,17 @@ namespace SCurry.Builders.Tests
         public void Invalid_Args_Count()
         {
             Assert.Throws<ArgumentOutOfRangeException>(() =>
-                _target.Build(_fixture.Create<MethodType>(), 0, -1, 0));
+                _target.Build(_fixture.Create<MethodType>(), -1, 0, 0));
 
             Assert.Throws<ArgumentOutOfRangeException>(() =>
-                _target.Build(_fixture.Create<MethodType>(), 0, Constants.MaxInputArgumentsCount + 1, 0));
+                _target.Build(_fixture.Create<MethodType>(), Constants.MaxInputArgumentsCount + 1, 0, 0));
         }
 
         [Fact]
         public void Invalid_Gaps_Count()
         {
             Assert.Throws<ArgumentOutOfRangeException>(() =>
-                _target.Build(_fixture.Create<MethodType>(), -1, Constants.MaxInputArgumentsCount, 0));
+                _target.Build(_fixture.Create<MethodType>(), Constants.MaxInputArgumentsCount, -1, 0));
         }
 
         private readonly MethodDefinitionsBuilder _target = new MethodDefinitionsBuilder();

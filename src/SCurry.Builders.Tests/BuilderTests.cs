@@ -45,9 +45,9 @@ namespace SCurry.Builders.Tests
             foreach (var item in items) {
                 DefinitionsBuilder.Setup(x => x.Build(
                                       methodType,
-                                      gapsCount,
-                                      item.ArgsCount,
-                                      limitPartial))
+                    item.ArgsCount,
+                    gapsCount,
+                    limitPartial))
                                   .Returns(item.Definitions);
             }
 
