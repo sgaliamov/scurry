@@ -27,7 +27,7 @@ dotnet build .\SCurry.sln -c $configuration --no-restore
 if ($runTest) {
     Write-Host "`nTesting..." -ForegroundColor Green
     Get-ChildItem .\**\*.Tests.csproj -Recurse | ForEach-Object {
-        dotnet test $_ -c $configuration --no-build
+        dotnet test $_ -c $configuration --no-restore
     }
 }
 
