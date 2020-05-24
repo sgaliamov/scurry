@@ -28,9 +28,9 @@ namespace SCurry
         new MethodDefinitionsBuilder());
 
     foreach(var extention in builder.GenerateActionExtensions(
-        Constants.DefaultGapsCount,
         Constants.MaxInputArgumentsCount,
-        Constants.MaxInputArgumentsCount))
+        Constants.DefaultGapsCount,
+        Constants.LimitPartial))
     {
 #>
         <#= extention #>

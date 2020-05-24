@@ -8,8 +8,7 @@ namespace SCurry.Builders.Converters.Curry
     {
         public string Convert(MethodDefinition definition)
         {
-            if (definition.GappedParameters.Length == 0)
-            {
+            if (definition.GappedParameters.Length == 0) {
                 return definition.SimpleReturnType;
             }
 

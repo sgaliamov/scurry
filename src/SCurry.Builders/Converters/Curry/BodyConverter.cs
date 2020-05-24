@@ -15,8 +15,7 @@ namespace SCurry.Builders.Converters.Curry
         {
             var onlyOneNormalParameter = definition.Parameters.Length == 1 && definition.TrimmedParameters.Length == 0;
 
-            if (definition.Parameters.Length == 0 || onlyOneNormalParameter)
-            {
+            if (definition.Parameters.Length == 0 || onlyOneNormalParameter) {
                 return definition.Target;
             }
 

@@ -15,15 +15,13 @@ namespace SCurry.Builders.Tests
 
         protected string[] SetupMethodConverter(IEnumerable<MethodDefinition> items)
         {
-            var extensions = items.Select(definition => new
-                                  {
-                                      Defenition = definition,
-                                      Extension = Fixture.Create<string>()
-                                  })
+            var extensions = items.Select(definition => new {
+                Defenition = definition,
+                Extension = Fixture.Create<string>()
+            })
                                   .ToArray();
 
-            foreach (var extension in extensions)
-            {
+            foreach (var extension in extensions) {
                 MethodConverter.Setup(x => x.Convert(extension.Defenition)).Returns(extension.Extension);
             }
 
@@ -38,20 +36,18 @@ namespace SCurry.Builders.Tests
             int definitionsCount)
         {
             var items = Enumerable.Range(0, maxArgsCount + 1)
-                                  .Select(i => new
-                                  {
+                                  .Select(i => new {
                                       ArgsCount = i,
                                       Definitions = Fixture.CreateMany<MethodDefinition>(definitionsCount).ToArray()
                                   })
                                   .ToArray();
 
-            foreach (var item in items)
-            {
+            foreach (var item in items) {
                 DefinitionsBuilder.Setup(x => x.Build(
                                       methodType,
-                                      gapsCount,
-                                      item.ArgsCount,
-                                      limitPartial))
+                    item.ArgsCount,
+                    gapsCount,
+                    limitPartial))
                                   .Returns(item.Definitions);
             }
 

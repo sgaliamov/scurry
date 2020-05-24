@@ -141,7 +141,7 @@ namespace SCurry.Builders.Tests.Converters
         private readonly MethodDefinitionsBuilder _definitionsBuilder = new MethodDefinitionsBuilder();
 
         private string[] Convert(MethodType methodType, int gapsCount, int argsCount) =>
-            _definitionsBuilder.Build(methodType, gapsCount, argsCount, Constants.LimitPartial)
+            _definitionsBuilder.Build(methodType, argsCount, gapsCount, Constants.LimitPartial)
                                .Select(_target.Convert)
                                .ToArray();
     }

@@ -30,8 +30,7 @@ dotnet_csproj:
 build_script:
 - pwsh: |
     Get-ChildItem Env: | Sort Name
-    .\scripts\build.ps1 -c $env:CONFIGURATION -t -clean
-    dotnet pack --include-source --include-symbols --no-build --no-dependencies -o .\publish
+    .\scripts\build.ps1 -c $env:CONFIGURATION -p
 
 test_script:
 - pwsh: |

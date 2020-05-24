@@ -13,8 +13,7 @@ namespace SCurry.Builders.Shared
 
         public static IEnumerable<T> AppendIf<T>(this IEnumerable<T> enumerable, Func<bool> predicate, Func<T> value)
         {
-            if (predicate())
-            {
+            if (predicate()) {
                 return enumerable.Append(value());
             }
 

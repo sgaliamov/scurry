@@ -80,7 +80,7 @@ namespace SCurry.Builders.Tests.Converters
         private readonly MethodDefinitionsBuilder _definitionsBuilder = new MethodDefinitionsBuilder();
 
         private string Convert(MethodType methodType, int argsCount) =>
-            _definitionsBuilder.Build(methodType, 0, argsCount, 0)
+            _definitionsBuilder.Build(methodType, argsCount, 0, 0)
                                .Select(_target.Convert)
                                .Single();
     }

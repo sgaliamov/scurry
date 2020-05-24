@@ -2,6 +2,7 @@ param(
     [string][Alias("c")]$configuration = "Debug",
     [switch][Alias("t")]$transform = $false,
     [switch][Alias("test")]$runTest = $false,
+    [switch][Alias("p")]$publish = $false,
     [switch]$clean = $false
 )
 
@@ -30,5 +31,8 @@ if ($runTest) {
     }
 }
 
-Write-Host "Done." -ForegroundColor Green
-Write-Host
+if ($publish) {
+    dotnet pack --include-source --include-symbols --no-build --no-dependencies -c $configuration -o .\publish
+}
+
+Write-Host "`nDone.`n" -ForegroundColor Green

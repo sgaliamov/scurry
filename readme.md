@@ -1,20 +1,20 @@
 # Currying C# functions and actions
 
-If you are here, you probably know what [Curry](https://en.wikipedia.org/wiki/Currying) and [Partial Application](https://en.wikipedia.org/wiki/Partial_application) are. This library contains extensions for all standard *Func<>* and *Action<>* delegates.
+If you are here, you probably know what [Curry](https://en.wikipedia.org/wiki/Currying) and [Partial Application](https://en.wikipedia.org/wiki/Partial_application) are. 
+This library contains extensions for all standard `Func<>` and `Action<>` delegates.
 
-[![Build status](https://ci.appveyor.com/api/projects/status/2ppb58d9a8gmvdfw/branch/master?svg=true)](https://ci.appveyor.com/project/sgaliamov/scurry/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/u0yhhrc3p11eqyt5/branch/master?svg=true)](https://ci.appveyor.com/project/sgaliamov/scurry/branch/master)
 [![codecov](https://codecov.io/gh/sgaliamov/scurry/branch/master/graph/badge.svg)](https://codecov.io/gh/sgaliamov/scurry)
 [![NuGet Badge](https://buildstats.info/nuget/scurry)](https://www.nuget.org/packages/scurry/)
 
-
 ## Features
 
-1. Supports all standard Func<> and Action<> delegates.
+1. Supports all standard `Func<>` and `Action<>` delegates.
 1. Currying and uncurrying.
 1. Partial Application with special spacer.
-1. *Pipe* and *Compose* helper functions.
+1. `Pipe` and `Compose` helper functions.
 1. All code is auto generated and covered by unit tests.
-1. .NET Standard 1.0+
+1. .NET Standard 1.0+, .NET Standard 2.0+.
 1. No external dependencies.
 
 ## Examples
@@ -43,18 +43,25 @@ Func<int, int, int> multiply2Partial = Multiply.Partial(_, _, 2); // or Multiply
 int result = multiply2Partial(3, 4); // 24
 ```
 
-At the moment you can use the spacer for delegates with up to 7 parameters. Making it more makes the library ridiculous big.
+At the moment you can use the spacer for delegates with up to 8 parameters. Making it more makes the library ridiculous big.
+
+If you need to make partial call on a function with more that 8 parameters you can combine two `Partial` functions:
+
+``` c#
+var partial = Add16.Partial(1, 2, 3, 4, 5, 6, 7, 8).Partial(_, 8, 7, 6, 5, 4, 3, 2);
+var result = partial(1); // 72
+```
 
 ### Curry
 
-To curry use *Curry* extension:
+To curry use `Curry` extension:
 
 ``` c#
 Func<int, Func<int, Func<int, int>>> multiplyCurried = Multiply.Curry();
 int result = multiplyCurried(2)(3)(4); // 24
 ```
 
-You can combine it with gapped version of *Partial* extension to get more flexibility:
+You can combine it with gapped version of `Partial` extension to get more flexibility:
 
 ``` c#
 using static SCurry.Spacer;
@@ -75,7 +82,7 @@ int result = multiply2(3, 4); // 24
 
 ### Pipe and Compose
 
-You can chain functions with *Pipe* helper:
+You can chain functions with `Pipe` helper:
 
 ``` c#
 using static SCurry.Piper;
