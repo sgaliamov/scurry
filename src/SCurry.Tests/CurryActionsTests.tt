@@ -38,16 +38,17 @@ namespace SCurry.Tests
             // assert
             Assert.Equal(0, actual);
         }
-<# for(int cnt = 1; cnt <= Constants.MaxInputArgumentsCount; cnt++) #>
-<# { 
-    int cnt1 = cnt;
-    int cnt2 = cnt;
-    int cnt3 = cnt;
-    int cnt4 = cnt;
-    int cnt5 = cnt;
-    int cnt6 = cnt;
-    int cnt7 = cnt;
-    int cnt8 = cnt;
+<#
+    for(int cnt = 1; cnt <= Constants.MaxInputArgumentsCount; cnt++) 
+    { 
+        int cnt1 = cnt;
+        int cnt2 = cnt;
+        int cnt3 = cnt;
+        int cnt4 = cnt;
+        int cnt5 = cnt;
+        int cnt6 = cnt;
+        int cnt7 = cnt;
+        int cnt8 = cnt;
 #>
 
         [Fact]
