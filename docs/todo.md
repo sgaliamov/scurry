@@ -4,8 +4,8 @@
 - [x] net standard 1.0.
 - [x] Reorder arguments in builders.
 - [x] ~~F~~ not possible.
-- [ ] Light version. Simplify gaps for partial.
-- [ ] Builder:
+- [x] ~~Light version. Simplify gaps for partial.~~ no reason to do.
+- [x] ~~Builder:~~ separate project.
 
    ``` c#
    foo = a -> b -> c -> d -> e -> f -> g;
@@ -16,4 +16,4 @@
    g(b, d, e);
    ```
 
-    `value` and `skip` functions return not `Func` but some object that works with funcion with less amount of arguments
+    `value` and `skip` functions return not `Func` but some object that works with function with less amount of arguments
