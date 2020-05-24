@@ -24,8 +24,7 @@ namespace SCurry.Builders
 
         private IEnumerable<string> Generate(MethodType methodType, int maxArgsCount)
         {
-            for (var argsCount = 0; argsCount <= maxArgsCount; argsCount++)
-            {
+            for (var argsCount = 0; argsCount <= maxArgsCount; argsCount++) {
                 var definition = _definitionsBuilder
                                  .Build(methodType, 0, argsCount, 0)
                                  .Select(_methodConverter.Convert)

@@ -10,13 +10,11 @@ namespace SCurry.Builders.Models
     {
         public MethodDefinition[] Build(MethodType type, int gapsCount, int argsCount, int limitPartial)
         {
-            if (argsCount < 0 || argsCount > Constants.MaxInputArgumentsCount)
-            {
+            if (argsCount < 0 || argsCount > Constants.MaxInputArgumentsCount) {
                 throw new ArgumentOutOfRangeException(nameof(argsCount));
             }
 
-            if (gapsCount < 0)
-            {
+            if (gapsCount < 0) {
                 throw new ArgumentOutOfRangeException(nameof(gapsCount));
             }
 
@@ -27,23 +25,19 @@ namespace SCurry.Builders.Models
         {
             yield return new MethodDefinition(type, ValueToParameters(0, argsCount));
 
-            if (argsCount == 0)
-            {
+            if (argsCount == 0) {
                 yield break;
             }
 
-            if (gapsCount > argsCount)
-            {
+            if (gapsCount > argsCount) {
                 gapsCount = argsCount;
             }
 
-            foreach (var item in GenerateGaps(type, gapsCount, argsCount))
-            {
+            foreach (var item in GenerateGaps(type, gapsCount, argsCount)) {
                 yield return item;
             }
 
-            foreach (var item in GeneratePartials(type, gapsCount, argsCount, limitPartial))
-            {
+            foreach (var item in GeneratePartials(type, gapsCount, argsCount, limitPartial)) {
                 yield return item;
             }
         }
@@ -53,8 +47,7 @@ namespace SCurry.Builders.Models
             int gapsCount,
             int argsCount)
         {
-            if (gapsCount < argsCount)
-            {
+            if (gapsCount < argsCount) {
                 return Enumerable.Empty<MethodDefinition>();
             }
 
@@ -69,8 +62,7 @@ namespace SCurry.Builders.Models
             int argsCount,
             int limitPartial)
         {
-            if (limitPartial < argsCount)
-            {
+            if (limitPartial < argsCount) {
                 yield break;
             }
 
@@ -78,8 +70,7 @@ namespace SCurry.Builders.Models
                 ? 1
                 : gapsCount + 1;
 
-            do
-            {
+            do {
                 var min = (1 << startCount) - 1;
                 var flags = ValueToParameters(min, argsCount);
 

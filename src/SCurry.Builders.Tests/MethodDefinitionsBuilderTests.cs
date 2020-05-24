@@ -176,8 +176,7 @@ namespace SCurry.Builders.Tests
         private static MethodDefinition[] Convert(IEnumerable<int[]> markers, MethodType type)
         {
             return markers
-                   .Select(m =>
-                   {
+                   .Select(m => {
                        var parameters = m
                                         .Select((isArg, index) => new Parameter(isArg == 1, index + 1))
                                         .ToArray();

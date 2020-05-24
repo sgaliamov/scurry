@@ -1,10 +1,10 @@
 # To do
 
 - [x] GitHubFlow
-- [ ] netstandard1.0
+- [x] netstandard1.0
+- [ ] Reorder arguments in builders.
 - [ ] F
 - [ ] Light version
-- [ ] Reorder arguments in builders.
 - [ ] Simplify gaps for partial.
 - [ ] Builder:
 

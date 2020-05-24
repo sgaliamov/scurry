@@ -28,14 +28,12 @@ namespace SCurry.Builders
             int maxArgsCount,
             int limitPartial)
         {
-            for (var argsCount = 0; argsCount <= maxArgsCount; argsCount++)
-            {
+            for (var argsCount = 0; argsCount <= maxArgsCount; argsCount++) {
                 var extensions = _definitionsBuilder
                                  .Build(methodType, gapsCount, argsCount, limitPartial)
                                  .Select(_methodMethodConverter.Convert);
 
-                foreach (var item in extensions)
-                {
+                foreach (var item in extensions) {
                     yield return item;
                 }
             }

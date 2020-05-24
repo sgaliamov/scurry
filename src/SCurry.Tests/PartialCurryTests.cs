@@ -22,7 +22,7 @@ namespace SCurry.Tests
                 partial(1, 6, 7),
                 curried(1)(6)(7));
         }
-        
+
         static int Foo(int a, int b, int c, int d, int e) => a + b * (c + d - e);
 
         public static Func<int, int, int, int, int, int> F(Func<int, int, int, int, int, int> foo) => foo;

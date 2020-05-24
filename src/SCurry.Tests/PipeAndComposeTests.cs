@@ -1,8 +1,8 @@
 ﻿using System;
 using Xunit;
-using static SCurry.Spacer;
-using static SCurry.Piper;
 using static SCurry.Composer;
+using static SCurry.Piper;
+using static SCurry.Spacer;
 
 namespace SCurry.Tests
 {
