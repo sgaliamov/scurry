@@ -1,10 +1,15 @@
 param(
     [string][Alias("c")]$configuration = "Debug",
     [switch][Alias("t")]$transform = $false,
-    [switch][Alias("test")]$runTest = $false
+    [switch][Alias("test")]$runTest = $false,
+    [switch]$clean = $false
 )
 
 $ErrorActionPreference = "Stop"
+
+if ($clean) {
+    .\scripts\clean.ps1 -c
+}
 
 msbuild .\SCurry.sln /v:m /m /t:"Restore" /p:Configuration=$configuration
 

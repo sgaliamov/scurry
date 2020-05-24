@@ -3,7 +3,9 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-  
+
+Write-Host "Cleaning..." -ForegroundColor Green
+
 Get-ChildItem -Include bin, obj -Recurse | Remove-Item -Force -Recurse
 
 if ($cleanCode) {
