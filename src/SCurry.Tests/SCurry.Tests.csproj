@@ -17,7 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\SCurry\SCurry.csproj" />
+        <ProjectReference Include="..\SCurry\SCurry.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -54,7 +54,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+        <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
     </ItemGroup>
 
 </Project>

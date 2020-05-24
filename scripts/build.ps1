@@ -27,12 +27,12 @@ dotnet build .\SCurry.sln -c $configuration --no-restore
 if ($runTest) {
     Write-Host "`nTesting..." -ForegroundColor Green
     Get-ChildItem .\**\*.Tests.csproj -Recurse | ForEach-Object {
-        dotnet test $_ -c $configuration --no-restore
+        dotnet test $_ -c $configuration --no-build
     }
 }
 
 if ($publish) {
-    dotnet pack --include-source --include-symbols --no-restore --no-dependencies -c $configuration -o .\publish
+    dotnet pack --include-source --include-symbols --no-build --no-dependencies -c $configuration -o .\publish
 }
 
 Write-Host "`nDone.`n" -ForegroundColor Green
