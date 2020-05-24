@@ -15,7 +15,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{176209C7
 		appveyor.yml = appveyor.yml
 		scripts\build.ps1 = scripts\build.ps1
 		scripts\clean.ps1 = scripts\clean.ps1
-		scripts\codecov.sh = scripts\codecov.sh
 		scripts\SCurry.T4.sln = scripts\SCurry.T4.sln
 		scripts\t4-transform.csproj = scripts\t4-transform.csproj
 	EndProjectSection

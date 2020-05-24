@@ -17,9 +17,9 @@ Description of development and deployment processes.
 
 1. Create PR from the feature branch to *master*. All checks should pass.
 1. Squash and merge RP.
-1. Remove feature branch from local and remote.
 
 ## Release
 
 Add [release notes](https://github.com/sgaliamov/scurry/releases/new), define version tag, and publish the release.
+
 It will publish the package to [nuget.org](https://www.nuget.org/packages/SCurry/).
