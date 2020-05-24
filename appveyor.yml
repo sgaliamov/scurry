@@ -51,7 +51,6 @@ test_script:
             if (!$?) {
                 throw "`nTests for $_ failed."
             }
-            cat coverage.xml
             bash codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
         }
     }
