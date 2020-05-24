@@ -13,5 +13,3 @@ if ($cleanCode) {
         Remove-Item $([io.path]::ChangeExtension($_.FullName, "generated.cs")) -Force -ErrorAction Ignore
     }
 }
-
-Write-Host
