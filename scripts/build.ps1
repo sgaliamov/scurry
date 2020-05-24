@@ -32,7 +32,7 @@ if ($runTest) {
 }
 
 if ($publish) {
-    dotnet pack --include-source --include-symbols --no-build --no-dependencies -c $configuration -o .\publish
+    dotnet pack --include-source --include-symbols --no-restore --no-dependencies -c $configuration -o .\publish
 }
 
 Write-Host "`nDone.`n" -ForegroundColor Green
