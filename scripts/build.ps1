@@ -21,7 +21,7 @@ if ($transform) {
 }
 
 Write-Host "Building..." -ForegroundColor Green
-msbuild .\SCurry.sln /v:m /m /t:"Build" /p:Configuration=$configuration
+dotnet build .\SCurry.sln -c $configuration --no-restore
 
 if ($runTest) {
     Write-Host "`nTesting..." -ForegroundColor Green

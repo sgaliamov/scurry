@@ -63,7 +63,7 @@ artifacts:
   type: NuGetPackage
 
 nuget:
-  account_feed: true
+  account_feed: false
   project_feed: false
   disable_publish_on_pr: true
   disable_publish_octopus: true
