@@ -9,18 +9,19 @@ $ErrorActionPreference = "Stop"
 
 if ($clean) {
     .\scripts\clean.ps1 -c
-    Write-Host
 }
 
+dotnet restore .\SCurry.sln
+
 if ($transform) {
-    Write-Host "Transforming..." -ForegroundColor Green
-    dotnet build .\src\SCurry.Builders\SCurry.Builders.csproj -c $configuration
+    Write-Host "`nTransforming..." -ForegroundColor Green
+    dotnet build .\src\SCurry.Builders\SCurry.Builders.csproj --no-restore -c $configuration
     msbuild .\scripts\SCurry.T4.sln /v:m /m /t:"TransformAll" /p:Configuration=$configuration
     Write-Host
 }
 
 Write-Host "Building..." -ForegroundColor Green
-msbuild .\SCurry.sln /v:m /m /t:"Restore,Build" /p:Configuration=$configuration
+msbuild .\SCurry.sln /v:m /m /t:"Build" /p:Configuration=$configuration
 
 if ($runTest) {
     Write-Host "`nTesting..." -ForegroundColor Green
