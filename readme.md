@@ -6,10 +6,9 @@ If you are here, you probably know what [Curry](https://en.wikipedia.org/wiki/Cu
 [![codecov](https://codecov.io/gh/sgaliamov/scurry/branch/master/graph/badge.svg)](https://codecov.io/gh/sgaliamov/scurry)
 [![NuGet Badge](https://buildstats.info/nuget/scurry)](https://www.nuget.org/packages/scurry/)
 
-
 ## Features
 
-1. Supports all standard Func<> and Action<> delegates.
+1. Supports all standard `Func<>` and `Action<>` delegates.
 1. Currying and uncurrying.
 1. Partial Application with special spacer.
 1. *Pipe* and *Compose* helper functions.

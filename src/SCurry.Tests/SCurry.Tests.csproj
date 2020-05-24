@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <TargetFrameworks>netcoreapp1.1;netcoreapp3.1</TargetFrameworks>
         <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
@@ -17,7 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\SCurry\SCurry.csproj" />
+      <ProjectReference Include="..\SCurry\SCurry.csproj" />
     </ItemGroup>
 
     <ItemGroup>
