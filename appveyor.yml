@@ -30,7 +30,7 @@ dotnet_csproj:
 build_script:
 - pwsh: |
     Get-ChildItem Env: | Sort Name
-    .\scripts\build.ps1 -c $env:CONFIGURATION -p
+    .\scripts\build.ps1 -c $env:CONFIGURATION -p -t
 
 test_script:
 - pwsh: |
@@ -51,7 +51,6 @@ test_script:
             if (!$?) {
                 throw "`nTests for $_ failed."
             }
-            cat coverage.xml
             bash codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
         }
     }
