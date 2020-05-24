@@ -3,7 +3,7 @@
 - [x] GitHubFlow.
 - [x] net standard 1.0.
 - [x] Reorder arguments in builders.
-- [x] ~~~F~~~ not possible.
+- [x] ~~F~~ not possible.
 - [ ] Light version. Simplify gaps for partial.
 - [ ] Builder:
 
