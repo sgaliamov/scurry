@@ -11,11 +11,7 @@ namespace SCurry.Tests
         [Fact]
         public void Partial_WithGaps_Then_Curry()
         {
-            var f = F(Foo);
-
-            f.Partial(_, _, 2).Partial(_, 3);
-
-            var partial = F(Foo).Partial(_, _, 2, _, 3);
+            var partial = F(Foo).Partial(_, _, 2).Partial(_, 3);
             var curried = partial.Curry();
 
             Assert.Equal(
@@ -25,6 +21,7 @@ namespace SCurry.Tests
 
         static int Foo(int a, int b, int c, int d, int e) => a + b * (c + d - e);
 
+        // it's not possible to make F generic
         public static Func<int, int, int, int, int, int> F(Func<int, int, int, int, int, int> foo) => foo;
     }
 }

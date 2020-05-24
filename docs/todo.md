@@ -1,11 +1,10 @@
 # To do
 
-- [x] GitHubFlow
-- [x] netstandard1.0
+- [x] GitHubFlow.
+- [x] net standard 1.0.
 - [x] Reorder arguments in builders.
-- [ ] Simplify gaps for partial.
-- [ ] F
-- [ ] Light version
+- [x] ~~~F~~~ not possible.
+- [ ] Light version. Simplify gaps for partial.
 - [ ] Builder:
 
    ``` c#
@@ -17,4 +16,4 @@
    g(b, d, e);
    ```
 
-- [ ] Builder based on expression tree.
+    `value` and `skip` functions return not `Func` but some object that works with funcion with less amount of arguments
