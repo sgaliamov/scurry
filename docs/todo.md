@@ -2,10 +2,10 @@
 
 - [x] GitHubFlow
 - [x] netstandard1.0
-- [ ] Reorder arguments in builders.
+- [x] Reorder arguments in builders.
+- [ ] Simplify gaps for partial.
 - [ ] F
 - [ ] Light version
-- [ ] Simplify gaps for partial.
 - [ ] Builder:
 
    ``` c#

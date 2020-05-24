@@ -53,8 +53,9 @@ namespace SCurry.Builders.Models
 
             var max = (1 << gapsCount) - 2;
 
-            return Enumerable.Range(1, max)
-                             .Select(index => new MethodDefinition(type, ValueToParameters(index, argsCount)));
+            return Enumerable
+                .Range(1, max)
+                .Select(index => new MethodDefinition(type, ValueToParameters(index, argsCount)));
         }
 
         private static IEnumerable<MethodDefinition> GeneratePartials(MethodType type,
@@ -78,10 +79,10 @@ namespace SCurry.Builders.Models
             } while (++startCount <= argsCount);
         }
 
-        private static Parameter[] ValueToParameters(int value, int length) =>
-            new BitArray(new[] { value }).OfType<bool>()
-                                         .Take(length)
-                                         .Select((isArg, index) => new Parameter(isArg, index + 1))
-                                         .ToArray();
+        private static Parameter[] ValueToParameters(int value, int length) => new BitArray(new[] { value })
+            .OfType<bool>()
+            .Take(length)
+            .Select((isArg, index) => new Parameter(isArg, index + 1))
+            .ToArray();
     }
 }
