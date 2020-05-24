@@ -9,13 +9,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		readme.md = readme.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{176209C7-76F6-4605-AB95-2B0677D10EC0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{176209C7-76F6-4605-AB95-2B0677D10EC0}"
 	ProjectSection(SolutionItems) = preProject
 		.codecov.yml = .codecov.yml
 		appveyor.yml = appveyor.yml
 		scripts\build.ps1 = scripts\build.ps1
 		scripts\clean.ps1 = scripts\clean.ps1
-		scripts\codecov.sh = scripts\codecov.sh
 		scripts\SCurry.T4.sln = scripts\SCurry.T4.sln
 		scripts\t4-transform.csproj = scripts\t4-transform.csproj
 	EndProjectSection

@@ -3,7 +3,7 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-  
+
 Get-ChildItem -Include bin, obj -Recurse | Remove-Item -Force -Recurse
 
 if ($cleanCode) {
@@ -11,3 +11,5 @@ if ($cleanCode) {
         Remove-Item $([io.path]::ChangeExtension($_.FullName, "generated.cs")) -Force -ErrorAction Ignore
     }
 }
+
+Write-Host "Cleaned." -ForegroundColor Green

@@ -1,22 +1,27 @@
 param(
     [string][Alias("c")]$configuration = "Debug",
     [switch][Alias("t")]$transform = $false,
-    [switch][Alias("test")]$runTest = $false
+    [switch][Alias("test")]$runTest = $false,
+    [switch]$clean = $false
 )
 
 $ErrorActionPreference = "Stop"
 
-msbuild .\SCurry.sln /v:m /m /t:"Restore" /p:Configuration=$configuration
+if ($clean) {
+    .\scripts\clean.ps1 -c
+}
+
+dotnet restore .\SCurry.sln
 
 if ($transform) {
-    Write-Host "Transforming..." -ForegroundColor Green
-    msbuild .\src\SCurry.Builders\SCurry.Builders.csproj /v:m /m /t:"Build" /p:Configuration=$configuration
+    Write-Host "`nTransforming..." -ForegroundColor Green
+    dotnet build .\src\SCurry.Builders\SCurry.Builders.csproj --no-restore -c $configuration
     msbuild .\scripts\SCurry.T4.sln /v:m /m /t:"TransformAll" /p:Configuration=$configuration
     Write-Host
 }
 
 Write-Host "Building..." -ForegroundColor Green
-msbuild .\SCurry.sln /v:m /m /t:"Build" /p:Configuration=$configuration
+dotnet build .\SCurry.sln -c $configuration --no-restore
 
 if ($runTest) {
     Write-Host "`nTesting..." -ForegroundColor Green

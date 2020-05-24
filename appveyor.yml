@@ -4,8 +4,6 @@ branches:
   only:
     - master
 
-skip_branch_with_pr: true
-
 image: Visual Studio 2019
 
 environment:
@@ -20,7 +18,6 @@ before_build:
     if ($env:APPVEYOR_REPO_TAG -eq $false) {
         Set-AppveyorBuildVariable -Name Configuration -Value debug
     }
-    Get-ChildItem Env: | Sort Name
 
 dotnet_csproj:
   patch: true
@@ -32,12 +29,17 @@ dotnet_csproj:
 
 build_script:
 - pwsh: |
-    .\scripts\build.ps1 -c $env:CONFIGURATION
+    Get-ChildItem Env: | Sort Name
+    .\scripts\build.ps1 -c $env:CONFIGURATION -t -clean
     dotnet pack --include-source --include-symbols --no-build --no-dependencies -o .\publish
 
 test_script:
 - pwsh: |
-    if ($env:APPVEYOR_REPO_TAG -eq $true) {
+    if ($env:APPVEYOR_PULL_REQUEST_HEAD_REPO_BRANCH) {
+        Get-ChildItem .\**\*.Tests.csproj -Recurse | ForEach-Object {
+            dotnet test $_ --no-build -c $env:CONFIGURATION
+        }
+    } else {
         nuget install OpenCover -Verbosity quiet -Version 4.7.922
         Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
         Get-ChildItem .\**\*.Tests.csproj -Recurse | ForEach-Object {
@@ -53,10 +55,6 @@ test_script:
             cat coverage.xml
             bash codecov.sh -f "coverage.xml" -t $env:OpenCoverToken
         }
-    } else {
-        Get-ChildItem .\**\*.Tests.csproj -Recurse | ForEach-Object {
-            dotnet test $_ --no-build -c $env:CONFIGURATION
-        } 
     }
 
 artifacts:
@@ -64,10 +62,13 @@ artifacts:
   name: nuget-package
   type: NuGetPackage
 
+nuget:
+  account_feed: false
+  project_feed: false
+  disable_publish_on_pr: true
+  disable_publish_octopus: true
+
 deploy:
-# - provider: Environment
-#   name: appveyor-nuget
-#   artifact: .\publish\*.nupkg
 - provider: Environment
   name: nuget-org
   artifact: .\publish\*.nupkg

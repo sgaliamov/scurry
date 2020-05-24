@@ -1,7 +1,7 @@
 # To do
 
-- [ ] GitHubFlow
-- [ ] netstandard2.0
+- [x] GitHubFlow
+- [ ] netstandard1.0
 - [ ] F
 - [ ] Light version
 - [ ] Reorder arguments in builders.

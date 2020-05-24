@@ -29,8 +29,9 @@ namespace SCurry.Tests
 
             Assert.Equal(0, actual);
         }
-<# for(int count = 1; count <= Constants.MaxInputArgumentsCount; count++) #>
-<# { #>
+<# 
+for(int count = 1; count <= Constants.MaxInputArgumentsCount; count++) {
+#>
 
         [Fact]
         public void Curry_Func_<#= count #>()
@@ -41,7 +42,9 @@ namespace SCurry.Tests
 
             Assert.Equal(<#= count * (count + 1) / 2.0 #>, actual);
         }
-<#    } #>
+<#
+}
+#>
     }
 }
 <#+
