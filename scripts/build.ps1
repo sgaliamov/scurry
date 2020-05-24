@@ -15,7 +15,7 @@ msbuild .\SCurry.sln /v:m /m /t:"Restore" /p:Configuration=$configuration
 
 if ($transform) {
     Write-Host "`nTransforming..." -ForegroundColor Green
-    msbuild .\src\SCurry.Builders\SCurry.Builders.csproj /v:m /m /t:"Build" /p:Configuration=$configuration
+    dotnet build .\src\SCurry.Builders\SCurry.Builders.csproj --no-restore -c $configuration
     msbuild .\scripts\SCurry.T4.sln /v:m /m /t:"TransformAll" /p:Configuration=$configuration
     Write-Host
 }
