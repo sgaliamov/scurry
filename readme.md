@@ -1,6 +1,6 @@
 # Currying C# functions and actions
 
-If you are here, you probably know what [Curry](https://en.wikipedia.org/wiki/Currying) and [Partial Application](https://en.wikipedia.org/wiki/Partial_application) are. 
+If you are here, you probably know what [Curry](https://en.wikipedia.org/wiki/Currying) and [Partial Application](https://en.wikipedia.org/wiki/Partial_application) are.
 This library contains extensions for all standard `Func<>` and `Action<>` delegates.
 
 [![Build status](https://ci.appveyor.com/api/projects/status/u0yhhrc3p11eqyt5/branch/master?svg=true)](https://ci.appveyor.com/project/sgaliamov/scurry/branch/master)
@@ -113,14 +113,4 @@ var piped = Compose(
 );
 
 var result = piped(0); // 14
-```
-
-## Installation
-
-``` ps
-PM> Install-Package SCurry
-```
-
-``` cmd
-dotnet add package SCurry
 ```
