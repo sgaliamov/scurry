@@ -1,7 +1,6 @@
 ﻿using System;
 using Xunit;
 using static SCurry.Tests.TestFunctions;
-using static SCurry.Spacer;
 
 namespace SCurry.Tests
 {
