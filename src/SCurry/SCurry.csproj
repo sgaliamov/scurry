@@ -1,92 +1,92 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFrameworks>netstandard1.0;netstandard2.0;net5.0</TargetFrameworks>
-        <LangVersion>latest</LangVersion>
-        <Authors>S. Galiamov</Authors>
-        <RepositoryType>git</RepositoryType>
-        <RepositoryUrl>https://github.com/sgaliamov/scurry</RepositoryUrl>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <PackageTags>C#, curry, uncurry, partial-function-application, functional-programming</PackageTags>
-        <PackageProjectUrl>https://sgaliamov.github.io/scurry</PackageProjectUrl>
-        <Description>Currying and Partial application for C# functions and actions.</Description>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFrameworks>netstandard1.0;netstandard2.0;net5.0</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <Authors>S. Galiamov</Authors>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/sgaliamov/scurry</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>C#, curry, uncurry, partial-function-application, functional-programming</PackageTags>
+    <PackageProjectUrl>https://sgaliamov.github.io/scurry</PackageProjectUrl>
+    <Description>Currying and Partial application for C# functions and actions.</Description>
+  </PropertyGroup>
 
-	<PropertyGroup>
-		<Version>0.0.0.0</Version>
-		<AssemblyVersion>0.0.0.0</AssemblyVersion>
-		<FileVersion>0.0.0.0</FileVersion>
-		<InformationalVersion>0.0.0.0</InformationalVersion>
-	</PropertyGroup>
+  <PropertyGroup>
+    <Version>0.0.0.0</Version>
+    <AssemblyVersion>0.0.0.0</AssemblyVersion>
+    <FileVersion>0.0.0.0</FileVersion>
+    <InformationalVersion>0.0.0.0</InformationalVersion>
+  </PropertyGroup>
 
-    <PropertyGroup Condition="'$(Configuration)'=='Debug'">
-        <DebugType>full</DebugType>
-    </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <DebugType>full</DebugType>
+  </PropertyGroup>
 
-    <Import Project="../../scripts/t4-transform.csproj" />
+  <Import Project="../../scripts/t4-transform.csproj" />
 
-    <ItemGroup>
-        <None Update="UncurryFunctions.tt">
-          <LastGenOutput>UncurryFunctions.generated.cs</LastGenOutput>
-          <Generator>TextTemplatingFileGenerator</Generator>
-        </None>
-        <None Update="UncurryActions.tt">
-          <LastGenOutput>UncurryActions.generated.cs</LastGenOutput>
-          <Generator>TextTemplatingFileGenerator</Generator>
-        </None>
-        <None Update="CurryActions.tt">
-            <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>CurryActions.generated.cs</LastGenOutput>
-        </None>
-        <None Update="CurryFunctions.tt">
-            <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>CurryFunctions.generated.cs</LastGenOutput>
-        </None>
-        <None Update="PartialApplicationActions.tt">
-          <LastGenOutput>PartialApplicationActions.generated.cs</LastGenOutput>
-          <Generator>TextTemplatingFileGenerator</Generator>
-        </None>
-        <None Update="PartialApplicationFunctions.tt">
-            <Generator>TextTemplatingFileGenerator</Generator>
-            <LastGenOutput>PartialApplicationFunctions.generated.cs</LastGenOutput>
-        </None>
-    </ItemGroup>
+  <ItemGroup>
+    <None Update="UncurryFunctions.tt">
+      <LastGenOutput>UncurryFunctions.generated.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="UncurryActions.tt">
+      <LastGenOutput>UncurryActions.generated.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="CurryActions.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CurryActions.generated.cs</LastGenOutput>
+    </None>
+    <None Update="CurryFunctions.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CurryFunctions.generated.cs</LastGenOutput>
+    </None>
+    <None Update="PartialApplicationActions.tt">
+      <LastGenOutput>PartialApplicationActions.generated.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="PartialApplicationFunctions.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>PartialApplicationFunctions.generated.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
 
-    <ItemGroup>
-        <Compile Update="UncurryActions.generated.cs">
-          <DependentUpon>UncurryActions.tt</DependentUpon>
-          <DesignTime>True</DesignTime>
-          <AutoGen>True</AutoGen>
-        </Compile>
-        <Compile Update="UncurryFunctions.generated.cs">
-          <DependentUpon>UncurryFunctions.tt</DependentUpon>
-          <DesignTime>True</DesignTime>
-          <AutoGen>True</AutoGen>
-        </Compile>
-        <Compile Update="CurryActions.generated.cs">
-          <DesignTime>True</DesignTime>
-          <AutoGen>True</AutoGen>
-          <DependentUpon>CurryActions.tt</DependentUpon>
-        </Compile>
-        <Compile Update="CurryFunctions.generated.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>CurryFunctions.tt</DependentUpon>
-        </Compile>
-        <Compile Update="PartialApplicationActions.generated.cs">
-          <DependentUpon>PartialApplicationActions.tt</DependentUpon>
-          <DesignTime>True</DesignTime>
-          <AutoGen>True</AutoGen>
-        </Compile>
-        <Compile Update="PartialApplicationFunctions.generated.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>PartialApplicationFunctions.tt</DependentUpon>
-        </Compile>
-    </ItemGroup>
+  <ItemGroup>
+    <Compile Update="UncurryActions.generated.cs">
+      <DependentUpon>UncurryActions.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="UncurryFunctions.generated.cs">
+      <DependentUpon>UncurryFunctions.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="CurryActions.generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CurryActions.tt</DependentUpon>
+    </Compile>
+    <Compile Update="CurryFunctions.generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CurryFunctions.tt</DependentUpon>
+    </Compile>
+    <Compile Update="PartialApplicationActions.generated.cs">
+      <DependentUpon>PartialApplicationActions.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="PartialApplicationFunctions.generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PartialApplicationFunctions.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
 
-    <ItemGroup>
-      <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-    </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
 
 </Project>
